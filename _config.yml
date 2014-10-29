@@ -81,7 +81,7 @@ disqus_shortname:
 plugins:
 - hexo-generator-feed
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
-theme: Tinny
+theme: landscape
 exclude_generator:
 
 # Deployment
