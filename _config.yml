@@ -5,7 +5,7 @@
 # Site
 title: 雜物聚集地
 subtitle:
-description:
+description: 工作上的筆記
 author: Hsien-Wei Hsiang	
 email: hsienwei@gmail.com
 language:
@@ -81,7 +81,7 @@ disqus_shortname:
 plugins:
 - hexo-generator-feed
 ## Themes: https://github.com/hexojs/hexo/wiki/Themes
-theme: landscape
+theme: greyshade
 exclude_generator:
 
 # Deployment

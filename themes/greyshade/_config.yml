@@ -1,0 +1,32 @@
+menu:
+  Home: /
+  Archives: archives
+  page:
+    About: about
+
+excerpt_link: Continue →
+
+mathjax: true
+fancybox: true
+
+social:
+  twitter: false
+  github: true
+  linkedin: true
+  rss: true
+
+twitter:
+  username:
+
+github:
+  username: hsienwei
+
+linkedin:
+  link: "http://tw.linkedin.com/pub/hsien-wei-hsiang/57/319/739"
+
+addit:
+  facebook: true
+  twitter: true
+  gplus: true
+  pinit: false
+  publid: "ra-5456f2190a26389b"
