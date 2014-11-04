@@ -33,13 +33,13 @@ https://pages.github.com/ 裡面講得很清楚了
 2. 安裝nodejs
 http://nodejs.org/ 基本上就照著各個平台的安裝步驟去把nodejs裝起來
 安裝完nodejs後，此時應該也安裝完npm了，可用以下指令測試
-{% code %}
+{% code lang:bash %}
 npm -v
 {% endcode %}
 3. 安裝Hexo
 由於裝起來是在太簡單，還是請看[官方文件](http://hexo.io/docs/index.html)吧
 下面列出最快建立的步驟
-{% code %}
+{% code lang:bash %}
 npm install -g hexo
 hexo init <folder>
 cd <folder>
@@ -50,13 +50,13 @@ hexo s
 此時在瀏覽器開啟 http://localhost:4000 應該可以看到一個最簡單的blog了
 4. deploy
 hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，開啟_config.yml，移到最下面修改相關設定
-{% code %}
+{% code lang:asciidoc %}
 deploy:
 	type: github
 	repo: <repository url>
 {% endcode %}
 儲存後，輸入下面指令
-{% code %}
+{% code lang:bash %}
 hexo d
 {% endcode %}
 這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現
@@ -69,6 +69,12 @@ hexo d
 這裡有一個[Theme清單](https://github.com/hexojs/hexo/wiki/Themes)，找到喜歡的就拿來套了
 一般該theme的github頁面都會講怎麼使用，基本上就是下載後放到``blog資料夾>themes``中
 
+- 設定程式碼highlight樣式
+以greyshade來看
+code 改 article.styl  在 .entry-content 下加上 code
+http://blog.sunnyxx.com/2014/03/07/hexo_customize/
+highlight 改 syntax.styl 下方區塊 （設定值可參照）
+https://github.com/isagalaev/highlight.js/tree/master/src/styles
 
 ---
 ### 其他
@@ -84,5 +90,6 @@ http://en.gravatar.com/
 
 favicon製作
 http://www.favicon.cc/
+
 
 
