@@ -18,8 +18,8 @@ widgets:
 - recent_posts
 
 # Miscellaneous
-google_analytics:
-favicon: /favicon.png
+google_analytics: UA-7748617-3
+favicon: /favicon.ico
 twitter: hsienwei
 google_plus:
 fb_admins:

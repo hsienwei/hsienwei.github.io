@@ -32,6 +32,11 @@
   background: url(banner-url) center #000
   background-size: cover
   z-index: -1
+  -webkit-filter: blur(2px);
+  -moz-filter: blur(2px);
+  -o-filter: blur(2px);
+  -ms-filter: blur(2px);
+  filter: blur(2px);
 
 #header-title
   text-align: center
@@ -44,8 +49,8 @@
 $logo-text
   text-decoration: none
   color: #fff
-  font-weight: 300
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3)
+  font-weight: 600
+  text-shadow: 0px 0px 9px rgba(0, 0, 0, 1);
 
 #logo
   @extend $logo-text

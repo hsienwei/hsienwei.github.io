@@ -62,34 +62,22 @@ hexo d
 這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現
 
 ---
-### 調整
-
-- Theme
-我用的Theme是[greyshade](https://github.com/Nuk9/hexo-theme-greyshade)，這種東西基本上就是看得順眼就好
-這裡有一個[Theme清單](https://github.com/hexojs/hexo/wiki/Themes)，找到喜歡的就拿來套了
-一般該theme的github頁面都會講怎麼使用，基本上就是下載後放到``blog資料夾>themes``中
-
-- 設定程式碼highlight樣式
-以greyshade來看
-code 改 article.styl  在 .entry-content 下加上 code
-http://blog.sunnyxx.com/2014/03/07/hexo_customize/
-highlight 改 syntax.styl 下方區塊 （設定值可參照）
-https://github.com/isagalaev/highlight.js/tree/master/src/styles
-
----
 ### 其他
 
-markdown語法說明
+- 使用post_asset_folder
+在_config.yml中開啓這個選項，當你new出文章時，他會產出一個資料夾給你放該文章的資料，以我來講我會拿來放要展示的圖檔，管理起來也比較方便。
+引用方式如下
+{% code lang:asciidoc %}
+![effect](/2013/12/26/cocos2dx中實作幾個shader效果/effect.png)
+{% endcode %}
+- markdown語法說明
 http://markdown.tw/
-
-addthis
+- addthis(社群分享plugin)
 http://www.addthis.com/
-
-gravatar
+- gravatar(頭像)
 http://en.gravatar.com/
-
-favicon製作
-http://www.favicon.cc/
+- favicon製作
+我是直接拿一個來用就是 http://www.favicon.cc/
 
 
 
