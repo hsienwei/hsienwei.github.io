@@ -49,7 +49,7 @@ hexo s
 {% endcode %}
 此時在瀏覽器開啟 http://localhost:4000 應該可以看到一個最簡單的blog了
 4. deploy
-hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，開啟_config.yml，移到最下面修改相關設定
+hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，``開啟_config.yml``，移到最下面修改相關設定
 {% code lang:asciidoc %}
 deploy:
 	type: github
