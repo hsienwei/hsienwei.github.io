@@ -35,9 +35,9 @@ $line-numbers
     text-shadow: 0 1px #fff
     padding: 0 0.3em
   pre
+    @extend $code-block
     code
-      @extend $code-block
-      //background: none
+      background: none
       text-shadow: none
       padding: 0
   .highlight
@@ -64,17 +64,16 @@ $line-numbers
       @extend $line-numbers
       text-align: right
       padding-right: 20px
-    /*.line
+    .line
       height: font-size * line-height
   .gist
-    //margin: 0 article-padding * -1
+    margin: 0 article-padding * -1
     border-style: solid
     border-color: color-border
     border-width: 1px 0
-    //background: highlight-background
+    background: highlight-background
     padding: 15px article-padding 15px 0
     .gist-file
-      background: highlight-red
       border: none
       font-family: font-mono
       margin: 0
@@ -86,7 +85,6 @@ $line-numbers
           background: none
           border: none
           padding: 0 20px 0 0
-          line-height: font-size * line-height
         .line-data
           padding: 0 !important
       .highlight
@@ -94,7 +92,7 @@ $line-numbers
         padding: 0
         border: none
       .gist-meta
-        //background: highlight-background
+        background: highlight-background
         color: highlight-comment
         font: 0.85em font-sans
         text-shadow: 0 0
@@ -105,8 +103,7 @@ $line-numbers
           color: color-link
           font-weight: normal
           &:hover
-            text-decoration: underline*/
-
+            text-decoration: underline
 
 pre
   .comment
