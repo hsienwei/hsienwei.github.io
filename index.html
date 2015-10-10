@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-cocos2dx-skeleton" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/03/cocos2dx-skeleton/">cocos2d-x 骨骼動畫方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2015/10/03/cocos2dx-skeleton/" class="article-date">
+  <time datetime="2015-10-03T04:44:37.000Z" itemprop="datePublished">2015-10-03</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2015/10/03/cocos2dx-skeleton/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>cocos2d-x上面可用的骨骼動畫方案並不多，列出如下：</p>
+<ul>
+<li><a href="http://zh.esotericsoftware.com/" target="_blank" rel="external">Spine</a><br>一個支援多引擎的骨骼動畫方案，功能強大，支援IK，為骨骼動畫而生。<br>其檔案格式有json與binary兩種，cocos2d-x只支援json檔，這點要注意，有需要的話需要自行寫parser，之前看只有libgdx版本支援binary，現在狀況不太確定。</li>
+<li><a href="http://dragonbones.github.io/" target="_blank" rel="external">DragonBone</a><br>以Flash為基礎，刀塔傳奇的骨骼動畫方案，個人是沒有操作過，不過開發prototype時倒是用第三方程式庫讀刀塔的人物來使用<br><a href="https://github.com/zym2014/DotaSkeletonAnim" target="_blank" rel="external">《刀塔传奇》骨骼动画查看器</a><br><a href="https://github.com/DragonBones/DragonBonesCPP" target="_blank" rel="external">DragonBonesCPP</a></li>
+<li><a href="http://www.webtech.co.jp/spritestudio/index.html" target="_blank" rel="external">OPTPiX SpriteStudio</a><br>個人感覺編輯器最強的一套，不過看似沒有IK。</li>
+<li>cocostudio<br>cocos2d-x自己的編輯器，只是實在不能算好用。</li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-cocos2dx-with-wxwidget" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/23/cocos2dx-with-wxwidget/">cocos2d-x中使用wxWidget</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2015/02/23/cocos2dx-with-wxwidget/" class="article-date">
+  <time datetime="2015-02-23T01:45:59.000Z" itemprop="datePublished">2015-02-23</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2015/02/23/cocos2dx-with-wxwidget/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在研究製作cocos2d-x的編輯器，所以嘗試了一下怎麼跟gui程式庫作結合<br>這篇是測試如何跟wxwidget結合使用的初步測試</p>
+<p>以下測試使用cocos2d-x 3.4 與 wxWidget 3.0.2</p>
+<ol>
+<li><p>先準備一個新的cocos2d-x專案(或使用之前就有的)</p>
+</li>
+<li><p>下載wxWidgets Binaries<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/</a><br>我抓的是<code>wxMSW-3.0.2_vc120_Dev.7z</code></p>
+</li>
+<li><p>下載Headers<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/</a><br>檔案為<code>wxWidgets-3.0.2_headers.7z</code></p>
+</li>
+<li><p>解壓縮兩個檔案並放在同一資料夾當中<br>該檔案夾應該會有include與lib兩個子資料夾<br>我是放在<code>D:\wxwidget_3_2\</code></p>
+</li>
+<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;一般&gt;其他include目錄</code>，加入</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\include</span><br><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\lib\vc120<span class="emphasis">_dll\mswud</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;前置處理器&gt;前置處理器定義</code>，加入</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WXUSINGDLL</span><br><span class="line">HAVE<span class="emphasis">_SSIZE_</span>T</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>專案屬性頁中 <code>組態屬性&gt;連結器&gt;輸入&gt;其他相依性</code>，加入</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">wxbase30ud.lib</span><br><span class="line">wxbase30ud<span class="emphasis">_net.lib</span><br><span class="line">wxbase30ud_</span>xml.lib</span><br><span class="line">wxexpatd.lib</span><br><span class="line">wxjpegd.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_adv.lib</span><br><span class="line">wxmsw30ud_</span>aui.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_core.lib</span><br><span class="line">wxmsw30ud_</span>gl.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_html.lib</span><br><span class="line">wxmsw30ud_</span>media.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_propgrid.lib</span><br><span class="line">wxmsw30ud_</span>qa.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_ribbon.lib</span><br><span class="line">wxmsw30ud_</span>richtext.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_stc.lib</span><br><span class="line">wxmsw30ud_</span>webview.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_xrc.lib</span><br><span class="line">wxpngd.lib</span><br><span class="line">wxregexud.lib</span><br><span class="line">wxscintillad.lib</span><br><span class="line">wxtiffd.lib</span><br><span class="line">wxzlibd.lib</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>dll檔設置<br>看是要把dll copy到執行目錄或者在環境設置中設定PATH都可以</p>
+</li>
+<li><p>修改main.cpp</p>
+<script src="//gist.github.com/10524981e5d15f92d25c.js"></script>
+<p>這樣應該就可以了<br>要注意的是我在HelloWorld中增加了一個singleton方法方便我取得HelloWorld物件作測試<br>順利的話可以看到有兩個視窗，一個是原本的cocos2d-x執行視窗，一個是wxWidget產生的視窗<br>在wxWidget視窗的按鈕按下去會新增一個Label到Layer中</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wxWidget/">wxWidget</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-spine-binary2json" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/21/spine-binary2json/">Spine二進制檔轉json檔測試</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2015/02/21/spine-binary2json/" class="article-date">
+  <time datetime="2015-02-20T16:31:40.000Z" itemprop="datePublished">2015-02-21</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2015/02/21/spine-binary2json/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由於cocos2d-x目前版本(3.4)仍然不能讀取spine 2.0後推出的binary格式(.skel)<br>加上自己沒有購買spine所以不能將binary檔匯入後再輸出為json格式<br>所以嚐試自己弄一個轉換的小工具<br>雖然最後沒有使用<br>但還是記載一下過程</p>
+<hr>
+<p>由於spine官方目前有支援binary的runtime似乎只有libgdx<br>所以下面主要會以參考libgdx的方式來進行</p>
+<ol>
+<li><p>使用eclipse新建一個java application</p>
+</li>
+<li><p>下載spine libgdx程式庫，放在src下</p>
+</li>
+<li><p>下載libgdx release版本(本次測試使用1.5.3)<br>解開後將gdx.jar加入專案<br>由於由於裡面有使用到nativecode<br>打開gdx-natives.jar<br>將需要的library取出(這裡使用的是libbdx64.dll)<br>並在讀入該library</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    System.loadLibrary(<span class="string">"gdx64"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>    
+<p>如果有找不到lib的狀況要記得在VM Arguments中加入下面內容<br><code>-Djava.library.path=D:\workspace_new\SpineBinary2Json\libs</code></p>
+</li>
+<li><p>新增libgdx的application並實作applicationListener<br>Application我是使用LwjglApplication，所以要將gdx-backend-lwjgl.jar與gdx-backend-lwjgl-natives.jar加入專案裡<br>之所以要這樣弄是因為我原本以為可以直接將TextureAtlas物件建立起來並生成SkeletonData<br>後來發現會出現錯誤如下</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread "main" java.lang.NullPointerException</span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.GLTexture.createGLHandle(GLTexture.java:197)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.Texture.&lt;init&gt;(Texture.java:123)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.Texture.&lt;init&gt;(Texture.java:103)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.load(TextureAtlas.java:244)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:236)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:231)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:226)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:216)</span></span><br><span class="line"><span class="code">	at Main.main(Main.java:76)</span></span><br></pre></td></tr></table></figure>    
+<p>發現應該是gl物件未產出<br>後來採最簡單的解法就是建立一個libgdx的application就會進行需要的初始化行為了</p>
+</li>
+<li><p>依照binary編寫json檔案<br>這裡可以參照下面兩個格式的讀取行為<br><a href="https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonJson.java" target="_blank" rel="external">https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonJson.java</a><br><a href="https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonBinary.java" target="_blank" rel="external">https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonBinary.java</a><br>一開始採取從SkeletonData逆推的方式，但最後失敗<br>卡在我無法從skin逆推attachment<br>後來只好改採在SkeletonBinary讀取檔案的過程中同時將json建立起來的方法(直接修改SkeletonBinary.java)<br>但由於這樣做可能會有版權的問題<br>故這裡並不提供程式碼<br>做起來應該是不難只是有點麻煩而已</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spine/">spine</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-file-encode-converter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/20/file-encode-converter/">簡易文件編碼轉換工具</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2015/02/20/file-encode-converter/" class="article-date">
+  <time datetime="2015-02-20T15:34:07.000Z" itemprop="datePublished">2015-02-20</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2015/02/20/file-encode-converter/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="原由">原由</h2><p>因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具<br>該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf<br><strong>注意:目前無備份功能, 轉換前須自行備份</strong></p>
+<hr>
+<h2 id="開發相關">開發相關</h2><p>####開發工具<br><code>python 2.7</code> + <code>chardet</code> + <code>py2exe</code><br>gui部分為內建的<code>tkinter</code><br>py2exe_dist.zip是我自行用py2exe轉換的執行檔<br>如要自行產生請安裝py2exe module以及chardet並在專案目錄下執行<br><code>python setup.py py2exe</code></p>
+<p>####基本原理<br>用chardet這個module來測文件的編碼<br>測出後將其解碼再轉碼為utf</p>
+<p>####特殊例子<br>在測試時有遇到一個特殊狀況<br>就是當文件編碼為gb2312<br>但裡面又含有繁體字元<br>此時要改用gbk編碼來處理</p>
+<p>github:<br><a href="https://github.com/hsienwei/file_encode_to_utf_converter" target="_blank" rel="external">https://github.com/hsienwei/file_encode_to_utf_converter</a></p>
+<p><img src="/2015/02/20/file-encode-converter/ui.jpg" alt="執行畫面"></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/">tool</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-unity-autosave" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/04/unity-autosave/">Unity autosave</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/11/04/unity-autosave/" class="article-date">
+  <time datetime="2014-11-03T17:59:58.000Z" itemprop="datePublished">2014-11-04</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/11/04/unity-autosave/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>昨天遇到了一次unity的當機，使得我工作三小時的結果完全消失，查了一下Unity本身沒有自動存檔功能卻能用script作到相同的效果。<br>連結如下：<br><a href="http://www.daikonforge.com/dfgui/save-on-run/" target="_blank" rel="external">http://www.daikonforge.com/dfgui/save-on-run/</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link/">link</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-使用hexo與github pages自建blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/29/使用hexo與github pages自建blog/">使用Hexo與github pages自建blog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/10/29/使用hexo與github pages自建blog/" class="article-date">
+  <time datetime="2014-10-29T08:01:25.000Z" itemprop="datePublished">2014-10-29</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/10/29/使用hexo與github pages自建blog/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###評估</p>
+<p>用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是</p>
+<ul>
+<li>wordpress </li>
+<li>logdown</li>
+<li>簡書</li>
+</ul>
+<p>但是後來發現有blog framework可以將blog架在github pages上，一來不用花到錢，二來多個新玩具，於是就找找看有沒有好的服務，找到的有以下幾個</p>
+<ul>
+<li>jekyll</li>
+<li>octopress</li>
+<li>Hexo</li>
+</ul>
+<p>最後考慮了幾點</p>
+<ul>
+<li>前兩個是使用ruby，Hexo是使用nodejs，模板引擎預設是ejs，基本上之前有摸過一陣子express所以有一點認識，較易入門</li>
+<li>網上使用心得都說octopress有效能上的問題</li>
+<li>Hexo台灣製造，這就是愛台灣？</li>
+<li>看文檔的感覺Hexo跟octopress比較易入手</li>
+</ul>
+<p>最後的結果就是我決定用hexo來建立blog</p>
+<hr>
+<p>###設定</p>
+<ol>
+<li>先建立自己的 Github Pages<br><a href="https://pages.github.com/" target="_blank" rel="external">https://pages.github.com/</a> 裡面講得很清楚了</li>
+<li>安裝nodejs<br><a href="http://nodejs.org/" target="_blank" rel="external">http://nodejs.org/</a> 基本上就照著各個平台的安裝步驟去把nodejs裝起來<br>安裝完nodejs後，此時應該也安裝完npm了，可用以下指令測試<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure></li>
+<li>安裝Hexo<br>由於裝起來是在太簡單，還是請看<a href="http://hexo.io/docs/index.html" target="_blank" rel="external">官方文件</a>吧<br>下面列出最快建立的步驟<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+此時在瀏覽器開啟 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 應該可以看到一個最簡單的blog了</li>
+<li>deploy<br>hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，<code>開啟_config.yml</code>，移到最下面修改相關設定<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"><span class="code">	type: github</span></span><br><span class="line"><span class="code">	repo: &lt;repository url&gt;</span></span><br></pre></td></tr></table></figure>
+儲存後，輸入下面指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現</li>
+</ol>
+<hr>
+<h3 id="其他">其他</h3><ul>
+<li>使用post_asset_folder<br>在_config.yml中開啓這個選項，當你new出文章時，他會產出一個資料夾給你放該文章的資料，以我來講我會拿來放要展示的圖檔，管理起來也比較方便。<br>引用方式如下<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![effect](/2013/12/26/cocos2dx中實作幾個shader效果/effect.png)</span><br></pre></td></tr></table></figure></li>
+<li>markdown語法說明<br><a href="http://markdown.tw/" target="_blank" rel="external">http://markdown.tw/</a></li>
+<li>addthis(社群分享plugin)<br><a href="http://www.addthis.com/" target="_blank" rel="external">http://www.addthis.com/</a></li>
+<li>gravatar(頭像)<br><a href="http://en.gravatar.com/" target="_blank" rel="external">http://en.gravatar.com/</a></li>
+<li>favicon製作<br>我是直接拿一個來用就是 <a href="http://www.favicon.cc/" target="_blank" rel="external">http://www.favicon.cc/</a></li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Youtube_iframe_在 Apple_TV_上的播放問題" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/">（iOS）Youtube iframe 在 Apple TV 上的播放問題</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/" class="article-date">
+  <time datetime="2014-08-12T10:04:23.000Z" itemprop="datePublished">2014-08-12</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>問題：</strong></p>
+<p>有一個頁面使用WebView + Youtube iframe 播放 live channel，在手機上播放正常，但如果使用AirPlay功能cast到Apple TV的話則會出現“ an error occurred loading this content ”。<br>如果播放的是非live則可以正常運行。</p>
+<p><strong>處置：</strong></p>
+<ul>
+<li>用電腦開啓Plex Home Theater作為測試裝置，可以播放live，故應該不是AirPlay本身不支援live。</li>
+<li>由於以相同的程式碼來作處理時，單則節目可以播放而live不行，故認為是Apple TV那邊無法處理。</li>
+<li>Apple TV裡的Youtube app 完全搜尋不到Live的節目。</li>
+<li>一開始懷疑是訊號來源問題，比方是否為Apple TV無法處理Youtube廣告要求，但查明目前並沒有廣告。</li>
+<li>後來發現Youtube官方iOS app並不會有這樣的問題，懷疑如果我不透過iframe的方式也許可以處理。</li>
+<li>最後使用<a href="https://github.com/hellozimi/HCYoutubeParser" target="_blank" rel="external">https://github.com/hellozimi/HCYoutubeParser</a> 來做處理，取得直接播放的URL，則可正常在Apple TV上播放。</li>
+<li>在使用HCYoutubeParser上需要小心，因為Youtube曾經改變過responceData，所以會有不能用的風險，這個要自行承擔。</li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AppleTV/">AppleTV</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/youtube/">youtube</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/">使用sublime為unity編輯器 in mac之CompleteSharp設定障礙排除</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/" class="article-date">
+  <time datetime="2014-06-26T18:51:40.000Z" itemprop="datePublished">2014-06-27</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>標題下得很長<br>基本上是記載依照<a href="http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時" target="_blank" rel="external">http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時</a><br>CompleteSharp這個plugin在mac環境上遇到的一些問題</p>
+<ol>
+<li><p>CompleteSharp的安裝<br>個人測試在windows可以用package control直接安裝成功<br>而在mac下會出現Unable to download CompleteSharp的錯誤<br>這時候只能手動安裝<br>有兩種選擇<br>a) clone  <a href="https://github.com/ewilde/CompleteSharp" target="_blank" rel="external">https://github.com/ewilde/CompleteSharp</a> 到 Package資料夾<br>不需其他處理(建議)<br>b) 需事先安裝mono (下載<a href="http://www.go-mono.com/mono-downloads/download.html" target="_blank" rel="external">http://www.go-mono.com/mono-downloads/download.html</a>)<br>clone  <a href="https://github.com/quarnster/CompleteSharp" target="_blank" rel="external">https://github.com/quarnster/CompleteSharp</a> 到 Package資料夾<br>再執行CompleteSharp/build.py</p>
+</li>
+<li><p>CompleteSharp project setting<br>在mac環境中會用到completesharp_mono_path這個參數<br>wiki中寫的completesharp_mono_path是3.x 版時的路徑<br>4.x版可改為如下</p>
+<script src="//gist.github.com/ad4564e649a60996d9b0.js"></script></li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-自製2048-for-Chromecast" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/19/自製2048-for-Chromecast/">自製2048 for Chromecast</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/05/19/自製2048-for-Chromecast/" class="article-date">
+  <time datetime="2014-05-19T03:20:49.000Z" itemprop="datePublished">2014-05-19</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/05/19/自製2048-for-Chromecast/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近日在看Chromecast的相關文件，發現他可以自己做receiver app<br>receiver app是以HTML5來製作  但由於有一些效能限制 所以製作時需要注意<br>詳情可參考 <a href="https://developers.google.com/cast/docs/ux_guidelines#considerations" target="_blank" rel="external">https://developers.google.com/cast/docs/ux_guidelines#considerations</a><br>只要符合條件  基本上也是可以做遊戲的<br>剛好最近很紅的2048是開源的  所以就以它來當作例子<br>其實2048已經有人移植到chromecast上了<br>但反正是要做一個測驗所以無所謂</p>
+<p>以下是實際成品的聯結<br>Chrome: <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html</a><br>Android(4.0以上): <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk</a></p>
+<p>其實做起來並不難，主要分為兩個部分(receiver and sender)，基本API的用法就不贅述，可以看<br><a href="https://developers.google.com/cast/docs/developers" target="_blank" rel="external">https://developers.google.com/cast/docs/developers</a>  及 <a href="https://github.com/googlecast/" target="_blank" rel="external">https://github.com/googlecast/</a></p>
+<p>###receiver<br>由於2048遊戲部分不太需要去寫邏輯部分，故主要只要處理訊息的接收與發出即可<br>初始化部分:<br>在 application.js 中 window.requestAnimationFrame中加入<br><script src="//gist.github.com/17a58ee1f2e1ba5ac479.js"></script><br>這裡我有一個部分是用偷懶的做法<br><code>window.senderId=event.senderId;</code> 這裡將senderId放在window底下以便之後要回傳訊息使用<br>但個人覺得不是好的做法 但這是測試用的程式就先略過</p>
+<p>鍵盤事件接收部分  在 keyboard_input_manager.js 中的KeyboardInputManager.prototype.listen方法中加入<br><script src="//gist.github.com/f7b4ba0b553e94195617.js"></script><br>將sender傳送過來的訊息對應該做的行為</p>
+<p>當玩家無法再移動或者是已達到2048的時候都會有訊息出現，在這種狀況下可以回傳訊息給sender出現相對應的操作界面，為此修改html_actuator.js如下<br><script src="//gist.github.com/b232fa188603c7b928ac.js"></script></p>
+<p>###sender<br>這裡我做了兩個平台的sender程式，其實主要也是改google的範例程式<br>chrome版主要就是把keyboard event send給receiver<br>android也是差不多, 只是把swipe的方向改為對應的key code傳給receiver<br>另外接收遊戲結束的訊息跳出對應的AlertDialog</p>
+<p>或許下次可以試試看現有 html5遊戲引擎在chromecast上的效能</p>
+<hr>
+<p>以下為參考資料</p>
+<p>模擬器<br>模擬器感覺在自定receiver app的部分支援並不完整  實機測還是比較好<br>以下是目前有看到的模擬器</p>
+<p>CR Cast (chrome 擴展)<br><a href="https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk" target="_blank" rel="external">https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk</a><br>Leapcast (python, run on chrome)<br><a href="https://github.com/dz0ny/leapcast" target="_blank" rel="external">https://github.com/dz0ny/leapcast</a><br>android 模擬  cheapcast (跑不起來)<br><a href="https://github.com/mauimauer/cheapcast" target="_blank" rel="external">https://github.com/mauimauer/cheapcast</a><br>rPlay on iOS<br><a href="http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020" target="_blank" rel="external">http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020</a></p>
+<hr>
+<p>###Developer Console<br><a href="https://cast.google.com/publish/" target="_blank" rel="external">https://cast.google.com/publish/</a><br>由於要自行開發receiver app所以需要開通Developer Console<br>需要五元美金  如果只是要cast媒體就不需要</p>
+<p><img src="/2014/05/19/自製2048-for-Chromecast/chromecase_console.png" alt="console"><br>如圖，可以設置APP 與 測試用裝置<br>如果Application不是Published的話則要有輸入的裝置才能使用</p>
+<p>目前已有的遊戲應用<br>下面有兩個已在 Google Play上架的應用<br>GamingCast (for Chromecast)<br><a href="https://play.google.com/store/apps/details?id=co.essh.gamecast" target="_blank" rel="external">https://play.google.com/store/apps/details?id=co.essh.gamecast</a><br>2048 Chromecast<br><a href="https://play.google.com/store/apps/details?id=com.sunnydev.cast2048" target="_blank" rel="external">https://play.google.com/store/apps/details?id=com.sunnydev.cast2048</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chromecast/">chromecast</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-facebook-comments-ios-native-ui" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/08/facebook-comments-ios-native-ui/">Facebook comments 在iOS用原生UI製作測試</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/04/08/facebook-comments-ios-native-ui/" class="article-date">
+  <time datetime="2014-04-08T06:45:00.000Z" itemprop="datePublished">2014-04-08</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="external">https://developers.facebook.com/docs/plugins/comments/</a><br>如果不要add comment的話應該是做的到的</p>
+<p>本次專案中有一個功能是可以對某個頁面做FB comment<br>在網頁中可以用Facebook的plugin<br>但在app當中SDK沒有提供相關的UI可供使用<br>要使用的話必須用UIWebView加上plugin來達成</p>
+<p>後來在Facebook的graph api當中找到有關的功能<br><a href="https://developers.facebook.com/docs/graph-api/reference/object/comments/" target="_blank" rel="external">https://developers.facebook.com/docs/graph-api/reference/object/comments/</a><br>裡面有提到Reading與Publishing的功能</p>
+<p>但由於我使用的ID是網頁網址所以必須改一下</p>
+<pre><code>[FBRequestConnection startWithGraphPath:@<span class="string">"/****** id *******/comments"</span>]
+[FBRequestConnection startWithGraphPath:@<span class="string">"/comments/?ids=http://www.xxx.xxx.xx"</span>]
+</code></pre><p>在Reading的部分沒有問題，但在Publishing的部分就會收到錯誤訊息</p>
+<pre><code>body =  {
+        error = {
+            code = 100<span class="comment">;</span>
+            message = "(#100) Comments may not be added to a comment plugin"<span class="comment">;</span>
+            type = OAuthException<span class="comment">;</span>
+                }<span class="comment">;</span>
+        }<span class="comment">;</span>
+</code></pre><p>後來仔細查一下<br>發現原來這個功能是不能使用的<br>相關連結：<br><a href="http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box" target="_blank" rel="external">http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box</a><br><a href="http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module" target="_blank" rel="external">http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module</a><br><a href="https://developers.facebook.com/bugs/164794086987157" target="_blank" rel="external">https://developers.facebook.com/bugs/164794086987157</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios-facebook/">ios, facebook</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

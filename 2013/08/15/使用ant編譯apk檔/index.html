@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用ant編譯apk檔 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔(Android Tools-&amp;gt;Export Signed/Unsigned Application Package)但除此之外android也提供開發者經由ant產出apk檔mac中有內建ant所以可以在mac的終端機下指令來產出apk檔
+那為何要使用ant如果今天要產出多種版本 你必須要打">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用ant編譯apk檔">
+<meta property="og:url" content="http://hsienwei.github.io/2013/08/15/使用ant編譯apk檔/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔(Android Tools-&amp;gt;Export Signed/Unsigned Application Package)但除此之外android也提供開發者經由ant產出apk檔mac中有內建ant所以可以在mac的終端機下指令來產出apk檔
+那為何要使用ant如果今天要產出多種版本 你必須要打">
+<meta property="og:updated_time" content="2015-10-10T07:30:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用ant編譯apk檔">
+<meta name="twitter:description" content="在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔(Android Tools-&amp;gt;Export Signed/Unsigned Application Package)但除此之外android也提供開發者經由ant產出apk檔mac中有內建ant所以可以在mac的終端機下指令來產出apk檔
+那為何要使用ant如果今天要產出多種版本 你必須要打">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-使用ant編譯apk檔" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用ant編譯apk檔
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/08/15/使用ant編譯apk檔/" class="article-date">
+  <time datetime="2013-08-15T06:51:37.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/08/15/使用ant編譯apk檔/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔<br>(Android Tools-&gt;Export Signed/Unsigned Application Package)<br>但除此之外android也提供開發者經由ant產出apk檔<br>mac中有內建ant<br>所以可以在mac的終端機下指令來產出apk檔</p>
+<p>那為何要使用ant<br>如果今天要產出多種版本 你必須要打開你的eclipse分別打開多個專案然後Export Signed/Unsigned Application Package<br>等於同樣步驟要作三次<br>而且還需要輸入密碼<br>而且你必須待在電腦旁邊</p>
+<p>如果今天用ant來編的話  你可以指定一次編多種版本  也不用在輸入任何東西(前提是有寫到設定檔)<br>像我之前有產出10個檔案的需求(五個market api * 2(debug/release))<br>通常在離開公司時執行<br>隔天就可以寄出檔案了</p>
+<p>以下寫一些在cocos2d-x中使用ant的經驗<br>使用cocos2d-x建立的android專案中<br>會比一般的android project多出以下的檔案<br>build.xml - ant使用的專案設置<br>local.properties - 裡面會有sdk的路徑設定值<br>ant.properties - 預設是空的  但可以在這裡設置編apk檔時使用的key相關設定<br>要注意的是如果你的android專案有使用其他的android專案當作library<br>那個專案也需要有這三個檔案</p>
+<p>編譯的方式是在終端機下指令</p>
+<pre><code>ant <span class="tag">&lt;<span class="title">target</span>&gt;</span>
+</code></pre><p>如果沒有給target的話  會跑設定的預設target</p>
+<p>在build.xml當中會匯入另一個custom_rules.xml，如果沒有的話就不會處理custom_rules.xml</p>
+<p><import file="custom_rules.xml" optional="true"><br>在這裡的註解中有提到你可以在custom_rules.xml使用的target</import></p>
+<pre><code>-<span class="ruby">pre-build
+</span>-<span class="ruby">pre-compile
+</span>-<span class="ruby">post-compile
+</span>-<span class="ruby">post-package
+</span>-<span class="ruby">post-build
+</span>-<span class="ruby">pre-clean</span>
+</code></pre><p>基本上就如同target的名稱一樣 你在哪個階段有需求就去寫那個target</p>
+<p>比方說我有需求是將編出來的檔案集中到一個資料夾中並讓檔名出現編譯時間, 版本資訊<br>所以我用到-post-build 內容如下</p>
+<pre><code>&lt;target name=<span class="string">"-post-build"</span>&gt;
+      &lt;tstamp&gt;
+          &lt;format property=<span class="string">"package.time"</span> pattern=<span class="string">"yyyyMMdd_HHmm"</span>/&gt;
+      &lt;/tstamp&gt;
+      &lt;property name=<span class="string">"apk.copy.name"</span> location=<span class="string">"../android_build_apk/<span class="variable">${ant.project.name}</span>_<span class="variable">${apk.tag}</span>_<span class="variable">${build.android.param}</span>_<span class="variable">${package.time}</span>.apk"</span> /&gt;
+      &lt;<span class="built_in">echo</span>&gt;copy <span class="variable">${out.final.file}</span>&lt;/<span class="built_in">echo</span>&gt;
+      &lt;<span class="built_in">echo</span>&gt;to   <span class="variable">${apk.copy.name}</span>&lt;/<span class="built_in">echo</span>&gt;
+      &lt;copy file=<span class="string">"<span class="variable">${out.final.file}</span>"</span> tofile=<span class="string">"<span class="variable">${apk.copy.name}</span>"</span>/&gt;
+&lt;/target&gt;
+</code></pre><p>上面這個target會將編譯產出的apk複製到指定目錄並變更檔名<br>build.android.param 這個property是設定編譯時是測試版(debug)還是正式版(release)<br>apk.tag是我設定在ant.properties中用來表示這是那個市場的版本<br>這樣產出來的檔名會是project.name_xxx_release_20130705_1453.apk的樣子</p>
+<p>如果是產出signed Application Package<br>在編譯的過程中會要求你輸入key的相關資訊<br>表示你產出多個檔的話就要輸入多次<br>其實可以把相關需要的參數設定到ant.properties中<br>就不需要輸入了<br>詳細的參數名稱可以參閱${sdk.dir}/tools/ant/build.xml<br>看看需要哪個property<br>我的狀況如下</p>
+<pre><code>key.store=../libs/android/keystore/igsgames<span class="class">.keystore</span>
+key.alias=xxx
+key<span class="class">.store</span><span class="class">.password</span>=xxxxxxxx
+key<span class="class">.alias</span><span class="class">.password</span>=xxxxxxxx
+apk.tag=gplay
+</code></pre><p>這樣可以不用每次輸入<br>但相對表示你把密碼打在檔案中給人看<br>所以你可以在執行ant時使用-Dproperty=”xxx”這樣的方式輸入property<br>就不會有這樣的問題了</p>
+<p>用ant其實還滿方便但是資料不太多<br>除了ant in action這本書外就是網站資料<br>另外在Android Studio中使用Gradie又是不同的系統<br>不知道下個專案還會不會有機會用ant</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ant-android/">ant, android</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/10/01/parse-html-to-json/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          剖析HTML資料轉為JSON
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/08/06/cocos2dx-i9100-音效播放當機問題/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cocos2d-x i9100 音效播放當機問題&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2013/08/15/使用ant編譯apk檔/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>
