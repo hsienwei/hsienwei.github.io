@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/page/5/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-使用ant編譯apk檔" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/15/使用ant編譯apk檔/">使用ant編譯apk檔</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/08/15/使用ant編譯apk檔/" class="article-date">
+  <time datetime="2013-08-15T06:51:37.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/08/15/使用ant編譯apk檔/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔<br>(Android Tools-&gt;Export Signed/Unsigned Application Package)<br>但除此之外android也提供開發者經由ant產出apk檔<br>mac中有內建ant<br>所以可以在mac的終端機下指令來產出apk檔</p>
+<p>那為何要使用ant<br>如果今天要產出多種版本 你必須要打開你的eclipse分別打開多個專案然後Export Signed/Unsigned Application Package<br>等於同樣步驟要作三次<br>而且還需要輸入密碼<br>而且你必須待在電腦旁邊</p>
+<p>如果今天用ant來編的話  你可以指定一次編多種版本  也不用在輸入任何東西(前提是有寫到設定檔)<br>像我之前有產出10個檔案的需求(五個market api * 2(debug/release))<br>通常在離開公司時執行<br>隔天就可以寄出檔案了</p>
+<p>以下寫一些在cocos2d-x中使用ant的經驗<br>使用cocos2d-x建立的android專案中<br>會比一般的android project多出以下的檔案<br>build.xml - ant使用的專案設置<br>local.properties - 裡面會有sdk的路徑設定值<br>ant.properties - 預設是空的  但可以在這裡設置編apk檔時使用的key相關設定<br>要注意的是如果你的android專案有使用其他的android專案當作library<br>那個專案也需要有這三個檔案</p>
+<p>編譯的方式是在終端機下指令</p>
+<pre><code>ant <span class="tag">&lt;<span class="title">target</span>&gt;</span>
+</code></pre><p>如果沒有給target的話  會跑設定的預設target</p>
+<p>在build.xml當中會匯入另一個custom_rules.xml，如果沒有的話就不會處理custom_rules.xml</p>
+<p><import file="custom_rules.xml" optional="true"><br>在這裡的註解中有提到你可以在custom_rules.xml使用的target</import></p>
+<pre><code>-<span class="ruby">pre-build
+</span>-<span class="ruby">pre-compile
+</span>-<span class="ruby">post-compile
+</span>-<span class="ruby">post-package
+</span>-<span class="ruby">post-build
+</span>-<span class="ruby">pre-clean</span>
+</code></pre><p>基本上就如同target的名稱一樣 你在哪個階段有需求就去寫那個target</p>
+<p>比方說我有需求是將編出來的檔案集中到一個資料夾中並讓檔名出現編譯時間, 版本資訊<br>所以我用到-post-build 內容如下</p>
+<pre><code>&lt;target name=<span class="string">"-post-build"</span>&gt;
+      &lt;tstamp&gt;
+          &lt;format property=<span class="string">"package.time"</span> pattern=<span class="string">"yyyyMMdd_HHmm"</span>/&gt;
+      &lt;/tstamp&gt;
+      &lt;property name=<span class="string">"apk.copy.name"</span> location=<span class="string">"../android_build_apk/<span class="variable">${ant.project.name}</span>_<span class="variable">${apk.tag}</span>_<span class="variable">${build.android.param}</span>_<span class="variable">${package.time}</span>.apk"</span> /&gt;
+      &lt;<span class="built_in">echo</span>&gt;copy <span class="variable">${out.final.file}</span>&lt;/<span class="built_in">echo</span>&gt;
+      &lt;<span class="built_in">echo</span>&gt;to   <span class="variable">${apk.copy.name}</span>&lt;/<span class="built_in">echo</span>&gt;
+      &lt;copy file=<span class="string">"<span class="variable">${out.final.file}</span>"</span> tofile=<span class="string">"<span class="variable">${apk.copy.name}</span>"</span>/&gt;
+&lt;/target&gt;
+</code></pre><p>上面這個target會將編譯產出的apk複製到指定目錄並變更檔名<br>build.android.param 這個property是設定編譯時是測試版(debug)還是正式版(release)<br>apk.tag是我設定在ant.properties中用來表示這是那個市場的版本<br>這樣產出來的檔名會是project.name_xxx_release_20130705_1453.apk的樣子</p>
+<p>如果是產出signed Application Package<br>在編譯的過程中會要求你輸入key的相關資訊<br>表示你產出多個檔的話就要輸入多次<br>其實可以把相關需要的參數設定到ant.properties中<br>就不需要輸入了<br>詳細的參數名稱可以參閱${sdk.dir}/tools/ant/build.xml<br>看看需要哪個property<br>我的狀況如下</p>
+<pre><code>key.store=../libs/android/keystore/igsgames<span class="class">.keystore</span>
+key.alias=xxx
+key<span class="class">.store</span><span class="class">.password</span>=xxxxxxxx
+key<span class="class">.alias</span><span class="class">.password</span>=xxxxxxxx
+apk.tag=gplay
+</code></pre><p>這樣可以不用每次輸入<br>但相對表示你把密碼打在檔案中給人看<br>所以你可以在執行ant時使用-Dproperty=”xxx”這樣的方式輸入property<br>就不會有這樣的問題了</p>
+<p>用ant其實還滿方便但是資料不太多<br>除了ant in action這本書外就是網站資料<br>另外在Android Studio中使用Gradie又是不同的系統<br>不知道下個專案還會不會有機會用ant</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ant/">ant</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-cocos2dx-i9100-音效播放當機問題" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/06/cocos2dx-i9100-音效播放當機問題/">cocos2d-x i9100 音效播放當機問題</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/08/06/cocos2dx-i9100-音效播放當機問題/" class="article-date">
+  <time datetime="2013-08-06T06:56:22.000Z" itemprop="datePublished">2013-08-06</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/08/06/cocos2dx-i9100-音效播放當機問題/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>問題描述</strong></p>
+<p>使用版本cocos2d-x 2.1.3<br>特定機型 i9100音效播放時當機</p>
+<p><strong>錯誤訊息</strong></p>
+<pre><code>I/DEBUG (13020): <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+I/DEBUG (13020): Build fingerprint: 'samsung/GT-I9100/GT-I9100:4.0.4/IMM76D/ZSLPQ:user/release-keys'
+I/DEBUG (13020): pid: 14187, tid: 14200 &gt;&gt;&gt; xxx.xxxxxx.xxxx <span class="variable">&lt;&lt;&lt;
+I/DEBUG (13020): signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 00000000
+.....
+I/DEBUG (13020): #00 pc 00521476 /data/data/xxx.xxxxxx.xxxx/lib/libgame.so (_ZN12OpenSLEngine16setEffectLoopingEjb)
+I/DEBUG (13020): #01 pc 00521dfa /data/data/xxx.xxxxxx.xxxx/lib/libgame.so (_ZN23SimpleAudioEngineOpenSL10playEffectEPKcb)</span>
+</code></pre><p>經查詢後發現cocos2d-x引擎在i9100上使用OpenSL(僅有這一隻)   故只有i9100出現此問題</p>
+<p><strong>修改方式</strong></p>
+<p>先說這不是個好做法</p>
+<p>OpenSLEngine.cpp</p>
+<pre><code><span class="type">void</span> <span class="type">OpenSLEngine</span>::setEffectLooping(unsigned <span class="type">int</span> effectID, <span class="type">bool</span> isLooping)
+{
+
+  <span class="keyword">if</span>(sharedList().find(effectID) == sharedList().<span class="keyword">end</span>()) <span class="keyword">return</span>; //&lt;--add this
+
+  <span class="type">SLresult</span> <span class="literal">result</span>;
+  vector* vec = sharedList()[effectID];
+  assert(<span class="type">NULL</span> != vec);
+
+  // get the first effect player that to be <span class="type">set</span> loop config
+  vector::<span class="keyword">iterator</span> iter = vec-&gt;begin();
+  <span class="type">AudioPlayer</span> * player = *iter;
+</code></pre><p>主要原因應該是sharedList()[effectID];取vector*時沒有該key的物件<br>但是vector這樣取會自行幫你產生一個物件<br>但該物件雖然不是NULL(故可避過assert檢查)又不是有效的物件<br>才會造成當機</p>
+<p>引發的原因查詢後認為是如  <a href="http://www.cocos2d-x.org/boards/6/topics/26439" target="_blank" rel="external">http://www.cocos2d-x.org/boards/6/topics/26439</a> 網頁上所講的一樣<br>因為i9100有音效數量限制所引發<br>之所以說這不是好做法是因為應該要減少使用音效數<br>或者作動態載入<br>緊急的狀況下只能先這樣做<br>但這樣做會有一些音效播不到</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-GCM在無該服務的Exception" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/07/08/GCM在無該服務的Exception/">GCM在無該服務的Exception</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/07/08/GCM在無該服務的Exception/" class="article-date">
+  <time datetime="2013-07-08T07:04:20.000Z" itemprop="datePublished">2013-07-08</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/07/08/GCM在無該服務的Exception/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>問題</strong><br>把目前運行測試正常的檔案送給大陸廠商，卻發現無法進入遊戲</p>
+<p><strong>解答</strong><br>後來弄到了出現問題的手機運行後發現下面的錯誤訊息</p>
+<pre><code>Caused by: java<span class="class">.lang</span><span class="class">.UnsupportedOperationException</span>: Device does not have package com<span class="class">.google</span><span class="class">.android</span><span class="class">.gsf</span>
+E/<span class="function"><span class="title">AndroidRuntime</span><span class="params">( <span class="number">787</span>)</span></span>: at com<span class="class">.google</span><span class="class">.android</span><span class="class">.gcm</span><span class="class">.GCMRegistrar</span><span class="class">.checkDevice</span>(GCMRegistrar<span class="class">.java</span>:<span class="number">98</span>)
+</code></pre><p>須處理沒有該服務時例外狀況</p>
+<p>重點在於大陸手機多沒有google服務<br>所以GCM部分需要處理 UnsupportedOperationException</p>
+<p>所以</p>
+<ol>
+<li>在用google相關服務時須要考慮沒有該服務時的狀況(尤其大陸地區)</li>
+<li>相關服務須要找替代品(金流是很好找  但推播就真的比較少聽過了)</li>
+</ol>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Android問題紀錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/31/Android問題紀錄/">Android問題紀錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/05/31/Android問題紀錄/" class="article-date">
+  <time datetime="2013-05-31T14:10:21.000Z" itemprop="datePublished">2013-05-31</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/05/31/Android問題紀錄/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p><strong>問題：</strong><br>一次更新後，所有純平版裝置都無法在Google Play中看到該App，該次更新主要提供使用簡訊小額付費機制<br><strong>解答：</strong><br><a href="http://developer.android.com/guide/topics/manifest/uses-feature-element.html" target="_blank" rel="external">http://developer.android.com/guide/topics/manifest/uses-feature-element.html</a><br>因為簡訊寄送需要增加<code>SEND_SMS</code>這個Permission，連帶會自動將<code>android.hardware.telephony</code>這個feature設為需求<br>解法為在 androidmanifest中增加<code>&lt;uses-featureandroid:name=&quot;android.hardware.telephony&quot;android:required=&quot;false&quot;/&gt;</code></p>
+</li>
+<li><p><strong>問題：</strong><br>遊戲當中並沒有使用到menu鍵，但是只要手機沒有實體menu鍵的話都會出現虛擬menu鍵<br><strong>解答：</strong><br><a href="http://stackoverflow.com/questions/7035325/how-i-hide-the-menu-button-for-one-activity" target="_blank" rel="external">http://stackoverflow.com/questions/7035325/how-i-hide-the-menu-button-for-one-activity</a><br>之前我沒有設定targetSdkVersion，由於targetSdkVersion預設等於minSdkVersion，而我設定的值為9，被判定為legacy，則會顯示虛擬menu鍵<br>targetSdkVersion設為14後則解決</p>
+</li>
+<li><p><strong>問題：</strong><br>targetSdkVersion換成14後的測試期間，發現home鍵與power鍵兩種進入讓遊戲進入背景的方法的行為不同<br><strong>解答：</strong><br>請直接看 <a href="http://blog.csdn.net/hunter_hb/article/details/8572095" target="_blank" rel="external">http://blog.csdn.net/hunter_hb/article/details/8572095</a><br>解說的十分詳細<br>我的設定是orientation 修改後解決    </p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-專案中與cURL相關瀕繁當機處理記錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/">專案中與cURL相關瀕繁當機處理記錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/" class="article-date">
+  <time datetime="2013-05-30T14:15:23.000Z" itemprop="datePublished">2013-05-30</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下是專案中遇到的一個比較特別的問題 記錄如下</p>
+<h3 id="問題">問題</h3><p>在某次上市的android版遊戲有瀕繁當機的狀況，通常是在進遊戲後不久，而這狀況在內部測試時並不常出現，且無發生在iOS版本  </p>
+<h3 id="處理">處理</h3><ol>
+<li>本次新上市版本增加公告功能<br>由cURL進行http連線取得公告設定，檔案與圖片此部分使用cocos2d-x extensions的network套件，遊戲本身server連線程式也由cURL寫成  </li>
+<li><p>測得兩次進遊戲後當機(花三天測試出現兩次)，看似curl程式庫引發，錯誤訊息如下：  </p>
+<pre><code>Fatal signal 11 (SIGSEGV) at 0x5103a793 (code=2)
+I/DEBUG   (  135): <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
+I/DEBUG   (  135): Build fingerprint: 'samsung/GT-I9000/GT-I9000:2.3.5/GINGERBREAD/XXJVT:user/release-keys'
+I/DEBUG   (  135): pid: 11056, tid: 11056  &gt;&gt;&gt; com.igs.salonbossworld <span class="variable">&lt;&lt;&lt;
+I/DEBUG   (  135): signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault addr 5103a793
+……….
+I/DEBUG   (  135):  d30 0000000000000000  d31 3ff0000000000000
+I/DEBUG   (  135):  scr 60000010
+I/DEBUG   (  135):
+I/DEBUG   (  135):          #00  pc 005691b6  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so
+I/DEBUG   (  135):          #01  pc 0056935e  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so
+I/DEBUG   (  135):          #02  pc 0056a150  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_mvsnprintf)
+I/DEBUG   (  135):          #03  pc 0055d014  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_failf)
+I/DEBUG   (  135):          #04  pc 00556586  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_resolv_timeout)
+I/DEBUG   (  135):          #05  pc 0056308a  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (Curl_connect)</span>
+</code></pre></li>
+<li><p>以<code>curl_mvsnprintf</code>, <code>curl_failf</code>, <code>curl_resolv_timeout</code>部份作搜尋，查得幾篇技術文章有類似狀況如下<br><a href="http://sourceforge.net/p/curl/bugs/973/" target="_blank" rel="external">http://sourceforge.net/p/curl/bugs/973/</a><br><a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=617647" target="_blank" rel="external">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=617647</a><br>重點在使用cURL並在多執行緒狀況下<br>有篇文章說明這個狀況取決於os與thread的實作細節(回文的是官方人員)<br><a href="http://curl.haxx.se/mail/lib-2002-12/0103.html" target="_blank" rel="external">http://curl.haxx.se/mail/lib-2002-12/0103.html</a>  </p>
+<blockquote>
+<p>AFAIK, it isn’t always specified what happens with signals in a multi-threaded system, it depends on your OS and your thread implementation. Which thread receives the signal etc.  </p>
+</blockquote>
+<p> 另外官方有說明Multi-threading的相關問題<br> <a href="http://curl.haxx.se/libcurl/c/libcurl-tutorial.html#Multi-threading" target="_blank" rel="external">http://curl.haxx.se/libcurl/c/libcurl-tutorial.html#Multi-threading</a><br> 另有一篇中文說明文章  <a href="http://www.cppblog.com/tx7do/archive/2012/02/20/166048.html" target="_blank" rel="external">http://www.cppblog.com/tx7do/archive/2012/02/20/166048.html</a>  </p>
+</li>
+<li><p>依照文章說明有2種作法，一是使用CURLOPT_NOSIGNAL，缺點是會失去DNS Lookup timeout的能力，可用增加c-ares支援解決(但有文章指出某些android裝置會有問題  <a href="http://curl.haxx.se/mail/lib-2013-04/0276.html" target="_blank" rel="external">http://curl.haxx.se/mail/lib-2013-04/0276.html</a>)<br>另一個方法是保持同時間只有一個curl handle，缺點需要改動程式架構  </p>
+</li>
+<li><p>基於幾點推測當機可能符合該BUG，之所以說是推測是因為無法確認玩家當機的確切原因且測試時無法完全重現</p>
+<ul>
+<li>連server的程式都以pthread開執行緒並以curl程式庫作http連線，當遊戲剛進去有可能會更新信件與動態公告資料，此時多執行緒成立。  </li>
+<li>由於取決於這個狀況取決於os與thread的實作，或許可以解釋為何iOS無該狀況發生，</li>
+<li>猜測玩家之所以比較容易發生是因為玩家通常在信件上資料會比較多或者是玩家常處於不穩定網路狀況故較容易逾時。   </li>
+</ul>
+</li>
+<li><p>討論後將android動態公告http連線方式由cURL改為android原生方法，新版上市後已無該狀況。</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

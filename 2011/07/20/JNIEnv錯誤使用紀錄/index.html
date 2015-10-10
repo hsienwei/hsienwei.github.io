@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JNIEnv錯誤使用紀錄 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最近專案有需要從cocos2d-x接Open Feint的功能所以必須要從c++ call Java code不過犯了一個極大的錯誤  
+一開始activity在啟動時呼叫一個function記錄該方法傳入的JNIEnv的指標做為C call Java code時使用在成就上傳時常常會死當後來剛好ndk r6出來後就用ndk-stack來除錯發現是JNIEnv指標出問題  
+後來再查資料才知道JN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JNIEnv錯誤使用紀錄">
+<meta property="og:url" content="http://hsienwei.github.io/2011/07/20/JNIEnv錯誤使用紀錄/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="最近專案有需要從cocos2d-x接Open Feint的功能所以必須要從c++ call Java code不過犯了一個極大的錯誤  
+一開始activity在啟動時呼叫一個function記錄該方法傳入的JNIEnv的指標做為C call Java code時使用在成就上傳時常常會死當後來剛好ndk r6出來後就用ndk-stack來除錯發現是JNIEnv指標出問題  
+後來再查資料才知道JN">
+<meta property="og:updated_time" content="2015-10-10T17:02:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JNIEnv錯誤使用紀錄">
+<meta name="twitter:description" content="最近專案有需要從cocos2d-x接Open Feint的功能所以必須要從c++ call Java code不過犯了一個極大的錯誤  
+一開始activity在啟動時呼叫一個function記錄該方法傳入的JNIEnv的指標做為C call Java code時使用在成就上傳時常常會死當後來剛好ndk r6出來後就用ndk-stack來除錯發現是JNIEnv指標出問題  
+後來再查資料才知道JN">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-JNIEnv錯誤使用紀錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      JNIEnv錯誤使用紀錄
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2011/07/20/JNIEnv錯誤使用紀錄/" class="article-date">
+  <time datetime="2011-07-19T17:00:38.000Z" itemprop="datePublished">2011-07-20</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2011/07/20/JNIEnv錯誤使用紀錄/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近專案有需要從cocos2d-x接Open Feint的功能<br>所以必須要從c++ call Java code<br>不過犯了一個極大的錯誤  </p>
+<p>一開始activity在啟動時呼叫一個function<br>記錄該方法傳入的JNIEnv的指標<br>做為C call Java code時使用<br>在成就上傳時常常會死當<br>後來剛好ndk r6出來後就用ndk-stack來除錯<br>發現是JNIEnv指標出問題  </p>
+<p>後來再查資料才知道JNIEnv指標與Thread有關<br>像我這樣的作法是會有問題的<br>穩當的作法是存JavaVM指標  </p>
+<ul>
+<li>JNI_OnLoad  </li>
+<li>JNI_CreateJavaVM  </li>
+</ul>
+<p>再以JavaVM取JNIEnv  </p>
+<ul>
+<li>AttachCurrentThread  </li>
+<li>GetEnv  </li>
+</ul>
+<p>以下為相關資料<br><a href="http://java.sun.com/docs/books/jni/html/other.html" target="_blank" rel="external">http://java.sun.com/docs/books/jni/html/other.html</a><br><a href="http://download.oracle.com/javase/1.4.2/docs/guide/jni/spec/invocation.html" target="_blank" rel="external">http://download.oracle.com/javase/1.4.2/docs/guide/jni/spec/invocation.html</a><br><a href="http://blog.sina.com.cn/s/blog_6111ce890100q1b7.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_6111ce890100q1b7.html</a><br><a href="http://home.eeworld.com.cn/my/space.php?uid=111224&amp;do=blog&amp;id=34765" target="_blank" rel="external">http://home.eeworld.com.cn/my/space.php?uid=111224&amp;do=blog&amp;id=34765</a><br><a href="http://newfaction.net/2011/03/29/restrictions-on-calling-thread-jnienv.html" target="_blank" rel="external">http://newfaction.net/2011/03/29/restrictions-on-calling-thread-jnienv.html</a><br><a href="http://www.cppblog.com/sherrylso/archive/2011/02/18/140254.html" target="_blank" rel="external">http://www.cppblog.com/sherrylso/archive/2011/02/18/140254.html</a>  </p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jni/">jni</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/12/05/Lua預編譯/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Lua預編譯
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/05/10/C-Style-Languages/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C, C++, Objective C, Java, C# 差異比對&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2011/07/20/JNIEnv錯誤使用紀錄/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

@@ -21,7 +21,7 @@
 先準備一個新的cocos2d-x專案(或使用之前就有的)
 
 下載wxWidgets Binaries下載頁面在http://sourceforge.net/projects/wxwindows">
-<meta property="og:updated_time" content="2015-02-23T02:51:54.000Z">
+<meta property="og:updated_time" content="2015-10-10T14:07:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cocos2d-x中使用wxWidget">
 <meta name="twitter:description" content="最近在研究製作cocos2d-x的編輯器，所以嘗試了一下怎麼跟gui程式庫作結合這篇是測試如何跟wxwidget結合使用的初步測試
@@ -112,26 +112,26 @@ ga('send', 'pageview');
 <ol>
 <li><p>先準備一個新的cocos2d-x專案(或使用之前就有的)</p>
 </li>
-<li><p>下載wxWidgets Binaries<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/</a><br>我抓的是<code>wxMSW-3.0.2_vc120_Dev.7z</code></p>
+<li><p>下載wxWidgets Binaries<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/</a><br>我抓的是<code>wxMSW-3.0.2_vc120_Dev.7z</code>  </p>
 </li>
-<li><p>下載Headers<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/</a><br>檔案為<code>wxWidgets-3.0.2_headers.7z</code></p>
+<li><p>下載Headers<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/</a><br>檔案為<code>wxWidgets-3.0.2_headers.7z</code>    </p>
 </li>
-<li><p>解壓縮兩個檔案並放在同一資料夾當中<br>該檔案夾應該會有include與lib兩個子資料夾<br>我是放在<code>D:\wxwidget_3_2\</code></p>
+<li><p>解壓縮兩個檔案並放在同一資料夾當中<br>該檔案夾應該會有include與lib兩個子資料夾<br>我是放在<code>D:\wxwidget_3_2\</code>    </p>
 </li>
-<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;一般&gt;其他include目錄</code>，加入</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\include</span><br><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\lib\vc120<span class="emphasis">_dll\mswud</span></span><br></pre></td></tr></table></figure>
+<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;一般&gt;其他include目錄</code>，加入    </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\include    </span><br><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\lib\vc120<span class="emphasis">_dll\mswud</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;前置處理器&gt;前置處理器定義</code>，加入</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WXUSINGDLL</span><br><span class="line">HAVE<span class="emphasis">_SSIZE_</span>T</span><br></pre></td></tr></table></figure>
+<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;前置處理器&gt;前置處理器定義</code>，加入    </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WXUSINGDLL    </span><br><span class="line">HAVE<span class="emphasis">_SSIZE_</span>T</span><br></pre></td></tr></table></figure>    
 </li>
-<li><p>專案屬性頁中 <code>組態屬性&gt;連結器&gt;輸入&gt;其他相依性</code>，加入</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">wxbase30ud.lib</span><br><span class="line">wxbase30ud<span class="emphasis">_net.lib</span><br><span class="line">wxbase30ud_</span>xml.lib</span><br><span class="line">wxexpatd.lib</span><br><span class="line">wxjpegd.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_adv.lib</span><br><span class="line">wxmsw30ud_</span>aui.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_core.lib</span><br><span class="line">wxmsw30ud_</span>gl.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_html.lib</span><br><span class="line">wxmsw30ud_</span>media.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_propgrid.lib</span><br><span class="line">wxmsw30ud_</span>qa.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_ribbon.lib</span><br><span class="line">wxmsw30ud_</span>richtext.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_stc.lib</span><br><span class="line">wxmsw30ud_</span>webview.lib</span><br><span class="line">wxmsw30ud<span class="emphasis">_xrc.lib</span><br><span class="line">wxpngd.lib</span><br><span class="line">wxregexud.lib</span><br><span class="line">wxscintillad.lib</span><br><span class="line">wxtiffd.lib</span><br><span class="line">wxzlibd.lib</span></span><br></pre></td></tr></table></figure>
+<li><p>專案屬性頁中 <code>組態屬性&gt;連結器&gt;輸入&gt;其他相依性</code>，加入    </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">wxbase30ud.lib    </span><br><span class="line">wxbase30ud<span class="emphasis">_net.lib   </span><br><span class="line">wxbase30ud_</span>xml.lib   </span><br><span class="line">wxexpatd.lib   </span><br><span class="line">wxjpegd.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_adv.lib   </span><br><span class="line">wxmsw30ud_</span>aui.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_core.lib   </span><br><span class="line">wxmsw30ud_</span>gl.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_html.lib   </span><br><span class="line">wxmsw30ud_</span>media.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_propgrid.lib   </span><br><span class="line">wxmsw30ud_</span>qa.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_ribbon.lib   </span><br><span class="line">wxmsw30ud_</span>richtext.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_stc.lib   </span><br><span class="line">wxmsw30ud_</span>webview.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_xrc.lib   </span><br><span class="line">wxpngd.lib   </span><br><span class="line">wxregexud.lib   </span><br><span class="line">wxscintillad.lib   </span><br><span class="line">wxtiffd.lib   </span><br><span class="line">wxzlibd.lib</span></span><br></pre></td></tr></table></figure>   
 </li>
 <li><p>dll檔設置<br>看是要把dll copy到執行目錄或者在環境設置中設定PATH都可以</p>
 </li>
-<li><p>修改main.cpp</p>
-<script src="//gist.github.com/10524981e5d15f92d25c.js"></script>
-<p>這樣應該就可以了<br>要注意的是我在HelloWorld中增加了一個singleton方法方便我取得HelloWorld物件作測試<br>順利的話可以看到有兩個視窗，一個是原本的cocos2d-x執行視窗，一個是wxWidget產生的視窗<br>在wxWidget視窗的按鈕按下去會新增一個Label到Layer中</p>
+<li><p>修改main.cpp    </p>
+<script src="//gist.github.com/10524981e5d15f92d25c.js"></script>    
+<p>這樣應該就可以了<br>要注意的是我在HelloWorld中增加了一個singleton方法方便我取得HelloWorld物件作測試<br>順利的話可以看到有兩個視窗，一個是原本的cocos2d-x執行視窗，一個是wxWidget產生的視窗<br>在wxWidget視窗的按鈕按下去會新增一個Label到Layer中   </p>
 </li>
 </ol>
 
