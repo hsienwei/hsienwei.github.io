@@ -5,7 +5,7 @@ tags:
 - Blog
 ---
 
-###評估
+## 評估 ##
 
 用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是
 - wordpress 
@@ -25,8 +25,7 @@ tags:
 
 最後的結果就是我決定用hexo來建立blog
 
----
-###設定
+## 設定 ##
 
 1. 先建立自己的 Github Pages 
 https://pages.github.com/ 裡面講得很清楚了
@@ -61,8 +60,7 @@ hexo d
 {% endcode %}
 這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現
 
----
-### 其他
+## 其他 ##
 
 - 使用post_asset_folder
 在_config.yml中開啓這個選項，當你new出文章時，他會產出一個資料夾給你放該文章的資料，以我來講我會拿來放要展示的圖檔，管理起來也比較方便。
