@@ -65,6 +65,46 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-解決mac上adb找不到小米機問題" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/19/解決mac上adb找不到小米機問題/">解決mac上adb找不到小米機問題</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/08/19/解決mac上adb找不到小米機問題/" class="article-date">
+  <time datetime="2013-08-18T16:39:00.000Z" itemprop="datePublished">2013-08-19</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/08/19/解決mac上adb找不到小米機問題/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>找到的資料上寫的很清楚</p>
+<p>原連結<br><a href="http://my.eoe.cn/iceskysl/archive/4377.html" target="_blank" rel="external">http://my.eoe.cn/iceskysl/archive/4377.html</a></p>
+<p>evernote備份<br><a href="http://www.evernote.com/shard/s54/sh/6388b274-4256-4167-8036-b9d2d4c32a73/41f4d05cc192f21278d5740754eae649" target="_blank" rel="external">http://www.evernote.com/shard/s54/sh/6388b274-4256-4167-8036-b9d2d4c32a73/41f4d05cc192f21278d5740754eae649</a></p>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-使用ant編譯apk檔" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -306,82 +346,6 @@ E/<span class="function"><span class="title">AndroidRuntime</span><span class="p
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
 
     </footer>
-  
-  </div>
-  
-</article>
-
-
-    
-      <article id="post-專案中與cURL相關瀕繁當機處理記錄" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/">專案中與cURL相關瀕繁當機處理記錄</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/" class="article-date">
-  <time datetime="2013-05-30T14:15:23.000Z" itemprop="datePublished">2013-05-30</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>以下是專案中遇到的一個比較特別的問題 記錄如下</p>
-<h3 id="問題">問題</h3><p>在某次上市的android版遊戲有瀕繁當機的狀況，通常是在進遊戲後不久，而這狀況在內部測試時並不常出現，且無發生在iOS版本  </p>
-<h3 id="處理">處理</h3><ol>
-<li>本次新上市版本增加公告功能<br>由cURL進行http連線取得公告設定，檔案與圖片此部分使用cocos2d-x extensions的network套件，遊戲本身server連線程式也由cURL寫成  </li>
-<li><p>測得兩次進遊戲後當機(花三天測試出現兩次)，看似curl程式庫引發，錯誤訊息如下：  </p>
-<pre><code>Fatal signal 11 (SIGSEGV) at 0x5103a793 (code=2)
-I/DEBUG   (  135): <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span> <span class="keyword">*</span><span class="keyword">*</span><span class="keyword">*</span>
-I/DEBUG   (  135): Build fingerprint: 'samsung/GT-I9000/GT-I9000:2.3.5/GINGERBREAD/XXJVT:user/release-keys'
-I/DEBUG   (  135): pid: 11056, tid: 11056  &gt;&gt;&gt; com.igs.salonbossworld <span class="variable">&lt;&lt;&lt;
-I/DEBUG   (  135): signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault addr 5103a793
-……….
-I/DEBUG   (  135):  d30 0000000000000000  d31 3ff0000000000000
-I/DEBUG   (  135):  scr 60000010
-I/DEBUG   (  135):
-I/DEBUG   (  135):          #00  pc 005691b6  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so
-I/DEBUG   (  135):          #01  pc 0056935e  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so
-I/DEBUG   (  135):          #02  pc 0056a150  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_mvsnprintf)
-I/DEBUG   (  135):          #03  pc 0055d014  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_failf)
-I/DEBUG   (  135):          #04  pc 00556586  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_resolv_timeout)
-I/DEBUG   (  135):          #05  pc 0056308a  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (Curl_connect)</span>
-</code></pre></li>
-<li><p>以<code>curl_mvsnprintf</code>, <code>curl_failf</code>, <code>curl_resolv_timeout</code>部份作搜尋，查得幾篇技術文章有類似狀況如下<br><a href="http://sourceforge.net/p/curl/bugs/973/" target="_blank" rel="external">http://sourceforge.net/p/curl/bugs/973/</a><br><a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=617647" target="_blank" rel="external">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=617647</a><br>重點在使用cURL並在多執行緒狀況下<br>有篇文章說明這個狀況取決於os與thread的實作細節(回文的是官方人員)<br><a href="http://curl.haxx.se/mail/lib-2002-12/0103.html" target="_blank" rel="external">http://curl.haxx.se/mail/lib-2002-12/0103.html</a>  </p>
-<blockquote>
-<p>AFAIK, it isn’t always specified what happens with signals in a multi-threaded system, it depends on your OS and your thread implementation. Which thread receives the signal etc.  </p>
-</blockquote>
-<p> 另外官方有說明Multi-threading的相關問題<br> <a href="http://curl.haxx.se/libcurl/c/libcurl-tutorial.html#Multi-threading" target="_blank" rel="external">http://curl.haxx.se/libcurl/c/libcurl-tutorial.html#Multi-threading</a><br> 另有一篇中文說明文章  <a href="http://www.cppblog.com/tx7do/archive/2012/02/20/166048.html" target="_blank" rel="external">http://www.cppblog.com/tx7do/archive/2012/02/20/166048.html</a>  </p>
-</li>
-<li><p>依照文章說明有2種作法，一是使用CURLOPT_NOSIGNAL，缺點是會失去DNS Lookup timeout的能力，可用增加c-ares支援解決(但有文章指出某些android裝置會有問題  <a href="http://curl.haxx.se/mail/lib-2013-04/0276.html" target="_blank" rel="external">http://curl.haxx.se/mail/lib-2013-04/0276.html</a>)<br>另一個方法是保持同時間只有一個curl handle，缺點需要改動程式架構  </p>
-</li>
-<li><p>基於幾點推測當機可能符合該BUG，之所以說是推測是因為無法確認玩家當機的確切原因且測試時無法完全重現</p>
-<ul>
-<li>連server的程式都以pthread開執行緒並以curl程式庫作http連線，當遊戲剛進去有可能會更新信件與動態公告資料，此時多執行緒成立。  </li>
-<li>由於取決於這個狀況取決於os與thread的實作，或許可以解釋為何iOS無該狀況發生，</li>
-<li>猜測玩家之所以比較容易發生是因為玩家通常在信件上資料會比較多或者是玩家常處於不穩定網路狀況故較容易逾時。   </li>
-</ul>
-</li>
-<li><p>討論後將android動態公告http連線方式由cURL改為android原生方法，新版上市後已無該狀況。</p>
-</li>
-</ol>
-
-      
-    </div>
   
   </div>
   

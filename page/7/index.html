@@ -65,6 +65,82 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-cocos2d-x-2-0-3-跨平台專案經驗" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/01/06/cocos2d-x-2-0-3-跨平台專案經驗/">cocos2d-x 2.0.3 跨平台專案經驗</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/01/06/cocos2d-x-2-0-3-跨平台專案經驗/" class="article-date">
+  <time datetime="2013-01-05T16:08:15.000Z" itemprop="datePublished">2013-01-06</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/01/06/cocos2d-x-2-0-3-跨平台專案經驗/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="注意線程安全">注意線程安全</h2><p>不要經pthread開線程(Native code)還使用JNI呼叫Java Code<br>基本上是線程安全問題<br>如果這樣做很容易出問題<br>有遇過下面的狀況</p>
+<ol>
+<li>字串被卡掉</li>
+<li>JNI Call找不到jclass</li>
+<li>JNI Call找到jclass，但仍然出錯，加上程式是多執行緒，除錯十分困難</li>
+</ol>
+<p>基本上後來都採取pthread傳訊息，schedule再處理的模式</p>
+<h2 id="map_erase_的使用">map erase 的使用</h2><p>map的erase方法不會回傳刪除後下一個元素的iterator(vector會)<br>曾經遇到一個狀況如下：</p>
+<pre><code><span class="label">for</span> (<span class="keyword">itMap </span>= _mapData.<span class="keyword">begin(); </span><span class="keyword">itMap </span>!= _mapData<span class="preprocessor">.end</span>()<span class="comment">; ++itMap)</span>
+{
+    <span class="preprocessor">if</span> (...)
+    {
+        _mapData.erase(<span class="keyword">itMap);
+</span>    }
+}
+</code></pre><p>這樣的用法是有問題的<br>在iOS運行正常，但在Android有可能造成無限迴圈</p>
+<p>正確的方式應該如下</p>
+<pre><code><span class="label">for</span> (<span class="keyword">itMap </span>= _mapData.<span class="keyword">begin(); </span><span class="keyword">itMap </span>!= _mapData<span class="preprocessor">.end</span>()<span class="comment">; )</span>
+{
+    <span class="preprocessor">if</span> (...)
+    {  //移除
+        _mapData.erase(<span class="keyword">itMap++);
+</span>    }
+    <span class="preprocessor">else</span>
+    {  //不移除
+        ++<span class="keyword">itMap;
+</span>    }
+}
+</code></pre><h2 id="cocos2d-x文字寬度不同平台差異">cocos2d-x文字寬度不同平台差異</h2><p>CCLabalTTF iOS版跟Android版的中文字(字型黑體)在設定相同字型大小時，實際顯示大小有不同，如果設定寬度交由cocos2d-x去斷行基本上沒有什麼問題，但是如果因為文句美觀而自行設定斷行時，就要注意兩平台寬度不同造成顯示效果的不同。</p>
+<h2 id="Android的CCRenderTexture">Android的CCRenderTexture</h2><p>這個類別在Android常常出狀況，基本上下面這兩個我都遇到過(2.0.3剛出的時候)。<br><a href="http://www.cocos2d-x.org/news/75" target="_blank" rel="external">http://www.cocos2d-x.org/news/75</a>     2.0.4修正<br><a href="http://www.cocos2d-x.org/issues/1544" target="_blank" rel="external">http://www.cocos2d-x.org/issues/1544</a>    2.1.1修正  </p>
+<p>現在看來是都修好了，只是那時候剛換2.0.3的時候真的很慘，不確定何時會修好，就算確定也不能等，所以android用到的部分幾乎都要再另寫一個版本，使用的人在Android版最好多加測試，因為cocos2d-x的開發者也不是能夠測到所有裝置，須仰賴整體社群的幫忙。</p>
+<h2 id="cocos2d-x_預設libcurl_不支援SSL">cocos2d-x 預設libcurl 不支援SSL</h2><p>cocos2d-x 中有提供libcurl 的這個URL連線程式庫，不過內建的沒有支援ssl，基於專案的需求所以要更換為有SSL功能的。<br>原本想要自己編，不過看了一下官方的建議做法，覺得實在太麻煩，後來發現下面這個網址：<br><a href="https://github.com/dumganhar/libcurl-build" target="_blank" rel="external">https://github.com/dumganhar/libcurl-build</a><br>這應該算cocos2d-x官方提供的，可以直接使用。  </p>
+<h2 id="版本號的設定">版本號的設定</h2><p>一開始iOS的版本號設定是以<code>x.x.x</code>這樣的形式去處理的。<br>遊戲移植到android後，由於需要在某些版本快速修正bug後出一個新版本，所以在android有些版本versionName是像<code>x.x.x.y</code>這樣。<br>後來iOS版由於某些原因需要以某版為基礎修正後再出一版，版本號原本是想要跟android一樣，但後來發現iOS版本的專案設定中，版本的設定分為version與build，version的設定只能x.x.x，build則無限制。<br>因為在這個專案中的版本號會影響到一些跟server取資料時的判定，所以版本號需要相同。<br>iOS跳號後android也需要跟進，所以在這一點需要注意。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-call-to-OpenGL-ES-API-with-no-current-context" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -250,64 +326,6 @@ ga('send', 'pageview');
 
       
     </div>
-  
-  </div>
-  
-</article>
-
-
-    
-      <article id="post-Android裝置的唯一識別碼" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/02/29/Android裝置的唯一識別碼/">Android裝置的唯一識別碼</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2012/02/29/Android裝置的唯一識別碼/" class="article-date">
-  <time datetime="2012-02-28T16:20:11.000Z" itemprop="datePublished">2012-02-29</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2012/02/29/Android裝置的唯一識別碼/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先講我的結論：沒有一個方法是保證百分之百適用於全部的裝置</p>
-<p>以下列出找到的一些方法</p>
-<ol>
-<li><p>The IMEI/MEID<br>TelephonyManager.getDeviceId()<br>不能用的原因: IMEI有重複的疑慮(不肖廠商為省錢用相同的)</p>
-</li>
-<li><p>ANDROID_ID Settings.Secure.ANDROID_ID<br>不能用的原因：回原廠設定可能改變，root手機可改，某些廠牌取出來的都一樣</p>
-</li>
-<li><p>Serial Number android.os.Build.SERIAL<br>A hardware serial number, if available. Alphanumeric only, case-insensitive.<br>不能用的原因：僅2.3以上版本支援  </p>
-</li>
-<li><p>Mac Address(wifi, BlueTooth)<br>不能用的原因：官方不推，首先非全部裝置都有WiFi，其次如果關閉，可能會取不到(以下Ref2中有人試過)</p>
-</li>
-<li><p>Pseudo-Unique 請看Ref3第2項<br>不能用的原因：還是有可能相同</p>
-</li>
-</ol>
-<p>參考資料<br>Ref1: <a href="http://android-developers.blogspot.com/2011/03/identifying-app-installations.html" target="_blank" rel="external">http://android-developers.blogspot.com/2011/03/identifying-app-installations.html</a><br>Ref2: <a href="http://groups.google.com/group/android-developers/browse_thread/thread/48c7e15935a29eb1" target="_blank" rel="external">http://groups.google.com/group/android-developers/browse_thread/thread/48c7e15935a29eb1</a><br>Ref3: <a href="http://www.pocketmagic.net/?p=1662" target="_blank" rel="external">http://www.pocketmagic.net/?p=1662</a><br>Ref4: <a href="http://innovator.samsungmobile.com/cms/cnts/knowledge.detail.view.do?platformId=1&amp;cntsId=9640" target="_blank" rel="external">http://innovator.samsungmobile.com/cms/cnts/knowledge.detail.view.do?platformId=1&amp;cntsId=9640</a>  </p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
   
   </div>
   

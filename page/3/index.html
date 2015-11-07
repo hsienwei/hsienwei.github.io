@@ -65,6 +65,65 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-自製2048-for-Chromecast" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/19/自製2048-for-Chromecast/">自製2048 for Chromecast</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/05/19/自製2048-for-Chromecast/" class="article-date">
+  <time datetime="2014-05-19T03:20:49.000Z" itemprop="datePublished">2014-05-19</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/05/19/自製2048-for-Chromecast/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近日在看Chromecast的相關文件，發現他可以自己做receiver app<br>receiver app是以HTML5來製作  但由於有一些效能限制 所以製作時需要注意<br>詳情可參考 <a href="https://developers.google.com/cast/docs/ux_guidelines#considerations" target="_blank" rel="external">https://developers.google.com/cast/docs/ux_guidelines#considerations</a><br>只要符合條件  基本上也是可以做遊戲的<br>剛好最近很紅的2048是開源的  所以就以它來當作例子<br>其實2048已經有人移植到chromecast上了<br>但反正是要做一個測驗所以無所謂</p>
+<p>以下是實際成品的聯結<br>Chrome: <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html</a><br>Android(4.0以上): <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk</a></p>
+<p>其實做起來並不難，主要分為兩個部分(receiver and sender)，基本API的用法就不贅述，可以看<br><a href="https://developers.google.com/cast/docs/developers" target="_blank" rel="external">https://developers.google.com/cast/docs/developers</a>  及 <a href="https://github.com/googlecast/" target="_blank" rel="external">https://github.com/googlecast/</a></p>
+<p>###receiver<br>由於2048遊戲部分不太需要去寫邏輯部分，故主要只要處理訊息的接收與發出即可<br>初始化部分:<br>在 application.js 中 window.requestAnimationFrame中加入<br><script src="//gist.github.com/17a58ee1f2e1ba5ac479.js"></script><br>這裡我有一個部分是用偷懶的做法<br><code>window.senderId=event.senderId;</code> 這裡將senderId放在window底下以便之後要回傳訊息使用<br>但個人覺得不是好的做法 但這是測試用的程式就先略過</p>
+<p>鍵盤事件接收部分  在 keyboard_input_manager.js 中的KeyboardInputManager.prototype.listen方法中加入<br><script src="//gist.github.com/f7b4ba0b553e94195617.js"></script><br>將sender傳送過來的訊息對應該做的行為</p>
+<p>當玩家無法再移動或者是已達到2048的時候都會有訊息出現，在這種狀況下可以回傳訊息給sender出現相對應的操作界面，為此修改html_actuator.js如下<br><script src="//gist.github.com/b232fa188603c7b928ac.js"></script></p>
+<p>###sender<br>這裡我做了兩個平台的sender程式，其實主要也是改google的範例程式<br>chrome版主要就是把keyboard event send給receiver<br>android也是差不多, 只是把swipe的方向改為對應的key code傳給receiver<br>另外接收遊戲結束的訊息跳出對應的AlertDialog</p>
+<p>或許下次可以試試看現有 html5遊戲引擎在chromecast上的效能</p>
+<hr>
+<p>以下為參考資料</p>
+<p>模擬器<br>模擬器感覺在自定receiver app的部分支援並不完整  實機測還是比較好<br>以下是目前有看到的模擬器</p>
+<p>CR Cast (chrome 擴展)<br><a href="https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk" target="_blank" rel="external">https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk</a><br>Leapcast (python, run on chrome)<br><a href="https://github.com/dz0ny/leapcast" target="_blank" rel="external">https://github.com/dz0ny/leapcast</a><br>android 模擬  cheapcast (跑不起來)<br><a href="https://github.com/mauimauer/cheapcast" target="_blank" rel="external">https://github.com/mauimauer/cheapcast</a><br>rPlay on iOS<br><a href="http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020" target="_blank" rel="external">http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020</a></p>
+<hr>
+<p>###Developer Console<br><a href="https://cast.google.com/publish/" target="_blank" rel="external">https://cast.google.com/publish/</a><br>由於要自行開發receiver app所以需要開通Developer Console<br>需要五元美金  如果只是要cast媒體就不需要</p>
+<p><img src="/2014/05/19/自製2048-for-Chromecast/chromecase_console.png" alt="console"><br>如圖，可以設置APP 與 測試用裝置<br>如果Application不是Published的話則要有輸入的裝置才能使用</p>
+<p>目前已有的遊戲應用<br>下面有兩個已在 Google Play上架的應用<br>GamingCast (for Chromecast)<br><a href="https://play.google.com/store/apps/details?id=co.essh.gamecast" target="_blank" rel="external">https://play.google.com/store/apps/details?id=co.essh.gamecast</a><br>2048 Chromecast<br><a href="https://play.google.com/store/apps/details?id=com.sunnydev.cast2048" target="_blank" rel="external">https://play.google.com/store/apps/details?id=com.sunnydev.cast2048</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chromecast/">chromecast</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-facebook-comments-ios-native-ui" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -316,47 +375,6 @@ ga('send', 'pageview');
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shader/">shader</a></li></ul>
 
     </footer>
-  
-  </div>
-  
-</article>
-
-
-    
-      <article id="post-html5-presentation" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/12/09/html5-presentation/">使用HTML5製作投影片</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/12/09/html5-presentation/" class="article-date">
-  <time datetime="2013-12-09T06:37:16.000Z" itemprop="datePublished">2013-12-09</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/12/09/html5-presentation/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>由於最近面試有一間公司需要你用投影片去展示一下過去的經歷<br>看了他的工作需求有對HTML5/CSS3等熟悉的條件<br>雖然我不是很熟但想說如果用個有關係的做法來呈現也是不錯<br>（後來發現不是必要）<br>查了一下後決定用HTML5來做投影片<br>看到下面的網站<br><a href="http://www.sitepoint.com/5-free-html5-presentation-systems/" target="_blank" rel="external">http://www.sitepoint.com/5-free-html5-presentation-systems/</a><br>裡面有介紹五個演示系統<br>後來我決定用reveal.js</p>
-<p>成果如下<br><a href="https://dl.dropboxusercontent.com/u/10581994/reveal.js-master/cv.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/reveal.js-master/cv.html</a></p>
-<p>我覺得它有快速鍵可以用<br>esc可以看全部投影片<br>f可以切換全螢幕<br>還有轉換成pdf的功能十分不錯<br>有需要的可以用一下</p>
-<p>唯獨預設的文字感覺較適合英文<br>如果要用在中文上需要在css中修改一下<br>像我是加上黑體來用<br>另外如果是舊一點的電腦換頁動畫可能會有一點delay的狀況</p>
-
-      
-    </div>
   
   </div>
   
