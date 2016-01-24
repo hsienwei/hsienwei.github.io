@@ -65,6 +65,62 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-JNIEnv錯誤使用紀錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2011/07/20/JNIEnv錯誤使用紀錄/">JNIEnv錯誤使用紀錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2011/07/20/JNIEnv錯誤使用紀錄/" class="article-date">
+  <time datetime="2011-07-19T17:00:38.000Z" itemprop="datePublished">2011-07-20</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2011/07/20/JNIEnv錯誤使用紀錄/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近專案有需要從cocos2d-x接Open Feint的功能<br>所以必須要從c++ call Java code<br>不過犯了一個極大的錯誤  </p>
+<p>一開始activity在啟動時呼叫一個function<br>記錄該方法傳入的JNIEnv的指標<br>做為C call Java code時使用<br>在成就上傳時常常會死當<br>後來剛好ndk r6出來後就用ndk-stack來除錯<br>發現是JNIEnv指標出問題  </p>
+<p>後來再查資料才知道JNIEnv指標與Thread有關<br>像我這樣的作法是會有問題的<br>穩當的作法是存JavaVM指標  </p>
+<ul>
+<li>JNI_OnLoad  </li>
+<li>JNI_CreateJavaVM  </li>
+</ul>
+<p>再以JavaVM取JNIEnv  </p>
+<ul>
+<li>AttachCurrentThread  </li>
+<li>GetEnv  </li>
+</ul>
+<p>以下為相關資料<br><a href="http://java.sun.com/docs/books/jni/html/other.html" target="_blank" rel="external">http://java.sun.com/docs/books/jni/html/other.html</a><br><a href="http://download.oracle.com/javase/1.4.2/docs/guide/jni/spec/invocation.html" target="_blank" rel="external">http://download.oracle.com/javase/1.4.2/docs/guide/jni/spec/invocation.html</a><br><a href="http://blog.sina.com.cn/s/blog_6111ce890100q1b7.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_6111ce890100q1b7.html</a><br><a href="http://home.eeworld.com.cn/my/space.php?uid=111224&amp;do=blog&amp;id=34765" target="_blank" rel="external">http://home.eeworld.com.cn/my/space.php?uid=111224&amp;do=blog&amp;id=34765</a><br><a href="http://newfaction.net/2011/03/29/restrictions-on-calling-thread-jnienv.html" target="_blank" rel="external">http://newfaction.net/2011/03/29/restrictions-on-calling-thread-jnienv.html</a><br><a href="http://www.cppblog.com/sherrylso/archive/2011/02/18/140254.html" target="_blank" rel="external">http://www.cppblog.com/sherrylso/archive/2011/02/18/140254.html</a>  </p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jni/">jni</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-C-Style-Languages" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -171,7 +227,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      &copy; 2016 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

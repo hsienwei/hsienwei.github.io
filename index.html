@@ -65,6 +65,53 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-shader-calculate-help" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/24/shader-calculate-help/">一些shader相關網站</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2016/01/24/shader-calculate-help/" class="article-date">
+  <time datetime="2016-01-24T02:52:25.000Z" itemprop="datePublished">2016-01-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2016/01/24/shader-calculate-help/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Formulas for Photoshop blending modes<br>講解一些Blend mode的公式<br><a href="http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html" target="_blank" rel="external">http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html</a></p>
+<p>Photoshop Blendmodi in GLSL<br>同上, 但是主要針對GLSL<br><a href="http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/" target="_blank" rel="external">http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/</a></p>
+<p>ANDROID LESSON FIVE: AN INTRODUCTION TO BLENDING<br>講解OpenGL中的BlendFunc的計算公式<br><a href="http://www.learnopengles.com/tag/additive-blending/" target="_blank" rel="external">http://www.learnopengles.com/tag/additive-blending/</a></p>
+<p>GLSL : common mistakes<br>常見的GLSL錯誤<br><a href="https://www.opengl.org/wiki/GLSL_:_common_mistakes" target="_blank" rel="external">https://www.opengl.org/wiki/GLSL_:_common_mistakes</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link/">link</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shader/">shader</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-使用瀏覽器做shader效果測試" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -301,56 +348,6 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-file-encode-converter" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/20/file-encode-converter/">簡易文件編碼轉換工具</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2015/02/20/file-encode-converter/" class="article-date">
-  <time datetime="2015-02-20T15:34:07.000Z" itemprop="datePublished">2015-02-20</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2015/02/20/file-encode-converter/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="原由">原由</h2><p>因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具<br>該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf<br><strong>注意:目前無備份功能, 轉換前須自行備份</strong></p>
-<hr>
-<h2 id="開發相關">開發相關</h2><p>####開發工具<br><code>python 2.7</code> + <code>chardet</code> + <code>py2exe</code><br>gui部分為內建的<code>tkinter</code><br>py2exe_dist.zip是我自行用py2exe轉換的執行檔<br>如要自行產生請安裝py2exe module以及chardet並在專案目錄下執行<br><code>python setup.py py2exe</code></p>
-<p>####基本原理<br>用chardet這個module來測文件的編碼<br>測出後將其解碼再轉碼為utf</p>
-<p>####特殊例子<br>在測試時有遇到一個特殊狀況<br>就是當文件編碼為gb2312<br>但裡面又含有繁體字元<br>此時要改用gbk編碼來處理</p>
-<p>github:<br><a href="https://github.com/hsienwei/file_encode_to_utf_converter" target="_blank" rel="external">https://github.com/hsienwei/file_encode_to_utf_converter</a></p>
-<p><img src="/2015/02/20/file-encode-converter/ui.jpg" alt="執行畫面"></p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/">tool</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
         <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
       </nav>
@@ -359,7 +356,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      &copy; 2016 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

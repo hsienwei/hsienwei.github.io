@@ -65,6 +65,50 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-parse-html-to-json" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/10/01/parse-html-to-json/">剖析HTML資料轉為JSON</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/10/01/parse-html-to-json/" class="article-date">
+  <time datetime="2013-10-01T06:49:24.000Z" itemprop="datePublished">2013-10-01</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/10/01/parse-html-to-json/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前有一陣子很迷Puzzle &amp; Dragon，所以常常查閱<a href="http://zh.pad.wikia.com/wiki/" target="_blank" rel="external">http://zh.pad.wikia.com/wiki/</a> 這個wiki網站，有一次用手機查的時候感覺他的手機板介面不太方便，而且如果可以用該資料為基礎讓手機通知我事件發生似乎不錯，所以就開始寫一個parser來處理網頁資料，把”緊急／降臨時間表”與”活動時間表”取需要的資料處理為JSON格式。</p>
+<p>結果大概如下：<br><a href="http://gcmtesthhhw.appspot.com/WikiData" target="_blank" rel="external">http://gcmtesthhhw.appspot.com/WikiData</a></p>
+<p>那時候的大概想法是這樣:<br>用server跑一個排程，定時更新資料並用手機去取用。</p>
+<p>Server端主要使用GAE，主要原因在我對server管理沒有經驗，用GAE我可以跳過server設定這一塊，Java基本上也是很熟了，所以寫起來沒啥問題，只是要了解一下CRON的排程設定。</p>
+<p>剖析程式庫那時候選擇了<a href="http://jsoup.org/，使用上並不難，基本上就是實作NodeVisitor，然後使用head與tail方法的Node參數來判斷要取的資料，只是那時候有無法取執行javascript的問題，所幸影響不大，所以基本上就是取網頁程式碼，曾經有試過用JavaUnit想要取執行完javascript的網頁但還是失敗，所以這部分我後來就沒處理，JSON部分就直接用Java的JSONObject即可。" target="_blank" rel="external">http://jsoup.org/，使用上並不難，基本上就是實作NodeVisitor，然後使用head與tail方法的Node參數來判斷要取的資料，只是那時候有無法取執行javascript的問題，所幸影響不大，所以基本上就是取網頁程式碼，曾經有試過用JavaUnit想要取執行完javascript的網頁但還是失敗，所以這部分我後來就沒處理，JSON部分就直接用Java的JSONObject即可。</a></p>
+<p>另外一個問題就是由於wiki資料由眾人維護，沒有一個既定格式，常常會有變更；取資料也不方便，沒有類似id的東西可以辨識，最後只好用標題來找，再取相對應的結構部分。</p>
+<p>最後因為專案太趕就沒時間再進行，後來再去查已經有人出了一個相似但各方面都比較好用的APP，似乎沒有做的必要了。</p>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-解決mac上adb找不到小米機問題" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -302,57 +346,6 @@ E/<span class="function"><span class="title">AndroidRuntime</span><span class="p
 
 
     
-      <article id="post-Android問題紀錄" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/05/31/Android問題紀錄/">Android問題紀錄</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/05/31/Android問題紀錄/" class="article-date">
-  <time datetime="2013-05-31T14:10:21.000Z" itemprop="datePublished">2013-05-31</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/05/31/Android問題紀錄/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p><strong>問題：</strong><br>一次更新後，所有純平版裝置都無法在Google Play中看到該App，該次更新主要提供使用簡訊小額付費機制<br><strong>解答：</strong><br><a href="http://developer.android.com/guide/topics/manifest/uses-feature-element.html" target="_blank" rel="external">http://developer.android.com/guide/topics/manifest/uses-feature-element.html</a><br>因為簡訊寄送需要增加<code>SEND_SMS</code>這個Permission，連帶會自動將<code>android.hardware.telephony</code>這個feature設為需求<br>解法為在 androidmanifest中增加<code>&lt;uses-featureandroid:name=&quot;android.hardware.telephony&quot;android:required=&quot;false&quot;/&gt;</code></p>
-</li>
-<li><p><strong>問題：</strong><br>遊戲當中並沒有使用到menu鍵，但是只要手機沒有實體menu鍵的話都會出現虛擬menu鍵<br><strong>解答：</strong><br><a href="http://stackoverflow.com/questions/7035325/how-i-hide-the-menu-button-for-one-activity" target="_blank" rel="external">http://stackoverflow.com/questions/7035325/how-i-hide-the-menu-button-for-one-activity</a><br>之前我沒有設定targetSdkVersion，由於targetSdkVersion預設等於minSdkVersion，而我設定的值為9，被判定為legacy，則會顯示虛擬menu鍵<br>targetSdkVersion設為14後則解決</p>
-</li>
-<li><p><strong>問題：</strong><br>targetSdkVersion換成14後的測試期間，發現home鍵與power鍵兩種進入讓遊戲進入背景的方法的行為不同<br><strong>解答：</strong><br>請直接看 <a href="http://blog.csdn.net/hunter_hb/article/details/8572095" target="_blank" rel="external">http://blog.csdn.net/hunter_hb/article/details/8572095</a><br>解說的十分詳細<br>我的設定是orientation 修改後解決    </p>
-</li>
-</ol>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
       </nav>
@@ -361,7 +354,7 @@ E/<span class="function"><span class="title">AndroidRuntime</span><span class="p
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      &copy; 2016 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

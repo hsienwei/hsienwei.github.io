@@ -65,6 +65,55 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-Crashlytics-申請使用記錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/06/Crashlytics-申請使用記錄/">Crashlytics 申請使用記錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/06/06/Crashlytics-申請使用記錄/" class="article-date">
+  <time datetime="2014-06-05T16:46:07.000Z" itemprop="datePublished">2014-06-06</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/06/06/Crashlytics-申請使用記錄/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相較於Crittercism<br>Crashlytics專注於crash的記錄與統計<br>且目前為免費使用（2014/6/6）  </p>
+<p>要申請Crashlytics帳號必須先在<a href="http://try.crashlytics.com/留下你的資料" target="_blank" rel="external">http://try.crashlytics.com/留下你的資料</a><br>個人經驗是下午三點申請大概晚上9點就回覆你了<br>會收到兩封信<br>一封是Invitation<br>另一封是確認你有沒有收到Invitation的信件會要求你回覆（我有回覆，但感覺只是CRM的信件）  </p>
+<p>從Invitation裡的按鈕進入並依他的步驟一直往下走會進到下載plugin的頁面<br><img src="/2014/06/06/Crashlytics-申請使用記錄/20c872b148c50cde0b59847b9ad8a47e-767323.png" alt="20c872b148c50cde0b59847b9ad8a47e-767323.png" title=""></p>
+<p>個人覺得這是Crashlytics的特色<br>透過一套plugin讓使用者在設定過程中得到幫助與需要的說明<br>並在有crash時提供一個清單讓你觀看<br>這裡我試裝了XCODE與Eclipse兩個plugin<br>XCODE會出現在右上角系統bar中<br><img src="/2014/06/06/Crashlytics-申請使用記錄/940352bececc230f3db3bbc654ba1292-770386.png" alt="940352bececc230f3db3bbc654ba1292-770386.png" title=""></p>
+<p>而Eclipse會出現在Eclipse Toolbar當中<br><img src="/2014/06/06/Crashlytics-申請使用記錄/55a952c8a6ee86818406f81d13070956-771720.png" alt="55a952c8a6ee86818406f81d13070956-771720.png" title=""></p>
+<p>以XCODE版為例<br>一開始按下ICON後會出現以下畫面<br><img src="/2014/06/06/Crashlytics-申請使用記錄/797ee9ab8961ab14fac9c7e27d20dee9-777744.png" alt="797ee9ab8961ab14fac9c7e27d20dee9-777744.png" title=""></p>
+<p>基本上就是將我的XCODE專案都列出來方便我選擇要使用Crashlytics的專案<br>在這裡選擇專案以後會出現設定的說明如下<br><img src="/2014/06/06/Crashlytics-申請使用記錄/63978861f8946d0823a5c0d2ffaa4727-779625.png" alt="63978861f8946d0823a5c0d2ffaa4727-779625.png" title=""></p>
+<p>這裡說明了要你在target中加一個Run Script並將設定內容列出來<br>要注意的是這裡已經幫你在該專案中加了Crashlytics.framework<br>當你完成設定並build之後他就會進到接下來的步驟像是framework設置以及程式碼的增加<br>我覺得這個教學的步驟對新手而言可以保證他設定完成<br>但對有經驗的人可能有點多餘<br>另外提一下，Eclipse版在選完專案後甚至幫你把Androidmanifest.xml設定與程式碼加進去  </p>
+<p>設定完成後就可以開始故意讓程式crash來測試<br>此時crash就會出現在清單中了<br><img src="/2014/06/06/Crashlytics-申請使用記錄/3986cc0128d372e0c7b7f942da8bf0bc-781673.png" alt="3986cc0128d372e0c7b7f942da8bf0bc-781673.png" title=""></p>
+<p>根據個人測試，plugin上的crash清單反應似乎沒有web快，需要多等幾分鐘才會出現  </p>
+<p>點擊清單上的crash項目後會在瀏覽器上開啟該crash的詳細訊息<br><img src="/2014/06/06/Crashlytics-申請使用記錄/01e1ac2287bfd18fb2bc04042b70d818-783958.png" alt="01e1ac2287bfd18fb2bc04042b70d818-783958.png" title=""><br><img src="/2014/06/06/Crashlytics-申請使用記錄/1d56c7548fab83063804a0e779b93f9d-786311.png" alt="1d56c7548fab83063804a0e779b93f9d-786311.png" title=""><br>此時就可以依照錯誤訊息除錯囉  </p>
+<p>P.s. 尚未測試過，不確定NDK crash狀況是否可以正確呈現 </p>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-自製2048-for-Chromecast" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -330,58 +379,6 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-cocos2dx中實作幾個shader效果" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/12/26/cocos2dx中實作幾個shader效果/">cocos2d-x中實作幾個shader效果</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/12/26/cocos2dx中實作幾個shader效果/" class="article-date">
-  <time datetime="2013-12-26T03:24:09.000Z" itemprop="datePublished">2013-12-26</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/12/26/cocos2dx中實作幾個shader效果/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在之前的專案中有機會使用shader實做了mask效果<br>這次將之前曾經想要做但是專案不願意給時間嘗試的做法試著做出來</p>
-<p>清單如下</p>
-<ul>
-<li>圖片轉灰階<br>cocos2d-x中，sprite的setColor在設定顏色後基本上還是留有本來圖片跟設定顏色混合而已，這個做法是單純的轉灰階</li>
-<li>圖片加邊框<br>有一次專案的需求是希望可以幫圖片在邊緣加上指定顏色的邊框，後來的作法是另外提供圖片，但如果有20張圖有這個需求就需要額外作20張圖，用shader就比較省事</li>
-<li>全畫面遮罩<br>另一次專案的需求是希望玩家可以專注於某個功能的使用，想要將其他部分打暗只留該功能按鈕的部分是亮的；這裡使用layer製作，可以自行指定focus的位置</li>
-<li>背景填滿<br>之前在做背景時都用sprite去拼，實際上物件很多，且容易造成有接縫，如果要移動也麻煩，用shader還滿方便，一樣是用layer去做</li>
-</ul>
-<p>範例程式　<a href="https://github.com/hsienwei/shader_cocos2dx" target="_blank" rel="external">https://github.com/hsienwei/shader_cocos2dx</a><br>目前在win32版與android版<br>用的是vs2013<br><img src="/2013/12/26/cocos2dx中實作幾個shader效果/effect.png" alt="effect"></p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shader/">shader</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
       </nav>
@@ -390,7 +387,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      &copy; 2016 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

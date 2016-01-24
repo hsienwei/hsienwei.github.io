@@ -65,6 +65,58 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-cocos2dx中實作幾個shader效果" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/12/26/cocos2dx中實作幾個shader效果/">cocos2d-x中實作幾個shader效果</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/12/26/cocos2dx中實作幾個shader效果/" class="article-date">
+  <time datetime="2013-12-26T03:24:09.000Z" itemprop="datePublished">2013-12-26</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/12/26/cocos2dx中實作幾個shader效果/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在之前的專案中有機會使用shader實做了mask效果<br>這次將之前曾經想要做但是專案不願意給時間嘗試的做法試著做出來</p>
+<p>清單如下</p>
+<ul>
+<li>圖片轉灰階<br>cocos2d-x中，sprite的setColor在設定顏色後基本上還是留有本來圖片跟設定顏色混合而已，這個做法是單純的轉灰階</li>
+<li>圖片加邊框<br>有一次專案的需求是希望可以幫圖片在邊緣加上指定顏色的邊框，後來的作法是另外提供圖片，但如果有20張圖有這個需求就需要額外作20張圖，用shader就比較省事</li>
+<li>全畫面遮罩<br>另一次專案的需求是希望玩家可以專注於某個功能的使用，想要將其他部分打暗只留該功能按鈕的部分是亮的；這裡使用layer製作，可以自行指定focus的位置</li>
+<li>背景填滿<br>之前在做背景時都用sprite去拼，實際上物件很多，且容易造成有接縫，如果要移動也麻煩，用shader還滿方便，一樣是用layer去做</li>
+</ul>
+<p>範例程式　<a href="https://github.com/hsienwei/shader_cocos2dx" target="_blank" rel="external">https://github.com/hsienwei/shader_cocos2dx</a><br>目前在win32版與android版<br>用的是vs2013<br><img src="/2013/12/26/cocos2dx中實作幾個shader效果/effect.png" alt="effect"></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shader/">shader</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-html5-presentation" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -302,50 +354,6 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-parse-html-to-json" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/10/01/parse-html-to-json/">剖析HTML資料轉為JSON</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/10/01/parse-html-to-json/" class="article-date">
-  <time datetime="2013-10-01T06:49:24.000Z" itemprop="datePublished">2013-10-01</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/10/01/parse-html-to-json/#disqus_thread" class="article-comment-link">评论</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前有一陣子很迷Puzzle &amp; Dragon，所以常常查閱<a href="http://zh.pad.wikia.com/wiki/" target="_blank" rel="external">http://zh.pad.wikia.com/wiki/</a> 這個wiki網站，有一次用手機查的時候感覺他的手機板介面不太方便，而且如果可以用該資料為基礎讓手機通知我事件發生似乎不錯，所以就開始寫一個parser來處理網頁資料，把”緊急／降臨時間表”與”活動時間表”取需要的資料處理為JSON格式。</p>
-<p>結果大概如下：<br><a href="http://gcmtesthhhw.appspot.com/WikiData" target="_blank" rel="external">http://gcmtesthhhw.appspot.com/WikiData</a></p>
-<p>那時候的大概想法是這樣:<br>用server跑一個排程，定時更新資料並用手機去取用。</p>
-<p>Server端主要使用GAE，主要原因在我對server管理沒有經驗，用GAE我可以跳過server設定這一塊，Java基本上也是很熟了，所以寫起來沒啥問題，只是要了解一下CRON的排程設定。</p>
-<p>剖析程式庫那時候選擇了<a href="http://jsoup.org/，使用上並不難，基本上就是實作NodeVisitor，然後使用head與tail方法的Node參數來判斷要取的資料，只是那時候有無法取執行javascript的問題，所幸影響不大，所以基本上就是取網頁程式碼，曾經有試過用JavaUnit想要取執行完javascript的網頁但還是失敗，所以這部分我後來就沒處理，JSON部分就直接用Java的JSONObject即可。" target="_blank" rel="external">http://jsoup.org/，使用上並不難，基本上就是實作NodeVisitor，然後使用head與tail方法的Node參數來判斷要取的資料，只是那時候有無法取執行javascript的問題，所幸影響不大，所以基本上就是取網頁程式碼，曾經有試過用JavaUnit想要取執行完javascript的網頁但還是失敗，所以這部分我後來就沒處理，JSON部分就直接用Java的JSONObject即可。</a></p>
-<p>另外一個問題就是由於wiki資料由眾人維護，沒有一個既定格式，常常會有變更；取資料也不方便，沒有類似id的東西可以辨識，最後只好用標題來找，再取相對應的結構部分。</p>
-<p>最後因為專案太趕就沒時間再進行，後來再去查已經有人出了一個相似但各方面都比較好用的APP，似乎沒有做的必要了。</p>
-
-      
-    </div>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
         <a class="extend prev" rel="prev" href="/page/3/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">下一页 &raquo;</a>
       </nav>
@@ -354,7 +362,7 @@ ga('send', 'pageview');
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 Hsien-Wei Hsiang&nbsp;
+      &copy; 2016 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://hsienwei.github.io/"/>
-  <updated>2015-11-07T14:16:24.000Z</updated>
+  <updated>2016-01-24T03:03:06.000Z</updated>
   <id>http://hsienwei.github.io/</id>
   
   <author>
@@ -13,6 +13,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[一些shader相關網站]]></title>
+    <link href="http://hsienwei.github.io/2016/01/24/shader-calculate-help/"/>
+    <id>http://hsienwei.github.io/2016/01/24/shader-calculate-help/</id>
+    <published>2016-01-24T02:52:25.000Z</published>
+    <updated>2016-01-24T03:03:06.000Z</updated>
+    <content type="html"><![CDATA[<p>Formulas for Photoshop blending modes<br>講解一些Blend mode的公式<br><a href="http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html" target="_blank" rel="external">http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html</a></p>
+<p>Photoshop Blendmodi in GLSL<br>同上, 但是主要針對GLSL<br><a href="http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/" target="_blank" rel="external">http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/</a></p>
+<p>ANDROID LESSON FIVE: AN INTRODUCTION TO BLENDING<br>講解OpenGL中的BlendFunc的計算公式<br><a href="http://www.learnopengles.com/tag/additive-blending/" target="_blank" rel="external">http://www.learnopengles.com/tag/additive-blending/</a></p>
+<p>GLSL : common mistakes<br>常見的GLSL錯誤<br><a href="https://www.opengl.org/wiki/GLSL_:_common_mistakes" target="_blank" rel="external">https://www.opengl.org/wiki/GLSL_:_common_mistakes</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Formulas for Photoshop blending modes<br>講解一些Blend mode的公式<br><a href="http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photo]]>
+    </summary>
+    
+      <category term="link" scheme="http://hsienwei.github.io/tags/link/"/>
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[使用瀏覽器做shader效果測試]]></title>
@@ -651,26 +672,6 @@
     </summary>
     
       <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[剖析HTML資料轉為JSON]]></title>
-    <link href="http://hsienwei.github.io/2013/10/01/parse-html-to-json/"/>
-    <id>http://hsienwei.github.io/2013/10/01/parse-html-to-json/</id>
-    <published>2013-10-01T06:49:24.000Z</published>
-    <updated>2015-10-10T06:50:30.000Z</updated>
-    <content type="html"><![CDATA[<p>之前有一陣子很迷Puzzle &amp; Dragon，所以常常查閱<a href="http://zh.pad.wikia.com/wiki/" target="_blank" rel="external">http://zh.pad.wikia.com/wiki/</a> 這個wiki網站，有一次用手機查的時候感覺他的手機板介面不太方便，而且如果可以用該資料為基礎讓手機通知我事件發生似乎不錯，所以就開始寫一個parser來處理網頁資料，把”緊急／降臨時間表”與”活動時間表”取需要的資料處理為JSON格式。</p>
-<p>結果大概如下：<br><a href="http://gcmtesthhhw.appspot.com/WikiData" target="_blank" rel="external">http://gcmtesthhhw.appspot.com/WikiData</a></p>
-<p>那時候的大概想法是這樣:<br>用server跑一個排程，定時更新資料並用手機去取用。</p>
-<p>Server端主要使用GAE，主要原因在我對server管理沒有經驗，用GAE我可以跳過server設定這一塊，Java基本上也是很熟了，所以寫起來沒啥問題，只是要了解一下CRON的排程設定。</p>
-<p>剖析程式庫那時候選擇了<a href="http://jsoup.org/，使用上並不難，基本上就是實作NodeVisitor，然後使用head與tail方法的Node參數來判斷要取的資料，只是那時候有無法取執行javascript的問題，所幸影響不大，所以基本上就是取網頁程式碼，曾經有試過用JavaUnit想要取執行完javascript的網頁但還是失敗，所以這部分我後來就沒處理，JSON部分就直接用Java的JSONObject即可。" target="_blank" rel="external">http://jsoup.org/，使用上並不難，基本上就是實作NodeVisitor，然後使用head與tail方法的Node參數來判斷要取的資料，只是那時候有無法取執行javascript的問題，所幸影響不大，所以基本上就是取網頁程式碼，曾經有試過用JavaUnit想要取執行完javascript的網頁但還是失敗，所以這部分我後來就沒處理，JSON部分就直接用Java的JSONObject即可。</a></p>
-<p>另外一個問題就是由於wiki資料由眾人維護，沒有一個既定格式，常常會有變更；取資料也不方便，沒有類似id的東西可以辨識，最後只好用標題來找，再取相對應的結構部分。</p>
-<p>最後因為專案太趕就沒時間再進行，後來再去查已經有人出了一個相似但各方面都比較好用的APP，似乎沒有做的必要了。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>之前有一陣子很迷Puzzle &amp; Dragon，所以常常查閱<a href="http://zh.pad.wikia.com/wiki/" target="_blank" rel="external">http://zh.pad.wikia.com/wiki/</a]]>
-    </summary>
     
   </entry>
   
