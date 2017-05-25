@@ -1,0 +1,215 @@
+<!doctype html>
+    <html lang="en">
+    <head>
+        <title>Simple Three.js Test</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    </head>
+	<body>
+        <script src="three.js"></script>
+        <script src='dat.gui.min.js'></script>
+		
+		<script id="vertexShader" type="x-shader/x-vertex">
+			varying vec2 vUv;
+			uniform float time;
+			uniform sampler2D texture1;
+			uniform sampler2D texture2;
+			
+			void main()	{
+
+				//gl_Position = vec4( position, 1.0 );
+				vUv = uv;
+				/*
+				vec2 vUv1 = vUv;
+				vec2 vUv2 = vUv;
+				vUv1.y  = vUv1.y + time * 0.01 ;
+				vUv2.y  = vUv2.y - time * 0.02;
+				
+				vec4 noise1 = texture2D(texture1, vUv1);
+				vec4 noise2 = texture2D(texture2, vUv2);
+				//Color Dodge	Target / (1-Blend)         
+				vec4 result = noise1 / (vec4(1.0) - noise2);
+                vec4 result2 = smoothstep( 0.5, 1.2, result);
+				
+				vec3 newPos = position + (vec3(0.0, 10.0, 0.0) * result2.x) ;
+				vec4 mvPosition = modelViewMatrix * vec4( newPos  , 1.0 );
+				gl_Position = projectionMatrix * mvPosition;*/
+                vec4 mvPosition = modelViewMatrix * vec4( position  , 1.0 );
+				gl_Position = projectionMatrix * mvPosition;
+			}
+
+		</script>
+
+		<script id="fragmentShader" type="x-shader/x-fragment">
+			varying vec2 vUv;
+			uniform vec2 resolution;
+			uniform float time;
+			uniform float scale;
+            uniform float noise1MoveX;
+            uniform float noise1MoveY;
+            uniform float noise2MoveX;
+            uniform float noise2MoveY;
+            uniform float smoothstepLow;
+			uniform sampler2D texture1;
+			uniform sampler2D texture2;
+			uniform sampler2D texture3;
+
+			void main()	{
+
+				vec2 vUv1 = vUv * scale;
+				vec2 vUv2 = vUv * scale;
+				vUv1.x  = vUv1.x * 2.0 + time * noise1MoveX ;
+                vUv1.y  = vUv1.y + time * noise1MoveY ;
+                vUv2.x  = vUv2.x * 2.0 + time * noise2MoveX ;
+				vUv2.y  = vUv2.y - time * noise2MoveY;
+				
+				vec4 noise1 = texture2D(texture1, vUv1);
+				vec4 noise2 = texture2D(texture2, vUv2);
+				//Color Dodge	Target / (1-Blend)         
+				vec4 result = noise2 / (vec4(1.0) - noise1);
+                vec4 result2 = smoothstep( smoothstepLow, 1.0, result);
+				
+				gl_FragColor = texture2D(texture3, vUv) + result2;//vec4(1.0, 1.0, 1.0, 1.0);
+			}
+
+		</script>
+
+		
+        <script>
+        
+            var scene, camera, renderer;
+            var geometry, material, mesh;
+			
+			var container;
+			var uniforms;
+            
+            var gui, shaderConfig = {
+				scale: 1.0,
+				noise1MoveX: 0.02 ,
+				noise1MoveY: 0.01,
+                noise2MoveX: 0.01 ,
+				noise2MoveY: 0.03,
+				smoothstepLow: 0.5
+
+			};
+
+        
+            init();
+            animate();
+        
+            function init() {
+        
+                scene = new THREE.Scene();
+        
+                camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+                camera.position.z = 1000;
+        
+                geometry = new THREE.PlaneGeometry( 1134, 640 );
+                //material = new THREE.MeshBasicMaterial( {color: 0xff0000, side: THREE.DoubleSide} );
+				
+				uniforms = {
+                    noise1MoveX: { type: "f", value:0.02},
+                    noise1MoveY: { type: "f", value:0.01},
+                    noise2MoveX: { type: "f", value:0.01},
+                    noise2MoveY: { type: "f", value:0.03},
+                    smoothstepLow: { type: "f", value:0.5},
+					time: { type: "f", value: 1.0 },
+					scale: { type: "f", value: 1.0 },
+					resolution: { type: "v2", value: new THREE.Vector2() },
+					texture1: { type: "t", value: THREE.ImageUtils.loadTexture( "./01.png" ) },
+					texture2: { type: "t", value: THREE.ImageUtils.loadTexture( "./02.png" ) },
+					texture3: { type: "t", value: THREE.ImageUtils.loadTexture( "./bg.jpg" ) }
+					
+				};
+				
+				uniforms.texture1.value.wrapS = uniforms.texture1.value.wrapT = THREE.RepeatWrapping;
+				uniforms.texture2.value.wrapS = uniforms.texture2.value.wrapT = THREE.RepeatWrapping;
+				uniforms.texture3.value.wrapS = uniforms.texture3.value.wrapT = THREE.RepeatWrapping;
+
+				var material = new THREE.ShaderMaterial( {
+
+					uniforms: uniforms,
+					vertexShader: document.getElementById( 'vertexShader' ).textContent,
+					fragmentShader: document.getElementById( 'fragmentShader' ).textContent
+
+				} );
+
+                mesh = new THREE.Mesh( geometry, material );
+                scene.add( mesh );
+        
+                renderer = new THREE.WebGLRenderer();
+                renderer.setSize( window.innerWidth, window.innerHeight );
+        
+                document.body.appendChild( renderer.domElement );
+                
+                // gui.
+                gui = new dat.GUI();
+
+    			gui.add( shaderConfig, 'noise1MoveX', -0.05, 0.05 , 0.01 ).onChange( function() {
+
+					uniforms.noise1MoveX.value = shaderConfig.noise1MoveX;
+
+				});
+
+				gui.add( shaderConfig, 'noise1MoveY', -0.05, 0.05 , 0.01).onChange( function() {
+
+                    uniforms.noise1MoveY.value = shaderConfig.noise1MoveY;
+
+				});
+
+				gui.add( shaderConfig, 'noise2MoveX', -0.05, 0.05, 0.01 ).onChange( function() {
+
+                    uniforms.noise2MoveX.value = shaderConfig.noise2MoveX;
+				});
+
+				gui.add( shaderConfig, 'noise2MoveY', -0.05, 0.05 , 0.01 ).onChange( function() {
+
+                    uniforms.noise2MoveY.value = shaderConfig.noise2MoveY;
+				});
+
+				gui.add( shaderConfig, 'smoothstepLow', 0.0, 1.0, 0.01 ).onChange( function() {
+
+                    uniforms.smoothstepLow.value = shaderConfig.smoothstepLow;
+				});
+				
+				gui.add( shaderConfig, 'scale', 0.0, 5.0, 0.1 ).onChange( function() {
+
+                    uniforms.scale.value = shaderConfig.scale;
+				});
+				
+
+				onWindowResize();
+
+				window.addEventListener( 'resize', onWindowResize, false );
+        
+            }
+			
+			function onWindowResize( event ) {
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				uniforms.resolution.value.x = renderer.domElement.width;
+				uniforms.resolution.value.y = renderer.domElement.height;
+
+			}
+        
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				//mesh.rotation.x += 0.01;
+                //mesh.rotation.y += 0.02;
+				
+				render();
+			}
+
+			function render() {
+
+				uniforms.time.value += 0.05;
+				renderer.render( scene, camera );
+
+			}
+        
+        </script>
+    </body>
+</html>

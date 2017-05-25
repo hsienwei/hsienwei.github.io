@@ -20,7 +20,7 @@ tags:
 所以最後還是選了使用自己來的方式，選擇的是[three.js](http://threejs.org/),這個程式庫很久以前就在一些文章中見到他的名字，去到他的官網可以看到許多特色專案，另外就是他提供了詳細的文件與範例，基本上不用怕找不到寫法。
 
 這裡是一個製作出來的簡單範例：   
-[連結](https://dl.dropboxusercontent.com/u/10581994/shader_test/test.html)   
+[連結](shader-test/index/test.html)   
 畫面的部分使用three.js，右上的UI使用[dat.GUI](https://github.com/dataarts/dat.gui)可以很方便的設置要修改的參數並顯示介面，這樣美術也可以簡單的調整參數，程式也可以即時的修改程式碼，美術只要更新一下即可。
 
 另外要注意的是網頁需要放到網路上chrome瀏覽器在讀圖的時候才不會出錯，個人使用最簡單的Dropbox public資料夾，產出公開鏈結即可。
