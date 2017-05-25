@@ -99,3 +99,4 @@ tag_generator:
 deploy:
   type: git
   repo: git@github.com:hsienwei/hsienwei.github.io.git
+  branch: master
