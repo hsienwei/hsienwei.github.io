@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Android_SoundPool的ID限制 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="很久以前發現的，發現沒寫到，補一下。
+在使用cocos2d-x的SimpleAudioEngine時有遇到一個情形，就是有時候音效在幾個場景的切換後會撥不出來，後來發現到是因為我場景切換時會把舊場景的音效unload，再preload新場景的音效，不過照理講是不會有問題才對，後來測試是只有android會有這樣的問題。
+後來查到http://d.hatena.ne.jp/itog/20100927">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android_SoundPool的ID限制">
+<meta property="og:url" content="http://hsienwei.github.io/2012/07/17/Android-SoundPool的ID限制/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="很久以前發現的，發現沒寫到，補一下。
+在使用cocos2d-x的SimpleAudioEngine時有遇到一個情形，就是有時候音效在幾個場景的切換後會撥不出來，後來發現到是因為我場景切換時會把舊場景的音效unload，再preload新場景的音效，不過照理講是不會有問題才對，後來測試是只有android會有這樣的問題。
+後來查到http://d.hatena.ne.jp/itog/20100927">
+<meta property="og:updated_time" content="2015-10-10T15:37:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android_SoundPool的ID限制">
+<meta name="twitter:description" content="很久以前發現的，發現沒寫到，補一下。
+在使用cocos2d-x的SimpleAudioEngine時有遇到一個情形，就是有時候音效在幾個場景的切換後會撥不出來，後來發現到是因為我場景切換時會把舊場景的音效unload，再preload新場景的音效，不過照理講是不會有問題才對，後來測試是只有android會有這樣的問題。
+後來查到http://d.hatena.ne.jp/itog/20100927">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-Android-SoundPool的ID限制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android_SoundPool的ID限制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/07/17/Android-SoundPool的ID限制/" class="article-date">
+  <time datetime="2012-07-17T15:15:28.000Z" itemprop="datePublished">2012-07-17</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/07/17/Android-SoundPool的ID限制/#disqus_thread" class="article-comment-link">评论</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>很久以前發現的，發現沒寫到，補一下。</p>
+<p>在使用cocos2d-x的SimpleAudioEngine時有遇到一個情形，就是有時候音效在幾個場景的切換後會撥不出來，後來發現到是因為我場景切換時會把舊場景的音效unload，再preload新場景的音效，不過照理講是不會有問題才對，後來測試是只有android會有這樣的問題。</p>
+<p>後來查到<a href="http://d.hatena.ne.jp/itog/20100927/1285550195，裡面有寫到他的ID最大就只會到256個，所以當在重複unload" target="_blank" rel="external">http://d.hatena.ne.jp/itog/20100927/1285550195，裡面有寫到他的ID最大就只會到256個，所以當在重複unload</a> 與 preload的動作之後，配到的ID就會大於256，大於256後就會發生音效撥不出來的問題。</p>
+<p>解決的方案是呼叫end()，就可以讓ID重新計算，但會連Music都一起清掉，所以如果不想連Music都一起停的話就要另外寫方法。</p>
+<p>另外那個網頁有提到一些其他SoundPool的限制，值得參閱一下。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2012/11/02/call-to-OpenGL-ES-API-with-no-current-context/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          call to OpenGL ES API with no current context
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2012/06/11/ios-app-crack-相關文章/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ios app crack 相關文章&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2012/07/17/Android-SoundPool的ID限制/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[雜物聚集地]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://hsienwei.github.io/"/>
+  <updated>2016-01-24T03:03:06.000Z</updated>
+  <id>http://hsienwei.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Hsien-Wei Hsiang]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[一些shader相關網站]]></title>
+    <link href="http://hsienwei.github.io/2016/01/24/shader-calculate-help/"/>
+    <id>http://hsienwei.github.io/2016/01/24/shader-calculate-help/</id>
+    <published>2016-01-24T02:52:25.000Z</published>
+    <updated>2016-01-24T03:03:06.000Z</updated>
+    <content type="html"><![CDATA[<p>Formulas for Photoshop blending modes<br>講解一些Blend mode的公式<br><a href="http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html" target="_blank" rel="external">http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html</a></p>
+<p>Photoshop Blendmodi in GLSL<br>同上, 但是主要針對GLSL<br><a href="http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/" target="_blank" rel="external">http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/</a></p>
+<p>ANDROID LESSON FIVE: AN INTRODUCTION TO BLENDING<br>講解OpenGL中的BlendFunc的計算公式<br><a href="http://www.learnopengles.com/tag/additive-blending/" target="_blank" rel="external">http://www.learnopengles.com/tag/additive-blending/</a></p>
+<p>GLSL : common mistakes<br>常見的GLSL錯誤<br><a href="https://www.opengl.org/wiki/GLSL_:_common_mistakes" target="_blank" rel="external">https://www.opengl.org/wiki/GLSL_:_common_mistakes</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Formulas for Photoshop blending modes<br>講解一些Blend mode的公式<br><a href="http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photo]]>
+    </summary>
+    
+      <category term="link" scheme="http://hsienwei.github.io/tags/link/"/>
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用瀏覽器做shader效果測試]]></title>
+    <link href="http://hsienwei.github.io/2015/11/07/%E4%BD%BF%E7%94%A8%E7%80%8F%E8%A6%BD%E5%99%A8%E5%81%9Ashader%E6%95%88%E6%9E%9C%E6%B8%AC%E8%A9%A6/"/>
+    <id>http://hsienwei.github.io/2015/11/07/使用瀏覽器做shader效果測試/</id>
+    <published>2015-11-07T13:11:51.000Z</published>
+    <updated>2015-11-07T14:16:24.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在與特效美術之間溝通一些shader效果時，基本希望能夠便於溝通以及快速的測試一個雛形，所以把念頭打到瀏覽器上，主要是因為HTML5上的WebGL已經相當成熟，也有一些相關服務可以用，所以想說可以試試看，找了以下幾個服務:</p>
+<ul>
+<li><a href="https://www.shadertoy.com/" target="_blank" rel="external">ShaderToy</a><br>基本上應該是範例最多的一個，特別的是除了紋理以外還提供影片、聲音可以使用，目前的成品數量應該也是最多最好的，不過僅提供fragment shader，但感覺網路上的強者都可以用特別的方式達到想要的效果。</li>
+<li><a href="http://shaderfrog.com/app" target="_blank" rel="external">ShaderFrog</a><br>一個新的服務，提供兩種作法來建立shader，一個是Composed Shader，這有點像是一些現成的shader讓你來組合，另一個是Basic Shader就是讓你寫自己的shader，可以寫vertex shader，另外感覺這個網站有心要作大，有計畫要提供一些付費服務，像是shader匯出到unity或者是自行上傳紋理等功能，不過目前未開放。</li>
+<li><a href="http://shdr.bkcore.com/" target="_blank" rel="external">shdr</a><br>可寫vertex shader與fragment shader，但似乎不能使用紋理，內建多種模型供使用。</li>
+<li><a href="http://www.kickjs.org/tool/shader_editor/shader_editor.html" target="_blank" rel="external">Kick.js Shader Editor</a><br>另一個比較陽春的線上shader編輯工具，只是我還是搞不懂他的紋理怎麼增加。</li>
+</ul>
+<p>綜觀上面的一些服務，基本上提供了shader的編輯與測試，但是還是缺少了一些功能，第一是大多不支援自己自訂紋理，第二是如果要給美術可能需要更方便的編輯方式。</p>
+<p>所以最後還是選了使用自己來的方式，選擇的是<a href="http://threejs.org/" target="_blank" rel="external">three.js</a>,這個程式庫很久以前就在一些文章中見到他的名字，去到他的官網可以看到許多特色專案，另外就是他提供了詳細的文件與範例，基本上不用怕找不到寫法。</p>
+<p>這裡是一個製作出來的簡單範例：<br><a href="https://dl.dropboxusercontent.com/u/10581994/shader_test/test.html" target="_blank" rel="external">連結</a><br>畫面的部分使用three.js，右上的UI使用<a href="https://github.com/dataarts/dat.gui" target="_blank" rel="external">dat.GUI</a>可以很方便的設置要修改的參數並顯示介面，這樣美術也可以簡單的調整參數，程式也可以即時的修改程式碼，美術只要更新一下即可。</p>
+<p>另外要注意的是網頁需要放到網路上chrome瀏覽器在讀圖的時候才不會出錯，個人使用最簡單的Dropbox public資料夾，產出公開鏈結即可。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在與特效美術之間溝通一些shader效果時，基本希望能夠便於溝通以及快速的測試一個雛形，所以把念頭打到瀏覽器上，主要是因為HTML5上的WebGL已經相當成熟，也有一些相關服務可以用，所以想說可以試試看，找了以下幾個服務:</p>
+<ul>
+<li><a href="h]]>
+    </summary>
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[cocos2d-x 骨骼動畫方案]]></title>
+    <link href="http://hsienwei.github.io/2015/10/03/cocos2dx-skeleton/"/>
+    <id>http://hsienwei.github.io/2015/10/03/cocos2dx-skeleton/</id>
+    <published>2015-10-03T04:44:37.000Z</published>
+    <updated>2015-10-09T09:21:41.000Z</updated>
+    <content type="html"><![CDATA[<p>cocos2d-x上面可用的骨骼動畫方案並不多，列出如下：</p>
+<ul>
+<li><a href="http://zh.esotericsoftware.com/" target="_blank" rel="external">Spine</a><br>一個支援多引擎的骨骼動畫方案，功能強大，支援IK，為骨骼動畫而生。<br>其檔案格式有json與binary兩種，cocos2d-x只支援json檔，這點要注意，有需要的話需要自行寫parser，之前看只有libgdx版本支援binary，現在狀況不太確定。</li>
+<li><a href="http://dragonbones.github.io/" target="_blank" rel="external">DragonBone</a><br>以Flash為基礎，刀塔傳奇的骨骼動畫方案，個人是沒有操作過，不過開發prototype時倒是用第三方程式庫讀刀塔的人物來使用<br><a href="https://github.com/zym2014/DotaSkeletonAnim" target="_blank" rel="external">《刀塔传奇》骨骼动画查看器</a><br><a href="https://github.com/DragonBones/DragonBonesCPP" target="_blank" rel="external">DragonBonesCPP</a></li>
+<li><a href="http://www.webtech.co.jp/spritestudio/index.html" target="_blank" rel="external">OPTPiX SpriteStudio</a><br>個人感覺編輯器最強的一套，不過看似沒有IK。</li>
+<li>cocostudio<br>cocos2d-x自己的編輯器，只是實在不能算好用。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>cocos2d-x上面可用的骨骼動畫方案並不多，列出如下：</p>
+<ul>
+<li><a href="http://zh.esotericsoftware.com/" target="_blank" rel="external">Spine</a><br>一個支援多引擎的]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[cocos2d-x中使用wxWidget]]></title>
+    <link href="http://hsienwei.github.io/2015/02/23/cocos2dx-with-wxwidget/"/>
+    <id>http://hsienwei.github.io/2015/02/23/cocos2dx-with-wxwidget/</id>
+    <published>2015-02-23T01:45:59.000Z</published>
+    <updated>2015-10-10T14:07:16.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在研究製作cocos2d-x的編輯器，所以嘗試了一下怎麼跟gui程式庫作結合<br>這篇是測試如何跟wxwidget結合使用的初步測試</p>
+<p>以下測試使用cocos2d-x 3.4 與 wxWidget 3.0.2</p>
+<ol>
+<li><p>先準備一個新的cocos2d-x專案(或使用之前就有的)</p>
+</li>
+<li><p>下載wxWidgets Binaries<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/</a><br>我抓的是<code>wxMSW-3.0.2_vc120_Dev.7z</code>  </p>
+</li>
+<li><p>下載Headers<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/" target="_blank" rel="external">http://sourceforge.net/projects/wxwindows/files/3.0.2/</a><br>檔案為<code>wxWidgets-3.0.2_headers.7z</code>    </p>
+</li>
+<li><p>解壓縮兩個檔案並放在同一資料夾當中<br>該檔案夾應該會有include與lib兩個子資料夾<br>我是放在<code>D:\wxwidget_3_2\</code>    </p>
+</li>
+<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;一般&gt;其他include目錄</code>，加入    </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\include    </span><br><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\lib\vc120<span class="emphasis">_dll\mswud</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;前置處理器&gt;前置處理器定義</code>，加入    </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WXUSINGDLL    </span><br><span class="line">HAVE<span class="emphasis">_SSIZE_</span>T</span><br></pre></td></tr></table></figure>    
+</li>
+<li><p>專案屬性頁中 <code>組態屬性&gt;連結器&gt;輸入&gt;其他相依性</code>，加入    </p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">wxbase30ud.lib    </span><br><span class="line">wxbase30ud<span class="emphasis">_net.lib   </span><br><span class="line">wxbase30ud_</span>xml.lib   </span><br><span class="line">wxexpatd.lib   </span><br><span class="line">wxjpegd.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_adv.lib   </span><br><span class="line">wxmsw30ud_</span>aui.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_core.lib   </span><br><span class="line">wxmsw30ud_</span>gl.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_html.lib   </span><br><span class="line">wxmsw30ud_</span>media.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_propgrid.lib   </span><br><span class="line">wxmsw30ud_</span>qa.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_ribbon.lib   </span><br><span class="line">wxmsw30ud_</span>richtext.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_stc.lib   </span><br><span class="line">wxmsw30ud_</span>webview.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_xrc.lib   </span><br><span class="line">wxpngd.lib   </span><br><span class="line">wxregexud.lib   </span><br><span class="line">wxscintillad.lib   </span><br><span class="line">wxtiffd.lib   </span><br><span class="line">wxzlibd.lib</span></span><br></pre></td></tr></table></figure>   
+</li>
+<li><p>dll檔設置<br>看是要把dll copy到執行目錄或者在環境設置中設定PATH都可以</p>
+</li>
+<li><p>修改main.cpp    </p>
+<script src="//gist.github.com/10524981e5d15f92d25c.js"></script>    
+<p>這樣應該就可以了<br>要注意的是我在HelloWorld中增加了一個singleton方法方便我取得HelloWorld物件作測試<br>順利的話可以看到有兩個視窗，一個是原本的cocos2d-x執行視窗，一個是wxWidget產生的視窗<br>在wxWidget視窗的按鈕按下去會新增一個Label到Layer中   </p>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在研究製作cocos2d-x的編輯器，所以嘗試了一下怎麼跟gui程式庫作結合<br>這篇是測試如何跟wxwidget結合使用的初步測試</p>
+<p>以下測試使用cocos2d-x 3.4 與 wxWidget 3.0.2</p>
+<ol>
+<li><p>先準備一個新的]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="wxWidget" scheme="http://hsienwei.github.io/tags/wxWidget/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Spine二進制檔轉json檔測試]]></title>
+    <link href="http://hsienwei.github.io/2015/02/21/spine-binary2json/"/>
+    <id>http://hsienwei.github.io/2015/02/21/spine-binary2json/</id>
+    <published>2015-02-20T16:31:40.000Z</published>
+    <updated>2015-02-20T17:04:23.000Z</updated>
+    <content type="html"><![CDATA[<p>由於cocos2d-x目前版本(3.4)仍然不能讀取spine 2.0後推出的binary格式(.skel)<br>加上自己沒有購買spine所以不能將binary檔匯入後再輸出為json格式<br>所以嚐試自己弄一個轉換的小工具<br>雖然最後沒有使用<br>但還是記載一下過程</p>
+<hr>
+<p>由於spine官方目前有支援binary的runtime似乎只有libgdx<br>所以下面主要會以參考libgdx的方式來進行</p>
+<ol>
+<li><p>使用eclipse新建一個java application</p>
+</li>
+<li><p>下載spine libgdx程式庫，放在src下</p>
+</li>
+<li><p>下載libgdx release版本(本次測試使用1.5.3)<br>解開後將gdx.jar加入專案<br>由於由於裡面有使用到nativecode<br>打開gdx-natives.jar<br>將需要的library取出(這裡使用的是libbdx64.dll)<br>並在讀入該library</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    System.loadLibrary(<span class="string">"gdx64"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>    
+<p>如果有找不到lib的狀況要記得在VM Arguments中加入下面內容<br><code>-Djava.library.path=D:\workspace_new\SpineBinary2Json\libs</code></p>
+</li>
+<li><p>新增libgdx的application並實作applicationListener<br>Application我是使用LwjglApplication，所以要將gdx-backend-lwjgl.jar與gdx-backend-lwjgl-natives.jar加入專案裡<br>之所以要這樣弄是因為我原本以為可以直接將TextureAtlas物件建立起來並生成SkeletonData<br>後來發現會出現錯誤如下</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread "main" java.lang.NullPointerException</span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.GLTexture.createGLHandle(GLTexture.java:197)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.Texture.&lt;init&gt;(Texture.java:123)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.Texture.&lt;init&gt;(Texture.java:103)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.load(TextureAtlas.java:244)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:236)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:231)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:226)</span></span><br><span class="line"><span class="code">	at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:216)</span></span><br><span class="line"><span class="code">	at Main.main(Main.java:76)</span></span><br></pre></td></tr></table></figure>    
+<p>發現應該是gl物件未產出<br>後來採最簡單的解法就是建立一個libgdx的application就會進行需要的初始化行為了</p>
+</li>
+<li><p>依照binary編寫json檔案<br>這裡可以參照下面兩個格式的讀取行為<br><a href="https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonJson.java" target="_blank" rel="external">https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonJson.java</a><br><a href="https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonBinary.java" target="_blank" rel="external">https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonBinary.java</a><br>一開始採取從SkeletonData逆推的方式，但最後失敗<br>卡在我無法從skin逆推attachment<br>後來只好改採在SkeletonBinary讀取檔案的過程中同時將json建立起來的方法(直接修改SkeletonBinary.java)<br>但由於這樣做可能會有版權的問題<br>故這裡並不提供程式碼<br>做起來應該是不難只是有點麻煩而已</p>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>由於cocos2d-x目前版本(3.4)仍然不能讀取spine 2.0後推出的binary格式(.skel)<br>加上自己沒有購買spine所以不能將binary檔匯入後再輸出為json格式<br>所以嚐試自己弄一個轉換的小工具<br>雖然最後沒有使用<br>但還是記載一]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="spine" scheme="http://hsienwei.github.io/tags/spine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[簡易文件編碼轉換工具]]></title>
+    <link href="http://hsienwei.github.io/2015/02/20/file-encode-converter/"/>
+    <id>http://hsienwei.github.io/2015/02/20/file-encode-converter/</id>
+    <published>2015-02-20T15:34:07.000Z</published>
+    <updated>2015-02-20T15:58:19.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="原由">原由</h2><p>因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具<br>該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf<br><strong>注意:目前無備份功能, 轉換前須自行備份</strong></p>
+<hr>
+<h2 id="開發相關">開發相關</h2><p>####開發工具<br><code>python 2.7</code> + <code>chardet</code> + <code>py2exe</code><br>gui部分為內建的<code>tkinter</code><br>py2exe_dist.zip是我自行用py2exe轉換的執行檔<br>如要自行產生請安裝py2exe module以及chardet並在專案目錄下執行<br><code>python setup.py py2exe</code></p>
+<p>####基本原理<br>用chardet這個module來測文件的編碼<br>測出後將其解碼再轉碼為utf</p>
+<p>####特殊例子<br>在測試時有遇到一個特殊狀況<br>就是當文件編碼為gb2312<br>但裡面又含有繁體字元<br>此時要改用gbk編碼來處理</p>
+<p>github:<br><a href="https://github.com/hsienwei/file_encode_to_utf_converter" target="_blank" rel="external">https://github.com/hsienwei/file_encode_to_utf_converter</a></p>
+<p><img src="/2015/02/20/file-encode-converter/ui.jpg" alt="執行畫面"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="原由">原由</h2><p>因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具<br>該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf<br><strong>注意:目前無備份功能, 轉換前須自行備份</strong></p]]>
+    </summary>
+    
+      <category term="python" scheme="http://hsienwei.github.io/tags/python/"/>
+    
+      <category term="tool" scheme="http://hsienwei.github.io/tags/tool/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Unity autosave]]></title>
+    <link href="http://hsienwei.github.io/2014/11/04/unity-autosave/"/>
+    <id>http://hsienwei.github.io/2014/11/04/unity-autosave/</id>
+    <published>2014-11-03T17:59:58.000Z</published>
+    <updated>2014-11-03T18:07:00.000Z</updated>
+    <content type="html"><![CDATA[<p>昨天遇到了一次unity的當機，使得我工作三小時的結果完全消失，查了一下Unity本身沒有自動存檔功能卻能用script作到相同的效果。<br>連結如下：<br><a href="http://www.daikonforge.com/dfgui/save-on-run/" target="_blank" rel="external">http://www.daikonforge.com/dfgui/save-on-run/</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>昨天遇到了一次unity的當機，使得我工作三小時的結果完全消失，查了一下Unity本身沒有自動存檔功能卻能用script作到相同的效果。<br>連結如下：<br><a href="http://www.daikonforge.com/dfgui/save-on-run/" ]]>
+    </summary>
+    
+      <category term="link" scheme="http://hsienwei.github.io/tags/link/"/>
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用Hexo與github pages自建blog]]></title>
+    <link href="http://hsienwei.github.io/2014/10/29/%E4%BD%BF%E7%94%A8hexo%E8%88%87github%20pages%E8%87%AA%E5%BB%BAblog/"/>
+    <id>http://hsienwei.github.io/2014/10/29/使用hexo與github pages自建blog/</id>
+    <published>2014-10-29T08:01:25.000Z</published>
+    <updated>2015-10-10T17:16:48.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="評估">評估</h2><p>用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是</p>
+<ul>
+<li>wordpress </li>
+<li>logdown</li>
+<li>簡書</li>
+</ul>
+<p>但是後來發現有blog framework可以將blog架在github pages上，一來不用花到錢，二來多個新玩具，於是就找找看有沒有好的服務，找到的有以下幾個</p>
+<ul>
+<li>jekyll</li>
+<li>octopress</li>
+<li>Hexo</li>
+</ul>
+<p>最後考慮了幾點</p>
+<ul>
+<li>前兩個是使用ruby，Hexo是使用nodejs，模板引擎預設是ejs，基本上之前有摸過一陣子express所以有一點認識，較易入門</li>
+<li>網上使用心得都說octopress有效能上的問題</li>
+<li>Hexo台灣製造，這就是愛台灣？</li>
+<li>看文檔的感覺Hexo跟octopress比較易入手</li>
+</ul>
+<p>最後的結果就是我決定用hexo來建立blog</p>
+<h2 id="設定">設定</h2><ol>
+<li>先建立自己的 Github Pages<br><a href="https://pages.github.com/" target="_blank" rel="external">https://pages.github.com/</a> 裡面講得很清楚了</li>
+<li>安裝nodejs<br><a href="http://nodejs.org/" target="_blank" rel="external">http://nodejs.org/</a> 基本上就照著各個平台的安裝步驟去把nodejs裝起來<br>安裝完nodejs後，此時應該也安裝完npm了，可用以下指令測試<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure></li>
+<li>安裝Hexo<br>由於裝起來是在太簡單，還是請看<a href="http://hexo.io/docs/index.html" target="_blank" rel="external">官方文件</a>吧<br>下面列出最快建立的步驟<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+此時在瀏覽器開啟 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 應該可以看到一個最簡單的blog了</li>
+<li>deploy<br>hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，<code>開啟_config.yml</code>，移到最下面修改相關設定<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"><span class="code">	type: github</span></span><br><span class="line"><span class="code">	repo: &lt;repository url&gt;</span></span><br></pre></td></tr></table></figure>
+儲存後，輸入下面指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現</li>
+</ol>
+<h2 id="其他">其他</h2><ul>
+<li>使用post_asset_folder<br>在_config.yml中開啓這個選項，當你new出文章時，他會產出一個資料夾給你放該文章的資料，以我來講我會拿來放要展示的圖檔，管理起來也比較方便。<br>引用方式如下<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![effect](/2013/12/26/cocos2dx中實作幾個shader效果/effect.png)</span><br></pre></td></tr></table></figure></li>
+<li>markdown語法說明<br><a href="http://markdown.tw/" target="_blank" rel="external">http://markdown.tw/</a></li>
+<li>addthis(社群分享plugin)<br><a href="http://www.addthis.com/" target="_blank" rel="external">http://www.addthis.com/</a></li>
+<li>gravatar(頭像)<br><a href="http://en.gravatar.com/" target="_blank" rel="external">http://en.gravatar.com/</a></li>
+<li>favicon製作<br>我是直接拿一個來用就是 <a href="http://www.favicon.cc/" target="_blank" rel="external">http://www.favicon.cc/</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="評估">評估</h2><p>用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是</p>
+<ul>
+<li>wordpress </li>
+<li>logdown</li>
+<l]]>
+    </summary>
+    
+      <category term="Blog" scheme="http://hsienwei.github.io/tags/Blog/"/>
+    
+      <category term="Hexo" scheme="http://hsienwei.github.io/tags/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[（iOS）Youtube iframe 在 Apple TV 上的播放問題]]></title>
+    <link href="http://hsienwei.github.io/2014/08/12/Youtube_iframe_%E5%9C%A8%20Apple_TV_%E4%B8%8A%E7%9A%84%E6%92%AD%E6%94%BE%E5%95%8F%E9%A1%8C/"/>
+    <id>http://hsienwei.github.io/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/</id>
+    <published>2014-08-12T10:04:23.000Z</published>
+    <updated>2014-11-03T17:58:01.000Z</updated>
+    <content type="html"><![CDATA[<p><strong>問題：</strong></p>
+<p>有一個頁面使用WebView + Youtube iframe 播放 live channel，在手機上播放正常，但如果使用AirPlay功能cast到Apple TV的話則會出現“ an error occurred loading this content ”。<br>如果播放的是非live則可以正常運行。</p>
+<p><strong>處置：</strong></p>
+<ul>
+<li>用電腦開啓Plex Home Theater作為測試裝置，可以播放live，故應該不是AirPlay本身不支援live。</li>
+<li>由於以相同的程式碼來作處理時，單則節目可以播放而live不行，故認為是Apple TV那邊無法處理。</li>
+<li>Apple TV裡的Youtube app 完全搜尋不到Live的節目。</li>
+<li>一開始懷疑是訊號來源問題，比方是否為Apple TV無法處理Youtube廣告要求，但查明目前並沒有廣告。</li>
+<li>後來發現Youtube官方iOS app並不會有這樣的問題，懷疑如果我不透過iframe的方式也許可以處理。</li>
+<li>最後使用<a href="https://github.com/hellozimi/HCYoutubeParser" target="_blank" rel="external">https://github.com/hellozimi/HCYoutubeParser</a> 來做處理，取得直接播放的URL，則可正常在Apple TV上播放。</li>
+<li>在使用HCYoutubeParser上需要小心，因為Youtube曾經改變過responceData，所以會有不能用的風險，這個要自行承擔。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>問題：</strong></p>
+<p>有一個頁面使用WebView + Youtube iframe 播放 live channel，在手機上播放正常，但如果使用AirPlay功能cast到Apple TV的話則會出現“ an error occurred]]>
+    </summary>
+    
+      <category term="AppleTV" scheme="http://hsienwei.github.io/tags/AppleTV/"/>
+    
+      <category term="iOS" scheme="http://hsienwei.github.io/tags/iOS/"/>
+    
+      <category term="youtube" scheme="http://hsienwei.github.io/tags/youtube/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用sublime為unity編輯器 in mac之CompleteSharp設定障礙排除]]></title>
+    <link href="http://hsienwei.github.io/2014/06/27/%E4%BD%BF%E7%94%A8sublime%E7%82%BAunity%E7%B7%A8%E8%BC%AF%E5%99%A8inmac%E4%B9%8BCompleteSharp%E8%A8%AD%E5%AE%9A%E9%9A%9C%E7%A4%99%E6%8E%92%E9%99%A4/"/>
+    <id>http://hsienwei.github.io/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/</id>
+    <published>2014-06-26T18:51:40.000Z</published>
+    <updated>2015-02-20T15:31:41.000Z</updated>
+    <content type="html"><![CDATA[<p>標題下得很長<br>基本上是記載依照<a href="http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時" target="_blank" rel="external">http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時</a><br>CompleteSharp這個plugin在mac環境上遇到的一些問題</p>
+<ol>
+<li><p>CompleteSharp的安裝<br>個人測試在windows可以用package control直接安裝成功<br>而在mac下會出現Unable to download CompleteSharp的錯誤<br>這時候只能手動安裝<br>有兩種選擇<br>a) clone  <a href="https://github.com/ewilde/CompleteSharp" target="_blank" rel="external">https://github.com/ewilde/CompleteSharp</a> 到 Package資料夾<br>不需其他處理(建議)<br>b) 需事先安裝mono (下載<a href="http://www.go-mono.com/mono-downloads/download.html" target="_blank" rel="external">http://www.go-mono.com/mono-downloads/download.html</a>)<br>clone  <a href="https://github.com/quarnster/CompleteSharp" target="_blank" rel="external">https://github.com/quarnster/CompleteSharp</a> 到 Package資料夾<br>再執行CompleteSharp/build.py</p>
+</li>
+<li><p>CompleteSharp project setting<br>在mac環境中會用到completesharp_mono_path這個參數<br>wiki中寫的completesharp_mono_path是3.x 版時的路徑<br>4.x版可改為如下</p>
+<script src="//gist.github.com/ad4564e649a60996d9b0.js"></script></li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>標題下得很長<br>基本上是記載依照<a href="http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時" target="_blank" rel="external">]]>
+    </summary>
+    
+      <category term="sublime" scheme="http://hsienwei.github.io/tags/sublime/"/>
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Crashlytics 申請使用記錄]]></title>
+    <link href="http://hsienwei.github.io/2014/06/06/Crashlytics-%E7%94%B3%E8%AB%8B%E4%BD%BF%E7%94%A8%E8%A8%98%E9%8C%84/"/>
+    <id>http://hsienwei.github.io/2014/06/06/Crashlytics-申請使用記錄/</id>
+    <published>2014-06-05T16:46:07.000Z</published>
+    <updated>2015-10-10T16:52:18.000Z</updated>
+    <content type="html"><![CDATA[<p>相較於Crittercism<br>Crashlytics專注於crash的記錄與統計<br>且目前為免費使用（2014/6/6）  </p>
+<p>要申請Crashlytics帳號必須先在<a href="http://try.crashlytics.com/留下你的資料" target="_blank" rel="external">http://try.crashlytics.com/留下你的資料</a><br>個人經驗是下午三點申請大概晚上9點就回覆你了<br>會收到兩封信<br>一封是Invitation<br>另一封是確認你有沒有收到Invitation的信件會要求你回覆（我有回覆，但感覺只是CRM的信件）  </p>
+<p>從Invitation裡的按鈕進入並依他的步驟一直往下走會進到下載plugin的頁面<br><img src="/2014/06/06/Crashlytics-申請使用記錄/20c872b148c50cde0b59847b9ad8a47e-767323.png" alt="20c872b148c50cde0b59847b9ad8a47e-767323.png" title=""></p>
+<p>個人覺得這是Crashlytics的特色<br>透過一套plugin讓使用者在設定過程中得到幫助與需要的說明<br>並在有crash時提供一個清單讓你觀看<br>這裡我試裝了XCODE與Eclipse兩個plugin<br>XCODE會出現在右上角系統bar中<br><img src="/2014/06/06/Crashlytics-申請使用記錄/940352bececc230f3db3bbc654ba1292-770386.png" alt="940352bececc230f3db3bbc654ba1292-770386.png" title=""></p>
+<p>而Eclipse會出現在Eclipse Toolbar當中<br><img src="/2014/06/06/Crashlytics-申請使用記錄/55a952c8a6ee86818406f81d13070956-771720.png" alt="55a952c8a6ee86818406f81d13070956-771720.png" title=""></p>
+<p>以XCODE版為例<br>一開始按下ICON後會出現以下畫面<br><img src="/2014/06/06/Crashlytics-申請使用記錄/797ee9ab8961ab14fac9c7e27d20dee9-777744.png" alt="797ee9ab8961ab14fac9c7e27d20dee9-777744.png" title=""></p>
+<p>基本上就是將我的XCODE專案都列出來方便我選擇要使用Crashlytics的專案<br>在這裡選擇專案以後會出現設定的說明如下<br><img src="/2014/06/06/Crashlytics-申請使用記錄/63978861f8946d0823a5c0d2ffaa4727-779625.png" alt="63978861f8946d0823a5c0d2ffaa4727-779625.png" title=""></p>
+<p>這裡說明了要你在target中加一個Run Script並將設定內容列出來<br>要注意的是這裡已經幫你在該專案中加了Crashlytics.framework<br>當你完成設定並build之後他就會進到接下來的步驟像是framework設置以及程式碼的增加<br>我覺得這個教學的步驟對新手而言可以保證他設定完成<br>但對有經驗的人可能有點多餘<br>另外提一下，Eclipse版在選完專案後甚至幫你把Androidmanifest.xml設定與程式碼加進去  </p>
+<p>設定完成後就可以開始故意讓程式crash來測試<br>此時crash就會出現在清單中了<br><img src="/2014/06/06/Crashlytics-申請使用記錄/3986cc0128d372e0c7b7f942da8bf0bc-781673.png" alt="3986cc0128d372e0c7b7f942da8bf0bc-781673.png" title=""></p>
+<p>根據個人測試，plugin上的crash清單反應似乎沒有web快，需要多等幾分鐘才會出現  </p>
+<p>點擊清單上的crash項目後會在瀏覽器上開啟該crash的詳細訊息<br><img src="/2014/06/06/Crashlytics-申請使用記錄/01e1ac2287bfd18fb2bc04042b70d818-783958.png" alt="01e1ac2287bfd18fb2bc04042b70d818-783958.png" title=""><br><img src="/2014/06/06/Crashlytics-申請使用記錄/1d56c7548fab83063804a0e779b93f9d-786311.png" alt="1d56c7548fab83063804a0e779b93f9d-786311.png" title=""><br>此時就可以依照錯誤訊息除錯囉  </p>
+<p>P.s. 尚未測試過，不確定NDK crash狀況是否可以正確呈現 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>相較於Crittercism<br>Crashlytics專注於crash的記錄與統計<br>且目前為免費使用（2014/6/6）  </p>
+<p>要申請Crashlytics帳號必須先在<a href="http://try.crashlytics.com/留下你的資料]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[自製2048 for Chromecast]]></title>
+    <link href="http://hsienwei.github.io/2014/05/19/%E8%87%AA%E8%A3%BD2048-for-Chromecast/"/>
+    <id>http://hsienwei.github.io/2014/05/19/自製2048-for-Chromecast/</id>
+    <published>2014-05-19T03:20:49.000Z</published>
+    <updated>2015-02-20T15:31:41.000Z</updated>
+    <content type="html"><![CDATA[<p>近日在看Chromecast的相關文件，發現他可以自己做receiver app<br>receiver app是以HTML5來製作  但由於有一些效能限制 所以製作時需要注意<br>詳情可參考 <a href="https://developers.google.com/cast/docs/ux_guidelines#considerations" target="_blank" rel="external">https://developers.google.com/cast/docs/ux_guidelines#considerations</a><br>只要符合條件  基本上也是可以做遊戲的<br>剛好最近很紅的2048是開源的  所以就以它來當作例子<br>其實2048已經有人移植到chromecast上了<br>但反正是要做一個測驗所以無所謂</p>
+<p>以下是實際成品的聯結<br>Chrome: <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html</a><br>Android(4.0以上): <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk</a></p>
+<p>其實做起來並不難，主要分為兩個部分(receiver and sender)，基本API的用法就不贅述，可以看<br><a href="https://developers.google.com/cast/docs/developers" target="_blank" rel="external">https://developers.google.com/cast/docs/developers</a>  及 <a href="https://github.com/googlecast/" target="_blank" rel="external">https://github.com/googlecast/</a></p>
+<p>###receiver<br>由於2048遊戲部分不太需要去寫邏輯部分，故主要只要處理訊息的接收與發出即可<br>初始化部分:<br>在 application.js 中 window.requestAnimationFrame中加入<br><script src="//gist.github.com/17a58ee1f2e1ba5ac479.js"></script><br>這裡我有一個部分是用偷懶的做法<br><code>window.senderId=event.senderId;</code> 這裡將senderId放在window底下以便之後要回傳訊息使用<br>但個人覺得不是好的做法 但這是測試用的程式就先略過</p>
+<p>鍵盤事件接收部分  在 keyboard_input_manager.js 中的KeyboardInputManager.prototype.listen方法中加入<br><script src="//gist.github.com/f7b4ba0b553e94195617.js"></script><br>將sender傳送過來的訊息對應該做的行為</p>
+<p>當玩家無法再移動或者是已達到2048的時候都會有訊息出現，在這種狀況下可以回傳訊息給sender出現相對應的操作界面，為此修改html_actuator.js如下<br><script src="//gist.github.com/b232fa188603c7b928ac.js"></script></p>
+<p>###sender<br>這裡我做了兩個平台的sender程式，其實主要也是改google的範例程式<br>chrome版主要就是把keyboard event send給receiver<br>android也是差不多, 只是把swipe的方向改為對應的key code傳給receiver<br>另外接收遊戲結束的訊息跳出對應的AlertDialog</p>
+<p>或許下次可以試試看現有 html5遊戲引擎在chromecast上的效能</p>
+<hr>
+<p>以下為參考資料</p>
+<p>模擬器<br>模擬器感覺在自定receiver app的部分支援並不完整  實機測還是比較好<br>以下是目前有看到的模擬器</p>
+<p>CR Cast (chrome 擴展)<br><a href="https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk" target="_blank" rel="external">https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk</a><br>Leapcast (python, run on chrome)<br><a href="https://github.com/dz0ny/leapcast" target="_blank" rel="external">https://github.com/dz0ny/leapcast</a><br>android 模擬  cheapcast (跑不起來)<br><a href="https://github.com/mauimauer/cheapcast" target="_blank" rel="external">https://github.com/mauimauer/cheapcast</a><br>rPlay on iOS<br><a href="http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020" target="_blank" rel="external">http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020</a></p>
+<hr>
+<p>###Developer Console<br><a href="https://cast.google.com/publish/" target="_blank" rel="external">https://cast.google.com/publish/</a><br>由於要自行開發receiver app所以需要開通Developer Console<br>需要五元美金  如果只是要cast媒體就不需要</p>
+<p><img src="/2014/05/19/自製2048-for-Chromecast/chromecase_console.png" alt="console"><br>如圖，可以設置APP 與 測試用裝置<br>如果Application不是Published的話則要有輸入的裝置才能使用</p>
+<p>目前已有的遊戲應用<br>下面有兩個已在 Google Play上架的應用<br>GamingCast (for Chromecast)<br><a href="https://play.google.com/store/apps/details?id=co.essh.gamecast" target="_blank" rel="external">https://play.google.com/store/apps/details?id=co.essh.gamecast</a><br>2048 Chromecast<br><a href="https://play.google.com/store/apps/details?id=com.sunnydev.cast2048" target="_blank" rel="external">https://play.google.com/store/apps/details?id=com.sunnydev.cast2048</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>近日在看Chromecast的相關文件，發現他可以自己做receiver app<br>receiver app是以HTML5來製作  但由於有一些效能限制 所以製作時需要注意<br>詳情可參考 <a href="https://developers.google.com/]]>
+    </summary>
+    
+      <category term="chromecast" scheme="http://hsienwei.github.io/tags/chromecast/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Facebook comments 在iOS用原生UI製作測試]]></title>
+    <link href="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/"/>
+    <id>http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/</id>
+    <published>2014-04-08T06:45:00.000Z</published>
+    <updated>2015-10-10T15:39:18.000Z</updated>
+    <content type="html"><![CDATA[<p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="external">https://developers.facebook.com/docs/plugins/comments/</a><br>如果不要add comment的話應該是做的到的</p>
+<p>本次專案中有一個功能是可以對某個頁面做FB comment<br>在網頁中可以用Facebook的plugin<br>但在app當中SDK沒有提供相關的UI可供使用<br>要使用的話必須用UIWebView加上plugin來達成</p>
+<p>後來在Facebook的graph api當中找到有關的功能<br><a href="https://developers.facebook.com/docs/graph-api/reference/object/comments/" target="_blank" rel="external">https://developers.facebook.com/docs/graph-api/reference/object/comments/</a><br>裡面有提到Reading與Publishing的功能</p>
+<p>但由於我使用的ID是網頁網址所以必須改一下</p>
+<pre><code>[FBRequestConnection startWithGraphPath:@<span class="string">"/****** id *******/comments"</span>]
+[FBRequestConnection startWithGraphPath:@<span class="string">"/comments/?ids=http://www.xxx.xxx.xx"</span>]
+</code></pre><p>在Reading的部分沒有問題，但在Publishing的部分就會收到錯誤訊息</p>
+<pre><code>body =  {
+        error = {
+            code = 100<span class="comment">;</span>
+            message = "(#100) Comments may not be added to a comment plugin"<span class="comment">;</span>
+            type = OAuthException<span class="comment">;</span>
+                }<span class="comment">;</span>
+        }<span class="comment">;</span>
+</code></pre><p>後來仔細查一下<br>發現原來這個功能是不能使用的<br>相關連結：<br><a href="http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box" target="_blank" rel="external">http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box</a><br><a href="http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module" target="_blank" rel="external">http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module</a><br><a href="https://developers.facebook.com/bugs/164794086987157" target="_blank" rel="external">https://developers.facebook.com/bugs/164794086987157</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="external">https://d]]>
+    </summary>
+    
+      <category term="facebook" scheme="http://hsienwei.github.io/tags/facebook/"/>
+    
+      <category term="ios" scheme="http://hsienwei.github.io/tags/ios/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[iOS中播放youtube影片經驗]]></title>
+    <link href="http://hsienwei.github.io/2014/04/07/ios-play-youtube/"/>
+    <id>http://hsienwei.github.io/2014/04/07/ios-play-youtube/</id>
+    <published>2014-04-07T06:41:36.000Z</published>
+    <updated>2015-10-10T15:38:53.000Z</updated>
+    <content type="html"><![CDATA[<p>iOS不像android一樣有提供youtube的API，要播放youtube影片需要使用UIWebView + youtube iframe api</p>
+<h3 id="使用iframe_api">使用iframe api</h3><p><a href="http://apiblog.youtube.com/2009/02/youtube-apis-iphone-cool-mobile-apps.html" target="_blank" rel="external">http://apiblog.youtube.com/2009/02/youtube-apis-iphone-cool-mobile-apps.html</a></p>
+<blockquote>
+<p>“the current best practice for embedding YouTube videos in an iOS application is to use the YouTube iframe Player within a UIWebView container.”</p>
+</blockquote>
+<p>所以基本上這個方法應該是最好的方法，但由於使用iframe需要寫javascript，一開始因為我懶的關係，所以我先試過一些其他的程式庫，但我最後放棄了（見最後一段）</p>
+<p><a href="https://developers.google.com/youtube/iframe_api_reference?hl=zh-TW" target="_blank" rel="external">https://developers.google.com/youtube/iframe_api_reference?hl=zh-TW</a><br>這裡面提供了相關API資訊</p>
+<p>個人寫的讀取用js code</p>
+<pre><code><span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://www.youtube.com/iframe_api"</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>    
+<span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript">    
+  <span class="function"><span class="keyword">function</span> <span class="title">onYouTubeIframeAPIReady</span>(<span class="params"></span>) </span>{    
+    player = <span class="keyword">new</span> YT.Player(<span class="string">'player'</span>, {
+      width: <span class="string">'%d'</span>,
+      height: <span class="string">'%d'</span>,
+      videoId: <span class="string">'%@'</span>,
+      events: {
+        <span class="string">'onReady'</span>: onPlayerReady,
+        <span class="string">'onStateChange'</span>: onPlayerStateChange
+      },
+      playerVars: {
+        <span class="string">'playsinline'</span>:<span class="string">'%d'</span>,
+        <span class="string">'controls'</span>:<span class="string">'1'</span>,
+      }
+    });
+  }
+  <span class="function"><span class="keyword">function</span> <span class="title">onPlayerReady</span>(<span class="params">event</span>) </span>{
+    <span class="built_in">window</span>.location = <span class="string">'js-call://youtubeStart'</span>;
+    event.target.playVideo();
+  }
+  <span class="function"><span class="keyword">function</span> <span class="title">onPlayerStateChange</span>(<span class="params">event</span>) </span>{
+    <span class="keyword">if</span>(event.data == YT.PlayerState.ENDED)
+    {
+      <span class="built_in">window</span>.location = <span class="string">'js-call://youtubeEnd'</span>;
+    }
+  }
+</span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+</code></pre><ul>
+<li>由於autoplay參數無法用在mobile裝置, 所以如果要讀取自動播放就要在onPlayerReady中來做</li>
+<li>可以在onPlayerStateChange中取YT.PlayerState.ENDED事件來知道影片播放完畢</li>
+<li>playerVars的playsinline是說播放時是要在指定範圍內還是要全螢幕播放(後來再是似乎已無用)</li>
+<li>window.location = ‘js-call://xxxxxx’ 可在UIWebViewDelegate shouldStartLoadWithRequest中接收並處理</li>
+</ul>
+<h3 id="偷吃步_api">偷吃步 api</h3><p><strong>註：iOS 8 已無法使用</strong></p>
+<p>由於沒有提供API供使用，所以有些事件是取不到的，像是進入全螢幕以及離開全螢幕的事件，由於一般使用MPMoviePlayerController都是有notification可以使用，如MPMoviePlayerWillEnterFullscreenNotification以及MPMoviePlayerWillExitFullscreenNotification，但經由UIWebViewController播放的影片並不會有這兩個事件發生，故在這裡必須要用私有API，會有被reject的風險，但值得試試看<br><a href="http://stackoverflow.com/questions/8518719/how-to-receive-nsnotifications-from-uiwebview-embedded-youtube-video-playback" target="_blank" rel="external">http://stackoverflow.com/questions/8518719/how-to-receive-nsnotifications-from-uiwebview-embedded-youtube-video-playback</a></p>
+<p><strong>取得UIMoviePlayerController</strong><br>除了事件取不到以外，也沒有辦法可以以程式去控制是否為全螢幕，由於知道底層仍然是使用UIMoviePlayerController，所以如果可以取得到的話就可以使用setFullscreen方法來控制</p>
+<p><a href="https://gist.github.com/romainbriche/2308668" target="_blank" rel="external">https://gist.github.com/romainbriche/2308668</a><br>這個連結提供一個做法去取得該物件，但其實我試了似乎沒效，但可以發現到裡面有FigPluginView的存在（詳細請見下一段），查找資料確認仍有UIMoviePlayerController在其中只是沒有提供方法取用，後來找到一個可行的做法就是藉由NSNotification的callback method來取得</p>
+<pre><code><span class="tag">-</span>(<span class="tag">void</span>) <span class="rule"><span class="attribute">myMovieEnterFullScreen</span>:<span class="value"> (NSNotification*) aNotification
+{
+    moviePlayer = aNotification.object</span></span>;
+  <span class="comment">/* 以下省略 */</span>
+}
+</code></pre><p>當然這樣做還是得要用到上一段說到的私有API</p>
+<p><strong>quick time plugin 與 player controller</strong><br>上一段當中有提到我在UIWebView當中找到一個FigPluginView的存在<br>這個物件與UIWebView, MPMoviePlayerController的關係可見以下連結<br><a href="http://blog.csdn.net/hursing/article/details/8896170" target="_blank" rel="external">http://blog.csdn.net/hursing/article/details/8896170</a><br>詳細說明了播放youtube影片的底層還是使用MPMoviePlayerController</p>
+<h3 id="曾試用過的library">曾試用過的library</h3><p><strong>HCYoutubeParser</strong><br>一開始可以用, 它的作用是幫你抓出youtube實際的播放串流URL，剛開始的時候採用(2月初)，但大約3月時發現不能用了，似乎是資料格式有變動，由於這方面我並不熟所以放棄使用<br><strong>XCDYouTubeVideoPlayerViewController</strong><br>原理同上，一開始就不能用<br><strong>UIWebView-YouTube–iOS-Category–ARC-compliant-code</strong><br>幫UIWebView加上Category讓你方便播放，但只有陽春功能且非使用iframe故放棄    </p>
+<hr>
+<p>20140502</p>
+<p><strong>UIWebView的相關設定</strong><br>mediaPlaybackRequiresUserAction — 是否可自動播放或經用戶控制<br>allowsInlineMediaPlayback — 是否可以inline<br>mediaPlaybackAllowsAirPlay — 是否有airplay功能    </p>
+<p><strong>inline的播放行為</strong><br>經測試如果inline時點擊播放會自動全螢幕播放<br>但如果使用js呼叫player.playVideo()則不會變成全螢幕    </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>iOS不像android一樣有提供youtube的API，要播放youtube影片需要使用UIWebView + youtube iframe api</p>
+<h3 id="使用iframe_api">使用iframe api</h3><p><a href="http:/]]>
+    </summary>
+    
+      <category term="ios" scheme="http://hsienwei.github.io/tags/ios/"/>
+    
+      <category term="youtube" scheme="http://hsienwei.github.io/tags/youtube/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用cocos2d-x實作PostProcessing]]></title>
+    <link href="http://hsienwei.github.io/2013/12/30/%E4%BD%BF%E7%94%A8cocos2d-x%E5%AF%A6%E4%BD%9CPostProcessing/"/>
+    <id>http://hsienwei.github.io/2013/12/30/使用cocos2d-x實作PostProcessing/</id>
+    <published>2013-12-30T09:36:07.000Z</published>
+    <updated>2014-11-18T15:07:48.000Z</updated>
+    <content type="html"><![CDATA[<p>上次做了一些想做的shader效果<br>這次主要研究在cocos2d-x上如何實現Post Processing</p>
+<p>主要的參考資料如下<br><a href="http://en.wikibooks.org/wiki/OpenGL_Programming/Post-Processing" target="_blank" rel="external">http://en.wikibooks.org/wiki/OpenGL_Programming/Post-Processing</a></p>
+<p>裡面主要以OpenGL語法來製作，大概步驟如下<br>建立texture<br>建立post processing用的framebuffer<br>將步驟2的framebuffer作為步驟1的texture資料<br>在post processign framebuffer上繪圖<br>將步驟1的texture搭配post processing shader繪圖出來<br>在cocos2d-x中，因為有提供RenderTexture類別，所以我們可以不用處理那麼多步驟。<br>基本上只要建立起RenderTexture，就可以用getSprite()-&gt;getTexture()來取得與步驟1~3相同效果的texture。<br>步驟4則可以藉由在RenderTexture的begin()與end()中加入要繪圖的物件的visit()來達到。<br>而步驟5則只要將取出的texture用來建立新的sprite，並在該sprite上加上shader就可以了。</p>
+<p>下圖為使用cocos2d-x實作上面連結的效果<br>右下有按鈕可以切換是否使用Post Processing<br>程式一樣放在<a href="https://github.com/hsienwei/shader_cocos2dx" target="_blank" rel="external">https://github.com/hsienwei/shader_cocos2dx</a><br><img src="/2013/12/30/使用cocos2d-x實作PostProcessing/effect.png" alt="最後效果"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>上次做了一些想做的shader效果<br>這次主要研究在cocos2d-x上如何實現Post Processing</p>
+<p>主要的參考資料如下<br><a href="http://en.wikibooks.org/wiki/OpenGL_Programming/Po]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[cocos2d-x中實作幾個shader效果]]></title>
+    <link href="http://hsienwei.github.io/2013/12/26/cocos2dx%E4%B8%AD%E5%AF%A6%E4%BD%9C%E5%B9%BE%E5%80%8Bshader%E6%95%88%E6%9E%9C/"/>
+    <id>http://hsienwei.github.io/2013/12/26/cocos2dx中實作幾個shader效果/</id>
+    <published>2013-12-26T03:24:09.000Z</published>
+    <updated>2014-11-18T15:07:48.000Z</updated>
+    <content type="html"><![CDATA[<p>在之前的專案中有機會使用shader實做了mask效果<br>這次將之前曾經想要做但是專案不願意給時間嘗試的做法試著做出來</p>
+<p>清單如下</p>
+<ul>
+<li>圖片轉灰階<br>cocos2d-x中，sprite的setColor在設定顏色後基本上還是留有本來圖片跟設定顏色混合而已，這個做法是單純的轉灰階</li>
+<li>圖片加邊框<br>有一次專案的需求是希望可以幫圖片在邊緣加上指定顏色的邊框，後來的作法是另外提供圖片，但如果有20張圖有這個需求就需要額外作20張圖，用shader就比較省事</li>
+<li>全畫面遮罩<br>另一次專案的需求是希望玩家可以專注於某個功能的使用，想要將其他部分打暗只留該功能按鈕的部分是亮的；這裡使用layer製作，可以自行指定focus的位置</li>
+<li>背景填滿<br>之前在做背景時都用sprite去拼，實際上物件很多，且容易造成有接縫，如果要移動也麻煩，用shader還滿方便，一樣是用layer去做</li>
+</ul>
+<p>範例程式　<a href="https://github.com/hsienwei/shader_cocos2dx" target="_blank" rel="external">https://github.com/hsienwei/shader_cocos2dx</a><br>目前在win32版與android版<br>用的是vs2013<br><img src="/2013/12/26/cocos2dx中實作幾個shader效果/effect.png" alt="effect"></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在之前的專案中有機會使用shader實做了mask效果<br>這次將之前曾經想要做但是專案不願意給時間嘗試的做法試著做出來</p>
+<p>清單如下</p>
+<ul>
+<li>圖片轉灰階<br>cocos2d-x中，sprite的setColor在設定顏色後基本上還是留有本來]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用HTML5製作投影片]]></title>
+    <link href="http://hsienwei.github.io/2013/12/09/html5-presentation/"/>
+    <id>http://hsienwei.github.io/2013/12/09/html5-presentation/</id>
+    <published>2013-12-09T06:37:16.000Z</published>
+    <updated>2015-10-10T06:39:30.000Z</updated>
+    <content type="html"><![CDATA[<p>由於最近面試有一間公司需要你用投影片去展示一下過去的經歷<br>看了他的工作需求有對HTML5/CSS3等熟悉的條件<br>雖然我不是很熟但想說如果用個有關係的做法來呈現也是不錯<br>（後來發現不是必要）<br>查了一下後決定用HTML5來做投影片<br>看到下面的網站<br><a href="http://www.sitepoint.com/5-free-html5-presentation-systems/" target="_blank" rel="external">http://www.sitepoint.com/5-free-html5-presentation-systems/</a><br>裡面有介紹五個演示系統<br>後來我決定用reveal.js</p>
+<p>成果如下<br><a href="https://dl.dropboxusercontent.com/u/10581994/reveal.js-master/cv.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/reveal.js-master/cv.html</a></p>
+<p>我覺得它有快速鍵可以用<br>esc可以看全部投影片<br>f可以切換全螢幕<br>還有轉換成pdf的功能十分不錯<br>有需要的可以用一下</p>
+<p>唯獨預設的文字感覺較適合英文<br>如果要用在中文上需要在css中修改一下<br>像我是加上黑體來用<br>另外如果是舊一點的電腦換頁動畫可能會有一點delay的狀況</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>由於最近面試有一間公司需要你用投影片去展示一下過去的經歷<br>看了他的工作需求有對HTML5/CSS3等熟悉的條件<br>雖然我不是很熟但想說如果用個有關係的做法來呈現也是不錯<br>（後來發現不是必要）<br>查了一下後決定用HTML5來做投影片<br>看到下面的網站<]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[45度角地圖 Z-Sort 實作]]></title>
+    <link href="http://hsienwei.github.io/2013/11/14/45%E5%BA%A6%E8%A7%92%E5%9C%B0%E5%9C%96-Z-Sort-%E5%AF%A6%E4%BD%9C/"/>
+    <id>http://hsienwei.github.io/2013/11/14/45度角地圖-Z-Sort-實作/</id>
+    <published>2013-11-14T15:50:21.000Z</published>
+    <updated>2015-02-20T15:31:41.000Z</updated>
+    <content type="html"><![CDATA[<p>Demo：<a href="https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html</a><br>Github：<a href="https://github.com/hsienwei/zSort_cocos2dx_html5" target="_blank" rel="external">https://github.com/hsienwei/zSort_cocos2dx_html5</a></p>
+<p>2014/01/16：cocos2d-x 2.2.2已修正此問題<br>2013/11/24 : 目前在chrome中會無法顯示(火狐可以), 為cocos2d-x html5的bug</p>
+<p>這個專案主要是以cocos2d-x html5版本來實作一個我之前在工作中使用的45度角地圖Z-Sort演算法，一來練習cocos2d-x html5，一來為之前的工作內容做一個記錄。</p>
+<p>開啟後一開始的狀況是沒有使用演算法排序的狀況，單純依照加入的順序去排序，按下”Sort”後就會依照演算法的結果為各個Sprite設定Z值。</p>
+<p>當初主要導入這個做法的是我同事，我只是後來有在稍微修改<br>演算法參考網頁：<a href="http://wgcode.iteye.com/blog/847695" target="_blank" rel="external">http://wgcode.iteye.com/blog/847695</a></p>
+<p>Sprite沒有使用圖，直接用drawingUtil來繪圖，發現用手機來看的話線條會沒辦法出來，也許是一個bug，也有可能是因為手機部分還沒有完善。</p>
+<p>另外在點擊事件上也有一點問題，導致必須做很多處理才能達到縮放後也可以正確點擊，不確定這是我的用法錯誤還是這部分本身還不完整，可參照 <a href="https://github.com/hsienwei/zSort_cocos2dx_html5/blob/master/src/myApp.js" target="_blank" rel="external">https://github.com/hsienwei/zSort_cocos2dx_html5/blob/master/src/myApp.js</a>   Line 53</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Demo：<a href="https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html" target="_blank" rel="external">https://dl.dropboxusercon]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="html5" scheme="http://hsienwei.github.io/tags/html5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Unity練習：夜市彈珠台]]></title>
+    <link href="http://hsienwei.github.io/2013/11/13/Unity%E7%B7%B4%E7%BF%92%EF%BC%9A%E5%A4%9C%E5%B8%82%E5%BD%88%E7%8F%A0%E5%8F%B0/"/>
+    <id>http://hsienwei.github.io/2013/11/13/Unity練習：夜市彈珠台/</id>
+    <published>2013-11-13T09:29:01.000Z</published>
+    <updated>2015-02-23T02:02:17.000Z</updated>
+    <content type="html"><![CDATA[<p>Demo：<a href="https://dl.dropboxusercontent.com/u/10581994/pinball/pinball.html" target="_blank" rel="external">https://dl.dropboxusercontent.com/u/10581994/pinball/pinball.html</a><br>Github：<a href="https://github.com/hsienwei/pinball_unity" target="_blank" rel="external">https://github.com/hsienwei/pinball_unity</a></p>
+<p>玩法就是按一下滑鼠左鍵放球，再按著滑鼠左鍵蓄力，放開後發射，當球都打完後按一下滑鼠左鍵會讓球掉到下面重來。</p>
+<p>感覺上沒有花太多時間在寫程式，反而弄Model跟動作的處理比較花時間。</p>
+<p>物理部分就完全用Unity內建的功能，主要只有調整Physic material來做到彈珠打到釘子會有彈回的效果，另外有將Time.fixedDeltaTime調小，不然速度快的時候球會飛出去，或者物理的行為不精準。</p>
+<p>動作部分，球台下面的檔板基本上使用3ds Max中作的動畫，發射的動畫本來也是要用3ds Max來做，但是由於放到Unity中位置會跑掉，所以後來直接用Unity的Animation來處理。</p>
+<p>Shader部分由於本來美術就不是專長，所以直接用一個內建的shader；另外沒有2D介面，之後再來試試看4.3的2D功能。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Demo：<a href="https://dl.dropboxusercontent.com/u/10581994/pinball/pinball.html" target="_blank" rel="external">https://dl.dropboxusercon]]>
+    </summary>
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[cocos2d-x mask 作法嘗試]]></title>
+    <link href="http://hsienwei.github.io/2013/10/02/cocos2d-x-mask-%E4%BD%9C%E6%B3%95%E5%98%97%E8%A9%A6/"/>
+    <id>http://hsienwei.github.io/2013/10/02/cocos2d-x-mask-作法嘗試/</id>
+    <published>2013-10-01T16:41:21.000Z</published>
+    <updated>2015-10-10T16:44:32.000Z</updated>
+    <content type="html"><![CDATA[<p>20151011補:<br>新版本(3.x)用cliping node即可</p>
+<hr>
+<p>這裡指的mask是說一張圖但我要將指定一部分挖掉這樣，我在做的時候都是以一張圖為主圖，另一張mask圖以alpha值指定要挖空的地方</p>
+<p>目前有試過兩種做法</p>
+<h2 id="RenderTexture_+_BlendFunc">RenderTexture + BlendFunc</h2><p>大概程式碼如下</p>
+<pre><code>CCSprite* createMaskSprite()
+{
+    cocos2d::ccBlendFunc bf;
+    bf.src = GL_DST_ALPHA;<span class="comment">//GL_ONE_MINUS_DST_ALPHA;</span>
+    bf.dst = GL_ZERO;
+
+    CCSprite* selfSprite = <span class="comment">/*主圖的sprite*/</span>;
+    CCSprite* maskSprite = <span class="comment">/*mask圖的sprite*/</span>;
+    selfSprite-&gt;setPosition(ccp(selfSprite-&gt;getContentSize().width/<span class="number">2</span>, selfSprite-&gt;getContentSize().height/<span class="number">2</span>));
+    maskSprite-&gt;setPosition(ccp(maskSprite-&gt;getContentSize().width/<span class="number">2</span>, maskSprite-&gt;getContentSize().height/<span class="number">2</span>));
+
+    selfSprite-&gt;setBlendFunc(bf);
+
+    CCRenderTexture *rt = CCRenderTexture::create((<span class="keyword">int</span>)selfSprite-&gt;getContentSize().width, (<span class="keyword">int</span>)selfSprite-&gt;getContentSize().height);
+    rt-&gt;beginWithClear(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);
+    maskSprite-&gt;visit();
+    selfSprite-&gt;visit();
+    rt-&gt;end();
+
+    CCSprite *retval = CCSprite::createWithTexture(rt-&gt;getSprite()-&gt;getTexture());
+    retval-&gt;getTexture()-&gt;setAntiAliasTexParameters();
+    retval-&gt;setFlipY(<span class="keyword">true</span>);
+
+    <span class="keyword">return</span> retval;
+}
+</code></pre><p>主要是使用BlendFunc的方法，在RenderTexture畫出想要的效果之後再使用，但如果只直接用BlendFunc可能會被其他的sprite影響產不出想要的效果 </p>
+<h2 id="Shader">Shader</h2><p>Shader程式碼處理起來比較麻煩，建議看cocos2d-x範例程式的shader部分<br>下面是我寫的一個小範例<br><a href="https://github.com/hsienwei/shader_cocos2dx" target="_blank" rel="external">https://github.com/hsienwei/shader_cocos2dx</a></p>
+<p>cocos2d-x的部分主要是參考範例程式改的<br>重要的是shader部分</p>
+<pre><code><span class="preprocessor">#ifdef GL_ES</span>
+<span class="keyword">precision</span> <span class="keyword">mediump</span> <span class="keyword">float</span>;
+<span class="preprocessor">#endif</span>
+
+<span class="keyword">varying</span> <span class="keyword">vec4</span> v_fragmentColor;
+<span class="keyword">varying</span> <span class="keyword">vec2</span> v_texCoord;
+
+<span class="keyword">uniform</span> <span class="keyword">sampler2D</span> u_texture;
+<span class="keyword">uniform</span> <span class="keyword">sampler2D</span> u_mask;
+
+<span class="keyword">void</span> main() {
+    <span class="keyword">vec4</span> mainColor = <span class="built_in">texture2D</span>(u_texture, v_texCoord);
+    <span class="keyword">vec4</span> maskColor = <span class="built_in">texture2D</span>(u_mask, v_texCoord);
+    <span class="keyword">vec4</span> srcColor = <span class="keyword">vec4</span>(mainColor.r * maskColor.a,
+                         mainColor.g * maskColor.a,
+                         mainColor.b * maskColor.a,
+                         mainColor.a * maskColor.a);
+
+    <span class="built_in">gl_FragColor</span> = srcColor;
+}
+</code></pre><p>將主圖的rgba值都乘以mask圖的alpha值即可，要達到這個效果只要動Fragment Shader即可</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>20151011補:<br>新版本(3.x)用cliping node即可</p>
+<hr>
+<p>這裡指的mask是說一張圖但我要將指定一部分挖掉這樣，我在做的時候都是以一張圖為主圖，另一張mask圖以alpha值指定要挖空的地方</p>
+<p>目前有試過兩種做法</p>]]>
+    </summary>
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+  </entry>
+  
+</feed>
