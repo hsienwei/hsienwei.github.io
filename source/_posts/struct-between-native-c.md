@@ -54,7 +54,7 @@ tags:
     
         public const string PlatformDllName = "__Internal";
     #else
-        public const string PlatformDllName = "GameCenterPlugin";  // 不用加lib.
+        public const string PlatformDllName = "Name";  // 不用加lib.
     #endif
     ```
     c#端方法宣告    
