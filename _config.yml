@@ -98,4 +98,4 @@ tag_generator:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/hsienwei/hsienwei.github.io.git
+  repo: git@github.com:hsienwei/hsienwei.github.io.git
