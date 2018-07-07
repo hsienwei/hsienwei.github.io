@@ -81,6 +81,7 @@ menu:
   Archives: archives
   Tags: tags
   Feed: atom.xml
+  Github: https://github.com/hsienwei
 
 # Content
 excerpt_link: Read More
