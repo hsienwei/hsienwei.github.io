@@ -1,3 +1,6 @@
 [submodule "source/pages/skiprender/ZSortTest"]
 	path = source/pages/skiprender/ZSortTest
 	url = https://github.com/hsienwei/zSort_cocos2dx_html5.git
+[submodule "source/pages/match3_pixi"]
+	path = source/pages/match3_pixi
+	url = https://github.com/hsienwei/match3_pixi.git
