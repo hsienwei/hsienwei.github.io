@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>cocos2d將大張SpriteFrame縮小後消除鋸齒的作法 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="研究後沒有使用紀錄一下   如果有一張大圖想要縮小使用當縮小的比例很小時即使對該圖的texture 呼叫 setAntiAliasTexParameters()也會有鋸齒的感覺   如果不另外用小圖的話可以使用mipmap去處理主要對目標texture作兩步驟處理    呼叫generateMipmap() 呼叫setTexParameters()ccTexParams.minFilter = G">
+<meta name="keywords" content="cocos2d-x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cocos2d將大張SpriteFrame縮小後消除鋸齒的作法">
+<meta property="og:url" content="http://hsienwei.github.io/2011/12/05/cocos2d將大張SpriteFrame縮小後消除鋸齒的作法/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="研究後沒有使用紀錄一下   如果有一張大圖想要縮小使用當縮小的比例很小時即使對該圖的texture 呼叫 setAntiAliasTexParameters()也會有鋸齒的感覺   如果不另外用小圖的話可以使用mipmap去處理主要對目標texture作兩步驟處理    呼叫generateMipmap() 呼叫setTexParameters()ccTexParams.minFilter = G">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cocos2d將大張SpriteFrame縮小後消除鋸齒的作法">
+<meta name="twitter:description" content="研究後沒有使用紀錄一下   如果有一張大圖想要縮小使用當縮小的比例很小時即使對該圖的texture 呼叫 setAntiAliasTexParameters()也會有鋸齒的感覺   如果不另外用小圖的話可以使用mipmap去處理主要對目標texture作兩步驟處理    呼叫generateMipmap() 呼叫setTexParameters()ccTexParams.minFilter = G">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-cocos2d將大張SpriteFrame縮小後消除鋸齒的作法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cocos2d將大張SpriteFrame縮小後消除鋸齒的作法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2011/12/05/cocos2d將大張SpriteFrame縮小後消除鋸齒的作法/" class="article-date">
+  <time datetime="2011-12-04T16:58:11.000Z" itemprop="datePublished">2011-12-05</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2011/12/05/cocos2d將大張SpriteFrame縮小後消除鋸齒的作法/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>研究後沒有使用<br>紀錄一下  </p>
+<p>如果有一張大圖想要縮小使用<br>當縮小的比例很小時<br>即使對該圖的texture 呼叫 setAntiAliasTexParameters()<br>也會有鋸齒的感覺  </p>
+<p>如果不另外用小圖的話<br>可以使用mipmap去處理<br>主要對目標texture作兩步驟處理  </p>
+<ol>
+<li>呼叫generateMipmap()</li>
+<li>呼叫setTexParameters()<br>ccTexParams.minFilter = GL_LINEAR_MIPMAP_LINEAR<br>ccTexParams.magFilter = GL_LINEAR or GL_LINEAR_MIPMAP_LINEAR  </li>
+</ol>
+<p>基本上原圖為NPOT才可以用<br>使用後就不會有明顯的鋸齒感覺<br>感覺上會比較滑順  </p>
+<p>但應該會加重記憶體的使用<br>故不使用  </p>
+<p>ref :<br><a href="http://www.cocos2d-iphone.org/forum/topic/2735" target="_blank" rel="noopener">http://www.cocos2d-iphone.org/forum/topic/2735</a><br><a href="http://zh.wikipedia.org/wiki/Mipmap" target="_blank" rel="noopener">http://zh.wikipedia.org/wiki/Mipmap</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2012/01/02/Amit’s-Game-Programming-Information/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Amit’s Game Programming Information
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2011/12/05/Lua預編譯/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Lua預編譯&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2011/12/05/cocos2d將大張SpriteFrame縮小後消除鋸齒的作法/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

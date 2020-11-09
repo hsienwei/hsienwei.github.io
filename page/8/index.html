@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/page/8/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-cocos2dx-i9100-音效播放當機問題" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/06/cocos2dx-i9100-音效播放當機問題/">cocos2d-x i9100 音效播放當機問題</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/08/06/cocos2dx-i9100-音效播放當機問題/" class="article-date">
+  <time datetime="2013-08-06T06:56:22.000Z" itemprop="datePublished">2013-08-06</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/08/06/cocos2dx-i9100-音效播放當機問題/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>問題描述</strong></p>
+<p>使用版本cocos2d-x 2.1.3<br>特定機型 i9100音效播放時當機</p>
+<p><strong>錯誤訊息</strong></p>
+<pre><code>I/DEBUG (13020): *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+I/DEBUG (13020): Build fingerprint: &apos;samsung/GT-I9100/GT-I9100:4.0.4/IMM76D/ZSLPQ:user/release-keys&apos;
+I/DEBUG (13020): pid: 14187, tid: 14200 &gt;&gt;&gt; xxx.xxxxxx.xxxx &lt;&lt;&lt;
+I/DEBUG (13020): signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 00000000
+.....
+I/DEBUG (13020): #00 pc 00521476 /data/data/xxx.xxxxxx.xxxx/lib/libgame.so (_ZN12OpenSLEngine16setEffectLoopingEjb)
+I/DEBUG (13020): #01 pc 00521dfa /data/data/xxx.xxxxxx.xxxx/lib/libgame.so (_ZN23SimpleAudioEngineOpenSL10playEffectEPKcb)
+</code></pre><p>經查詢後發現cocos2d-x引擎在i9100上使用OpenSL(僅有這一隻)   故只有i9100出現此問題</p>
+<p><strong>修改方式</strong></p>
+<p>先說這不是個好做法</p>
+<p>OpenSLEngine.cpp</p>
+<pre><code>void OpenSLEngine::setEffectLooping(unsigned int effectID, bool isLooping)
+{
+
+  if(sharedList().find(effectID) == sharedList().end()) return; //&lt;--add this
+
+  SLresult result;
+  vector* vec = sharedList()[effectID];
+  assert(NULL != vec);
+
+  // get the first effect player that to be set loop config
+  vector::iterator iter = vec-&gt;begin();
+  AudioPlayer * player = *iter;
+</code></pre><p>主要原因應該是sharedList()[effectID];取vector*時沒有該key的物件<br>但是vector這樣取會自行幫你產生一個物件<br>但該物件雖然不是NULL(故可避過assert檢查)又不是有效的物件<br>才會造成當機</p>
+<p>引發的原因查詢後認為是如  <a href="http://www.cocos2d-x.org/boards/6/topics/26439" target="_blank" rel="noopener">http://www.cocos2d-x.org/boards/6/topics/26439</a> 網頁上所講的一樣<br>因為i9100有音效數量限制所引發<br>之所以說這不是好做法是因為應該要減少使用音效數<br>或者作動態載入<br>緊急的狀況下只能先這樣做<br>但這樣做會有一些音效播不到</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-GCM在無該服務的Exception" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/07/08/GCM在無該服務的Exception/">GCM在無該服務的Exception</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/07/08/GCM在無該服務的Exception/" class="article-date">
+  <time datetime="2013-07-08T07:04:20.000Z" itemprop="datePublished">2013-07-08</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/07/08/GCM在無該服務的Exception/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>問題</strong><br>把目前運行測試正常的檔案送給大陸廠商，卻發現無法進入遊戲</p>
+<p><strong>解答</strong><br>後來弄到了出現問題的手機運行後發現下面的錯誤訊息</p>
+<pre><code>Caused by: java.lang.UnsupportedOperationException: Device does not have package com.google.android.gsf
+E/AndroidRuntime( 787): at com.google.android.gcm.GCMRegistrar.checkDevice(GCMRegistrar.java:98)
+</code></pre><p>須處理沒有該服務時例外狀況</p>
+<p>重點在於大陸手機多沒有google服務<br>所以GCM部分需要處理 UnsupportedOperationException</p>
+<p>所以</p>
+<ol>
+<li>在用google相關服務時須要考慮沒有該服務時的狀況(尤其大陸地區)</li>
+<li>相關服務須要找替代品(金流是很好找  但推播就真的比較少聽過了)</li>
+</ol>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Android問題紀錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/31/Android問題紀錄/">Android問題紀錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/05/31/Android問題紀錄/" class="article-date">
+  <time datetime="2013-05-31T14:10:21.000Z" itemprop="datePublished">2013-05-31</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/05/31/Android問題紀錄/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p><strong>問題：</strong><br>一次更新後，所有純平版裝置都無法在Google Play中看到該App，該次更新主要提供使用簡訊小額付費機制<br><strong>解答：</strong><br><a href="http://developer.android.com/guide/topics/manifest/uses-feature-element.html" target="_blank" rel="noopener">http://developer.android.com/guide/topics/manifest/uses-feature-element.html</a><br>因為簡訊寄送需要增加<code>SEND_SMS</code>這個Permission，連帶會自動將<code>android.hardware.telephony</code>這個feature設為需求<br>解法為在 androidmanifest中增加<code>&lt;uses-featureandroid:name=&quot;android.hardware.telephony&quot;android:required=&quot;false&quot;/&gt;</code></p>
+</li>
+<li><p><strong>問題：</strong><br>遊戲當中並沒有使用到menu鍵，但是只要手機沒有實體menu鍵的話都會出現虛擬menu鍵<br><strong>解答：</strong><br><a href="http://stackoverflow.com/questions/7035325/how-i-hide-the-menu-button-for-one-activity" target="_blank" rel="noopener">http://stackoverflow.com/questions/7035325/how-i-hide-the-menu-button-for-one-activity</a><br>之前我沒有設定targetSdkVersion，由於targetSdkVersion預設等於minSdkVersion，而我設定的值為9，被判定為legacy，則會顯示虛擬menu鍵<br>targetSdkVersion設為14後則解決</p>
+</li>
+<li><p><strong>問題：</strong><br>targetSdkVersion換成14後的測試期間，發現home鍵與power鍵兩種進入讓遊戲進入背景的方法的行為不同<br><strong>解答：</strong><br>請直接看 <a href="http://blog.csdn.net/hunter_hb/article/details/8572095" target="_blank" rel="noopener">http://blog.csdn.net/hunter_hb/article/details/8572095</a><br>解說的十分詳細<br>我的設定是orientation 修改後解決    </p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-專案中與cURL相關瀕繁當機處理記錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/">專案中與cURL相關瀕繁當機處理記錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/" class="article-date">
+  <time datetime="2013-05-30T14:15:23.000Z" itemprop="datePublished">2013-05-30</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下是專案中遇到的一個比較特別的問題 記錄如下</p>
+<h3 id="問題"><a href="#問題" class="headerlink" title="問題"></a>問題</h3><p>在某次上市的android版遊戲有瀕繁當機的狀況，通常是在進遊戲後不久，而這狀況在內部測試時並不常出現，且無發生在iOS版本  </p>
+<h3 id="處理"><a href="#處理" class="headerlink" title="處理"></a>處理</h3><ol>
+<li>本次新上市版本增加公告功能<br>由cURL進行http連線取得公告設定，檔案與圖片此部分使用cocos2d-x extensions的network套件，遊戲本身server連線程式也由cURL寫成  </li>
+<li><p>測得兩次進遊戲後當機(花三天測試出現兩次)，看似curl程式庫引發，錯誤訊息如下：  </p>
+<pre><code>Fatal signal 11 (SIGSEGV) at 0x5103a793 (code=2)
+I/DEBUG   (  135): *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+I/DEBUG   (  135): Build fingerprint: &apos;samsung/GT-I9000/GT-I9000:2.3.5/GINGERBREAD/XXJVT:user/release-keys&apos;
+I/DEBUG   (  135): pid: 11056, tid: 11056  &gt;&gt;&gt; com.igs.salonbossworld &lt;&lt;&lt;
+I/DEBUG   (  135): signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault addr 5103a793
+……….
+I/DEBUG   (  135):  d30 0000000000000000  d31 3ff0000000000000
+I/DEBUG   (  135):  scr 60000010
+I/DEBUG   (  135):
+I/DEBUG   (  135):          #00  pc 005691b6  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so
+I/DEBUG   (  135):          #01  pc 0056935e  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so
+I/DEBUG   (  135):          #02  pc 0056a150  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_mvsnprintf)
+I/DEBUG   (  135):          #03  pc 0055d014  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_failf)
+I/DEBUG   (  135):          #04  pc 00556586  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (curl_resolv_timeout)
+I/DEBUG   (  135):          #05  pc 0056308a  /mnt/asec/com.igs.salonbossworld-1/lib/libgame.so (Curl_connect)
+</code></pre></li>
+<li><p>以<code>curl_mvsnprintf</code>, <code>curl_failf</code>, <code>curl_resolv_timeout</code>部份作搜尋，查得幾篇技術文章有類似狀況如下<br><a href="http://sourceforge.net/p/curl/bugs/973/" target="_blank" rel="noopener">http://sourceforge.net/p/curl/bugs/973/</a><br><a href="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=617647" target="_blank" rel="noopener">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=617647</a><br>重點在使用cURL並在多執行緒狀況下<br>有篇文章說明這個狀況取決於os與thread的實作細節(回文的是官方人員)<br><a href="http://curl.haxx.se/mail/lib-2002-12/0103.html" target="_blank" rel="noopener">http://curl.haxx.se/mail/lib-2002-12/0103.html</a>  </p>
+<blockquote>
+<p>AFAIK, it isn’t always specified what happens with signals in a multi-threaded system, it depends on your OS and your thread implementation. Which thread receives the signal etc.  </p>
+</blockquote>
+<p> 另外官方有說明Multi-threading的相關問題<br> <a href="http://curl.haxx.se/libcurl/c/libcurl-tutorial.html#Multi-threading" target="_blank" rel="noopener">http://curl.haxx.se/libcurl/c/libcurl-tutorial.html#Multi-threading</a><br> 另有一篇中文說明文章  <a href="http://www.cppblog.com/tx7do/archive/2012/02/20/166048.html" target="_blank" rel="noopener">http://www.cppblog.com/tx7do/archive/2012/02/20/166048.html</a>  </p>
+</li>
+<li><p>依照文章說明有2種作法，一是使用CURLOPT_NOSIGNAL，缺點是會失去DNS Lookup timeout的能力，可用增加c-ares支援解決(但有文章指出某些android裝置會有問題  <a href="http://curl.haxx.se/mail/lib-2013-04/0276.html" target="_blank" rel="noopener">http://curl.haxx.se/mail/lib-2013-04/0276.html</a>)<br>另一個方法是保持同時間只有一個curl handle，缺點需要改動程式架構  </p>
+</li>
+<li><p>基於幾點推測當機可能符合該BUG，之所以說是推測是因為無法確認玩家當機的確切原因且測試時無法完全重現</p>
+<ul>
+<li>連server的程式都以pthread開執行緒並以curl程式庫作http連線，當遊戲剛進去有可能會更新信件與動態公告資料，此時多執行緒成立。  </li>
+<li>由於取決於這個狀況取決於os與thread的實作，或許可以解釋為何iOS無該狀況發生，</li>
+<li>猜測玩家之所以比較容易發生是因為玩家通常在信件上資料會比較多或者是玩家常處於不穩定網路狀況故較容易逾時。   </li>
+</ul>
+</li>
+<li><p>討論後將android動態公告http連線方式由cURL改為android原生方法，新版上市後已無該狀況。</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-修改cocos2d-x提供的build-native-sh" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/05/23/修改cocos2d-x提供的build-native-sh/">修改cocos2d-x提供的build_native.sh</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/05/23/修改cocos2d-x提供的build-native-sh/" class="article-date">
+  <time datetime="2013-05-23T14:41:27.000Z" itemprop="datePublished">2013-05-23</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/05/23/修改cocos2d-x提供的build-native-sh/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在cocos2d-x專案中要編譯native code時會用到build_native.sh來做編譯，這個Bash腳本會使用NDK的ndk-build  </p>
+<p>隨著專案越來越複雜有些需求需要特別去處理,以我自己的狀況來講，須要分為Debug與Release兩個版本以及分為國際版與韓國版，上述兩個部分都可以經由修改build_native.sh來達到，下面會分成幾個部分來說：</p>
+<p>先列出幾個教學網站<br><a href="http://www.ibm.com/developerworks/cn/linux/l-bash-parameters.html" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/linux/l-bash-parameters.html</a><br><a href="http://linuxconfig.org/Bash_scripting_Tutorial#18-redirections" target="_blank" rel="noopener">http://linuxconfig.org/Bash_scripting_Tutorial#18-redirections</a><br><a href="http://linux.vbird.org/linux_basic/0340bashshell-scripts.php" target="_blank" rel="noopener">http://linux.vbird.org/linux_basic/0340bashshell-scripts.php</a><br>我都是有需要在去查</p>
+<p>基本上這個部份我是在版本2.0.3加的  但是最新的2.1.3應該也可用</p>
+<h2 id="選項修改"><a href="#選項修改" class="headerlink" title="選項修改"></a>選項修改</h2><p>原本build_native.sh中的選項部分的程式碼如下<br>其實要不是因為要改這個部份我還不知道這個腳本有選項可以用  </p>
+<pre><code>while getopts &quot;sh&quot; OPTION; do  
+case &quot;$OPTION&quot; in  
+s)  
+buildexternalsfromsource=1  
+;;  
+h)  
+usage  
+exit 0  
+;;  
+esac  
+done  
+</code></pre><p>上面的寫法主要是處理”-s”這種型態的選項，也就是說如果今天的的指令是長下面這樣：<br><code>bash build_native.sh  -s  xxx</code><br>就只會處理-s的部分。</p>
+<p>原本是想說就再加一個選項，結果並不如我想的這樣簡單，基本上先看到下面跟ndk-build有關的程式碼如下  </p>
+<pre><code>&quot;$NDK_ROOT&quot;/ndk-build -C &quot;$APP_ANDROID_ROOT&quot; $* \
+NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/source&quot;  
+</code></pre><p>重點在於<code>$*</code>代表該腳本的所有參數，如果今天我用了一個ndk-build已經有的參數就會影響ndk-build的行為，如果用了一個沒有的又會說是一個invalid option。</p>
+<p>此時有兩個做法  一個是把 $*拿掉，但是這樣有一個缺點，原本可以下如下指令<br><code>bash build_native.sh clean</code>，也就是<code>ndk-build clean</code>，就會變成不能用。</p>
+<p>另一個做法就是在選項的部分作修改，以下是我的改法：</p>
+<pre><code>for p in $*
+do
+     echo &quot;$p&quot;
+     case $p in
+          &quot;kr&quot;)
+               echo &quot;force build kr&quot;
+               forcebuildkr=1
+               #Can not pass this parameter to next call bash
+               ;;
+          &quot;debug&quot;)
+               echo &quot;get debug&quot;
+               debugflag=1
+               #Can not pass this parameter to next call bash
+               ;;
+          &quot;-s&quot;)
+               buildexternalsfromsource=1
+               param=&quot;$param$p &quot;
+               ;;
+          &quot;-h&quot;)
+               usage
+               exit 0
+               ;;
+          *)
+               param=&quot;$param$p &quot;
+               ;;
+     esac
+done  
+</code></pre><p>這是另一種選項的做法，以上面提到的<code>bash build_native.sh  -s  xxx</code>，在這裡就會全都處理到，又由於我不想全部選項都傳到<code>ndk-build</code>，所以該傳的我就存在<code>$param</code>，再把<code>$</code>*改為<code>$param</code>即可，此時我已經可以透過選項來選擇我要怎樣的版本。</p>
+<h2 id="利用Application-mk分不同的版本"><a href="#利用Application-mk分不同的版本" class="headerlink" title="利用Application.mk分不同的版本"></a>利用Application.mk分不同的版本</h2><p>在最早的時候，我在分debug與release版的時候是直接去android.mk中修改CPPFLAG，後來覺得實在是太麻煩要改來改去，就採取我現在使用的方法</p>
+<p>ndk-build有一個選項：<code>ndk-build NDK_APPLICATION_MK=</code>，可以讓你自己指定要使用的Application.mk，所以我將不同狀況需要的CPPFLAG設定寫到不同的Application.mk檔中，再依照選項不同設定不同的數值去決定到底要用哪一個，大概如下：</p>
+<pre><code>if [[ &quot;$debugflag&quot; ]]; then
+     echo &quot;debug on!!&quot;
+     if [[ &quot;$forcebuildkr&quot; ]]; then
+          echo &quot;force build kr!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_debug_kr.mk&quot;
+     else
+          echo &quot;build global!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_debug.mk&quot;
+     fi
+else
+     echo &quot;debug off!!&quot;
+     if [[ &quot;$forcebuildkr&quot; ]]; then
+          echo &quot;force build kr!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_kr.mk&quot;
+     else
+          echo &quot;build global!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application.mk&quot;
+     fi
+fi
+&quot;$NDK_ROOT&quot;/ndk-build NDK_APPLICATION_MK=&quot;$usedebugappmk&quot; -C &quot;$APP_ANDROID_ROOT&quot; $param \
+&quot;NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/prebuilt&quot;
+</code></pre><h2 id="控制資源"><a href="#控制資源" class="headerlink" title="控制資源"></a>控制資源</h2><p>一般cocos2d-x專案的資源檔都放在Resource資料夾下，後來我遇到了某種情況是某些檔案只在android狀況下改變，所以我另外開個一個資料夾Resource_android，在原本的# copy resources腳本下，添加了一段處理android特有資源的程式：</p>
+<pre><code># copy ver android
+for file in &quot;$APP_ROOT&quot;/Resource_android/*
+do
+if [ -d &quot;$file&quot; ]; then
+    cp -rf &quot;$file&quot; &quot;$APP_ANDROID_ROOT&quot;/assets
+fi
+if [ -f &quot;$file&quot; ]; then
+    cp &quot;$file&quot; &quot;$APP_ANDROID_ROOT&quot;/assets
+fi
+done
+</code></pre><p>另外也可以將腳本寫在別的.sh中在去呼叫如下  </p>
+<pre><code>if [[ &quot;$debugflag&quot; -ne 1 ]]; then
+     echo &quot;delete .lua .bat .exe&quot;
+     if [ -e &quot;del_lua.sh&quot; ]; then
+          ./del_lua.sh
+     fi
+fi
+</code></pre><p>專案在做release版時會將lua檔全部刪除，這部分是寫在另一個.sh中。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

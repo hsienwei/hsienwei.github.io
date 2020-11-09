@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-Godot最小產出測試" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/11/10/Godot最小產出測試/">Godot最小產出測試</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2020/11/10/Godot最小產出測試/" class="article-date">
+  <time datetime="2020-11-09T16:03:56.000Z" itemprop="datePublished">2020-11-10</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2020/11/10/Godot最小產出測試/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Godot"><a href="#Godot" class="headerlink" title="Godot"></a>Godot</h1><p>一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引擎產出的release版遊戲大概最小可以到什麼程度，這在網頁遊戲來講還滿重要的。<br>以前曾經用unity產出幾個非常簡單的網頁遊戲大概都要4M起跳，其實跟一般html5的framework(如pixi.js)的所需檔案大小相差甚遠(V4.4.5 約403KB)。</p>
+<h1 id="初始系統安裝"><a href="#初始系統安裝" class="headerlink" title="初始系統安裝"></a>初始系統安裝</h1><ol>
+<li>安裝python 3.8</li>
+<li>安裝scons<br><code>python -m pip install scons</code></li>
+<li><a href="#設定cc-compiler">設定c/c++ compiler</a></li>
+</ol>
+<h1 id="下載-godot-source-code"><a href="#下載-godot-source-code" class="headerlink" title="下載 godot source code"></a>下載 godot source code</h1><p>一開始以為是要在遊戲專案下使用scons，會有以下訊息</p>
+<blockquote>
+<p>scons: *** No SConstruct file found.<br>File “d:\dev\python\python38\lib\site-packages\SCons\Script\Main.py”, line 947, in _main</p>
+</blockquote>
+<p>後來看了<a href="https://godotengine.org/qa/24836/compiling-for-the-web-no-sconstruct-file-found" target="_blank" rel="noopener">這篇</a>才發現是要下載原始碼，在godot 原始碼目錄下使用</p>
+<p>個人使用 3.2.3-stable<br>release 連結如下<br><a href="https://github.com/godotengine/godot/releases/tag/3.2.3-stable" target="_blank" rel="noopener">https://github.com/godotengine/godot/releases/tag/3.2.3-stable</a><br>或者也可以使用 git clone tag 3.2.3-stable</p>
+<p>下載結束後，可以執行<code>scons platform=list</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; scons platform=list</span><br><span class="line">scons: Reading SConscript files ...</span><br><span class="line">The following platforms are available:</span><br><span class="line"></span><br><span class="line">        windows</span><br></pre></td></tr></table></figure>
+<p>一開始只會有windows，scons會檢查是否有相關toolchain<br><a href="https://godotengine.org/qa/30417/scons-build-only-has-windows-platform" target="_blank" rel="noopener">https://godotengine.org/qa/30417/scons-build-only-has-windows-platform</a></p>
+<h1 id="設定c-c-compiler"><a href="#設定c-c-compiler" class="headerlink" title="設定c/c++ compiler"></a>設定c/c++ compiler</h1><p>如果遇到下面的訊息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scons: warning: No version of Visual Studio compiler found - C/C++ compilers most likely not set correctly</span><br><span class="line">File &quot;D:\godot\test\SConstruct&quot;, line 3, in &lt;module&gt;</span><br><span class="line">ModuleNotFoundError: No module named &apos;glsl_builders&apos;:</span><br><span class="line">  File &quot;D:\godot\test\SConstruct&quot;, line 15:</span><br><span class="line">    import glsl_builders</span><br></pre></td></tr></table></figure></p>
+<p>表示需要安裝VS compiler, 此時可參照下面網頁內容<br><a href="https://wiki.python.org/moin/WindowsCompilers" target="_blank" rel="noopener">https://wiki.python.org/moin/WindowsCompilers</a><br>我使用python 3.8 故照<a href="https://wiki.python.org/moin/WindowsCompilers#Microsoft_Visual_C.2B-.2B-_14.2_standalone:_Build_Tools_for_Visual_Studio_2019_.28x86.2C_x64.2C_ARM.2C_ARM64.29" target="_blank" rel="noopener">這一節</a>處理</p>
+<h1 id="編譯web版"><a href="#編譯web版" class="headerlink" title="編譯web版"></a>編譯web版</h1><p>主要參照以下內容<br><a href="https://docs.godotengine.org/en/stable/development/compiling/compiling_for_web.html" target="_blank" rel="noopener">https://docs.godotengine.org/en/stable/development/compiling/compiling_for_web.html</a></p>
+<p>安裝emscripten<br><a href="https://emscripten.org/docs/getting_started/downloads.html" target="_blank" rel="noopener">https://emscripten.org/docs/getting_started/downloads.html</a><br>參照這個連結，照著操作就可以<br>唯一要注意的點是每次要編譯前需要設定環境<br>只要執行sdk底下的<code>emsdk_env.bat</code>就可以</p>
+<p>設定成功後輸入<code>scons platform=list</code>應該會多出一個新的選項</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scons platform=list</span><br><span class="line">scons: Reading SConscript files ...</span><br><span class="line">The following platforms are available:</span><br><span class="line"></span><br><span class="line">        javascript</span><br><span class="line">        windows</span><br></pre></td></tr></table></figure>
+<p>看到javascript後可以輸入<code>scons platform=javascript tools=no target=release -j 4</code>開始編譯，如果編譯成功的話檔案會在<code>godot_root/bin/godot.javascript.opt.zip</code>。如果<code>target=release_debug</code>的話會是<code>godot_root/bin/godot.javascript.opt.debug.zip</code>,<code>-j 4</code>是使用多核編譯</p>
+<p>根據<a href="https://docs.godotengine.org/en/stable/development/compiling/optimizing_for_size.html" target="_blank" rel="noopener">這一節</a>的內容，我們可以藉由關閉一些功能來減少產出的程式庫大小，其調整可以使用console的選項，但godot提供另一個方法，可以放一個<code>custom.py</code>檔案來設置選項，並且提供<a href="https://godot-build-options-generator.github.io/" target="_blank" rel="noopener">工具</a>來生成這個檔案，以下是我使用的設置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># Generated using https://godot-build-options-generator.github.io</span><br><span class="line"></span><br><span class="line">disable_3d = &quot;yes&quot;</span><br><span class="line">optimize = &quot;size&quot;</span><br><span class="line">disable_advanced_gui = &quot;yes&quot;</span><br><span class="line">deprecated = &quot;no&quot;</span><br><span class="line">module_arkit_enabled = &quot;no&quot;</span><br><span class="line">module_bmp_enabled = &quot;no&quot;</span><br><span class="line">module_bullet_enabled = &quot;no&quot;</span><br><span class="line">module_camera_enabled = &quot;no&quot;</span><br><span class="line">module_csg_enabled = &quot;no&quot;</span><br><span class="line">module_dds_enabled = &quot;no&quot;</span><br><span class="line">module_enet_enabled = &quot;no&quot;</span><br><span class="line">module_etc_enabled = &quot;no&quot;</span><br><span class="line">module_gdnative_enabled = &quot;no&quot;</span><br><span class="line">module_gdnavigation_enabled = &quot;no&quot;</span><br><span class="line">module_gdscript_enabled = &quot;no&quot;</span><br><span class="line">module_gridmap_enabled = &quot;no&quot;</span><br><span class="line">module_hdr_enabled = &quot;no&quot;</span><br><span class="line">module_jpg_enabled = &quot;no&quot;</span><br><span class="line">module_jsonrpc_enabled = &quot;no&quot;</span><br><span class="line">module_mbedtls_enabled = &quot;no&quot;</span><br><span class="line">module_mobile_vr_enabled = &quot;no&quot;</span><br><span class="line">module_ogg_enabled = &quot;no&quot;</span><br><span class="line">module_opensimplex_enabled = &quot;no&quot;</span><br><span class="line">module_opus_enabled = &quot;no&quot;</span><br><span class="line">module_regex_enabled = &quot;no&quot;</span><br><span class="line">module_stb_vorbis_enabled = &quot;no&quot;</span><br><span class="line">module_tga_enabled = &quot;no&quot;</span><br><span class="line">module_theora_enabled = &quot;no&quot;</span><br><span class="line">module_tinyexr_enabled = &quot;no&quot;</span><br><span class="line">module_upnp_enabled = &quot;no&quot;</span><br><span class="line">module_vorbis_enabled = &quot;no&quot;</span><br><span class="line">module_webm_enabled = &quot;no&quot;</span><br><span class="line">module_webp_enabled = &quot;no&quot;</span><br></pre></td></tr></table></figure></p>
+<p>應該是能關的都關了，唯一沒關的是<code>Enable module: FreeType</code>,關了之後我遇到編譯錯誤，所以就放棄了，這樣編譯的<code>godot.wasm</code>檔案大小是10051KB，沒有使用<code>custom.py</code>的檔案大小是14643KB</p>
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>這裡有<a href="https://www.reddit.com/r/godot/comments/8b67lb/guide_how_to_compress_wasmpck_file_to_make_html5/" target="_blank" rel="noopener">一篇文章</a>是以壓縮wasm來減少檔案大小，但其實應該Unity也是做得到，且壓縮後大小還是有其限度，故參考即可。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/godot/">godot</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Jenkins使用筆記" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/Jenkins使用筆記/">Jenkins使用筆記(Windows版)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2019/11/24/Jenkins使用筆記/" class="article-date">
+  <time datetime="2019-11-23T17:08:09.000Z" itemprop="datePublished">2019-11-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2019/11/24/Jenkins使用筆記/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h1><ol>
+<li><a href="https://jenkins.io/download/" target="_blank" rel="noopener">https://jenkins.io/download/</a> 下載windows Long-term Support version並安裝。</li>
+<li>安裝完後，瀏覽器會自動開啟 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> ，此時可以看到Jenkins正在工作中。</li>
+<li>之後Jenkins會要求你輸入一個在指定路徑檔案的密碼，路徑大概像是<code>C:\Program Files (x86)\Jenkins\secrets\initialAdminPassword</code> 。</li>
+<li>密碼輸入後，Jenkins會要你安裝建議的plugin或者是選擇你自己需要的plugin，由於之後還可以再設定，所以可以先使用建議的就可以，之後的安裝會花幾分鐘的時間。</li>
+<li>安裝完後，Jenkins會要求你輸入第一個管理者的資料，稍後可以再加入其他管理者的資料。</li>
+<li>Jenkins會要求輸入使用的URL，可以使用預設設定，安裝程序結束後可以再設定。</li>
+<li>至此Jenkins已經設定完成，可以用左上角的 add job來增加建置job。</li>
+</ol>
+<h1 id="如何重啟或停止Jenkins服務"><a href="#如何重啟或停止Jenkins服務" class="headerlink" title="如何重啟或停止Jenkins服務"></a>如何重啟或停止Jenkins服務</h1><ul>
+<li>透過 <a href="http://localhost:8080/restart" target="_blank" rel="noopener">http://localhost:8080/restart</a> 或 <a href="http://localhost:8080/safeRestart" target="_blank" rel="noopener">http://localhost:8080/safeRestart</a> 可以重啟jenkins服務。<br>(jenkins_url)/safeRestart - 允許所有正在進行的jobs完成，新的jobs會被保持在queue中等到重啟完成後再執行。<br>(jenkins_url)/restart - 強制重啟並不等待進行中的jobs完成。</li>
+<li>直接執行command, 加上參數如下<br>( jenkins_path)/jenkins.exe stop<blockquote>
+<p>‘install’ - install the service to Windows Service Controller<br>‘uninstall’ - uninstall the service<br>‘start’ - start the service (must be installed before)<br>‘stop’ - stop the service<br>‘restart’ - restart the service</p>
+</blockquote>
+</li>
+<li>如果需要重開的理由是PATH的修改變動，必須要使用jenkins.exe來restart。</li>
+</ul>
+<h1 id="How-to-add-SSH-key"><a href="#How-to-add-SSH-key" class="headerlink" title="How to add SSH key"></a>How to add SSH key</h1><p>如果需要透過 ssh方式連接到git或者是建置過程需要使用到ssh，就需要先設定ssh key。</p>
+<p>按下 <code>Credentials</code>.<br><img src="https://i.imgur.com/fLlC09T.png" alt><br>按下 <code>System</code>.<br><img src="https://i.imgur.com/O4VYtj8.png" alt><br>按下 <code>Global credentials (unrestricted)</code>.<br><img src="https://i.imgur.com/q5CoExt.png" alt><br>按下 <code>Add Credentials</code> . 選擇 <code>SSH Username with private key</code>.<br>複製 SSH private key 的全部內容到 private key 欄位<br>(ssh private key 的預設路徑 : C:\Users\user_name\.ssh\id_rsa)<br>並輸入Username 與 passphrase (如果有的話).<br><img src="https://i.imgur.com/X8yzK0d.png" alt></p>
+<h1 id="Using-ssh-agent-in-build-process"><a href="#Using-ssh-agent-in-build-process" class="headerlink" title="Using ssh-agent in build process"></a>Using ssh-agent in build process</h1><p><a href="https://plugins.jenkins.io/ssh-agent" target="_blank" rel="noopener">https://plugins.jenkins.io/ssh-agent</a><br>如果建置過程需要使用到ssh-agent，可以安裝這個plugin來使用<br>在安裝之後，在建置環境中可以看到<code>SSH agent</code>選項，選取以設定ssh key</p>
+<h1 id="Using-Slack-notification"><a href="#Using-Slack-notification" class="headerlink" title="Using Slack notification"></a>Using Slack notification</h1><p><a href="https://plugins.jenkins.io/slack" target="_blank" rel="noopener">https://plugins.jenkins.io/slack</a><br>slack是一個企業用的通訊軟體，如果剛好公司使用了這個軟體而且需要通知建置結果，除了使用api方式來通知，也可以透過這個plugin來處理。</p>
+<h1 id="我覺得好用的plugin"><a href="#我覺得好用的plugin" class="headerlink" title="我覺得好用的plugin"></a>我覺得好用的plugin</h1><ul>
+<li><p><a href="https://wiki.jenkins.io/display/JENKINS/Extended+Choice+Parameter+plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Extended+Choice+Parameter+plugin</a><br>提供更多樣化的參數使用方式，像是選擇清單，讓參數輸入可以更方便</p>
+</li>
+<li><p><a href="https://wiki.jenkins.io/display/JENKINS/Mask+Passwords+Plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Mask+Passwords+Plugin</a><br>可以將console log中的參數給隱藏起來的plugin，可以避免被看到輸入的密碼參數</p>
+</li>
+<li><p><a href="https://wiki.jenkins.io/display/JENKINS/SCM+Sync+configuration+plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/SCM+Sync+configuration+plugin</a><br>提供使用版控系統來備份jenkins設定的功能</p>
+</li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/">Jenkins</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-使用-BitBucket-PullRequest-API" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/30/使用-BitBucket-PullRequest-API/">使用 BitBucket PullRequest API</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2019/10/30/使用-BitBucket-PullRequest-API/" class="article-date">
+  <time datetime="2019-10-30T03:35:15.000Z" itemprop="datePublished">2019-10-30</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2019/10/30/使用-BitBucket-PullRequest-API/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由於目前公司專案數量大約有幾十個<br>有一些共同的修正因為設計關係需要對所有專案都進行類似的修改<br>這類作業舉例來說會是一些換圖或者是一些檔案調整<br>目前大多是自己寫腳本來處理<br>流程一開始如下<br>開branch-&gt;修改-&gt;commit-&gt;push-&gt;提PR<br>由於一開始提PR這個流程沒有自動化<br>所以還是需要一些人工去處理</p>
+<p>後來將流程改成<br>主branch修改-&gt;commit-&gt;push<br>這樣的風險在於腳本萬一處理有問題的話沒有檢查處理結果的機會<br>後來覺得應該還是要走PR的流程<br>所以需要將PR自動化</p>
+<h1 id="App-password"><a href="#App-password" class="headerlink" title="App password"></a>App password</h1><p>這是一個需要預先準備的東西<br>在bitbucket settings中可以找到這個選項<br>因為有的api需要你輸入使用username以及password<br>(官方給的curl範例是-u選項<br>postman中會是在Authorization分頁中使用Basic Auth)<br>此處的password是指App password<br>可以針對不同的權限需求使用不同的密碼</p>
+<p>使用PR API需要的權限<br>Team membership     R<br>Pull requests     R/W</p>
+<h1 id="curl-轉-python"><a href="#curl-轉-python" class="headerlink" title="curl 轉 python"></a>curl 轉 python</h1><p>由於官方給的範例主要是curl<br>我自己用的是python<br>可以用以下網頁轉換<br><a href="https://curl.trillworks.com/" target="_blank" rel="noopener">https://curl.trillworks.com/</a></p>
+<p>如果用postman也會有提供轉換功能</p>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><h2 id="前置作業-取得使用者資訊-uuid"><a href="#前置作業-取得使用者資訊-uuid" class="headerlink" title="前置作業: 取得使用者資訊(uuid)"></a>前置作業: 取得使用者資訊(uuid)</h2><p>主要用於設定reviewer<br>在使用PR API時會需要對方的uuid</p>
+<p>api page:<br><a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/users/%7Busername%7D" target="_blank" rel="noopener">https://developer.atlassian.com/bitbucket/api/2/reference/resource/users/%7Busername%7D</a></p>
+<p>使用範例:<br><a href="https://api.bitbucket.org/2.0/users/hsienwei" target="_blank" rel="noopener">https://api.bitbucket.org/2.0/users/hsienwei</a></p>
+<p>response 範例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;display_name&quot;: &quot;hsienwei hsiang&quot;, &quot;uuid&quot;: &quot;&#123;c56de9fd-b17b-4fd0-9d42-89a114ba839c&#125;&quot;, &quot;links&quot;: &#123;&quot;hooks&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/users/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D/hooks&quot;&#125;, &quot;self&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/users/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D&quot;&#125;, &quot;repositories&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/repositories/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D&quot;&#125;, &quot;html&quot;: &#123;&quot;href&quot;: &quot;https://bitbucket.org/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D/&quot;&#125;, &quot;avatar&quot;: &#123;&quot;href&quot;: &quot;https://secure.gravatar.com/avatar/e75de8273492ae27638a55f7effc2f37?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FHH-6.png&quot;&#125;, &quot;snippets&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/snippets/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D&quot;&#125;&#125;, &quot;nickname&quot;: &quot;hsienwei&quot;, &quot;created_on&quot;: &quot;2013-12-19T07:57:15.653135+00:00&quot;, &quot;is_staff&quot;: false, &quot;account_status&quot;: &quot;active&quot;, &quot;type&quot;: &quot;user&quot;, &quot;account_id&quot;: &quot;557058:43f113de-285b-40cd-8271-e4a9e28f7331&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>這裡有一點需要注意，如果要使用uuid需要連左右大括弧一起使用，如上面範例的<code>{c56de9fd-b17b-4fd0-9d42-89a114ba839c}</code></p>
+<h2 id="前置作業-取得repo-slug"><a href="#前置作業-取得repo-slug" class="headerlink" title="前置作業: 取得repo slug"></a>前置作業: 取得repo slug</h2><p>一般來講repo slug就觀察來說應該就是你在網頁上看到的名稱，所以不太需要用API來看，但這裡有一個方法可以讓你看到指定team/user的所有repo資訊<br>api page:<br><a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/teams/%7Busername%7D/repositories" target="_blank" rel="noopener">https://developer.atlassian.com/bitbucket/api/2/reference/resource/teams/%7Busername%7D/repositories</a><br>使用範例:<br><a href="https://api.bitbucket.org/2.0/repositories/hsienwei" target="_blank" rel="noopener">https://api.bitbucket.org/2.0/repositories/hsienwei</a></p>
+<p>需要使用username跟password才能取到private的資訊</p>
+<p>如數量較多會分多頁顯示<br>會有幾個欄位提供如</p>
+<ul>
+<li>pagelen 有幾頁</li>
+<li>page 第幾頁</li>
+<li>next 下一頁網址<br><a href="https://api.bitbucket.org/2.0/repositories/hsienwei?page=2" target="_blank" rel="noopener">https://api.bitbucket.org/2.0/repositories/hsienwei?page=2</a></li>
+</ul>
+<h2 id="Pull-Request-API"><a href="#Pull-Request-API" class="headerlink" title="Pull Request API"></a>Pull Request API</h2><p>api page:<br><a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post" target="_blank" rel="noopener">https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post</a></p>
+<h1 id="簡易python範例"><a href="#簡易python範例" class="headerlink" title="簡易python範例"></a>簡易python範例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &apos;Content-Type&apos;: &apos;application/json&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data =  &#123;</span><br><span class="line">            &apos;title&apos;: &apos;Just test&apos;,</span><br><span class="line">            &apos;source&apos;:</span><br><span class="line">            &#123;</span><br><span class="line">                &apos;branch&apos;:</span><br><span class="line">                &#123;</span><br><span class="line">                    &apos;name&apos;: &apos;source-branch-name&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &apos;destination&apos;:</span><br><span class="line">            &#123;</span><br><span class="line">                &apos;branch&apos;:</span><br><span class="line">                &#123;</span><br><span class="line">                    &apos;name&apos;: &apos;destination-branch-name&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &apos;reviewers&apos;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &apos;uuid&apos;: &apos;&#123;c56de9fd-b17b-4fd0-9d42-89a114ba839c&#125;&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &apos;description&apos;: &apos;aaa&apos;,</span><br><span class="line">            &apos;close_source_branch&apos;: True</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data_str = json.dumps(data)</span><br><span class="line"></span><br><span class="line">response = requests.request(&quot;POST&quot;, &apos;https://api.bitbucket.org/2.0/repositories/username/reposlug/pullrequests&apos;</span><br><span class="line">    , headers=headers, data=data_str, auth=(&apos;username&apos;, &apos;password&apos;))</span><br><span class="line"></span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure>
+<p>這裡需要給的資料大概就幾個</p>
+<ul>
+<li>title : PR的標題</li>
+<li>source &gt; branch : 來源分支</li>
+<li>destination &gt; branch : 目標分支</li>
+<li>reviewers : 這裡填的是reviewer的uuid</li>
+<li>description : 該PR的說明內容</li>
+<li>close_source_branch : 合併後是否關閉該分支</li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bitbucket/">bitbucket</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-LineBotWithLambda" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/07/LineBotWithLambda/">AWS Lambda + LineBot</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/07/07/LineBotWithLambda/" class="article-date">
+  <time datetime="2018-07-07T07:00:18.000Z" itemprop="datePublished">2018-07-07</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/07/07/LineBotWithLambda/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這篇主要紀錄一下之前寫的一個小玩具<br>主要是分為兩個部分</p>
+<ul>
+<li>使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB</li>
+<li>使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料</li>
+</ul>
+<hr>
+<p>第一部分是Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB</p>
+<p>這裡主要是改以前寫的一個爬蟲程式, 以前寫的時候那時用的是python2.7版本並使用Mechanize 與 BeautifulSoup, 最近把它改成python3以及selenium<a href="https://github.com/hsienwei/ptt_data_parse" target="_blank" rel="noopener">連結</a>, 目前還會有一些舊的程式碼在裡面。</p>
+<p>程式可以指定要對哪個版來爬資料, 並可以指定要幾小時內的資料, 目前針對推文數高於一定程度以上的文章，另外使用<a href="https://developers.facebook.com/docs/graph-api/reference/v2.11/url" target="_blank" rel="noopener">FB API</a>去取該連結的互動狀況, 用該資料簡單去算一個分數(可以在下面的測試結果畫面看到)用來作為熱門文章的排序, 這個數字的好處是可以看到實際在FB的熱門狀況, 因為有時候PTT推文數高的文章不一定是值得分享的文章, 也有可能是閒聊文。</p>
+<p>另一part是將得到的資料寫進 AWS 的DynamoDB當中, <a href="https://github.com/hsienwei/ptt_data_parse/blob/master/dynamodb_conn.py" target="_blank" rel="noopener">程式碼在這</a>，會使用DynamoDB的原因主要是因為我的AWS 免費已經過期了, 所以我選擇使用目前還是有免費方案的DynamoDB。</p>
+<p>主要使用了兩張表, 一張是索引, 主要紀錄各個板對應到另一張表的資料ID，另一張表就是爬下來的資料，以版名以及爬資料的時間當作ID來儲存。</p>
+<hr>
+<p>第二部分是使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料</p>
+<p>會使用lambda其實是一個湊巧, 一開始本來是要開一個EC2加上Nodejs或Python+flask來回應linebot webhook, 但是想一想我已經沒有免費Tier了, 作為一個小玩具成本有點高, 後來在查資料的時候看到<a href="https://blog.5000164.jp/2017/8/14/line-bot/" target="_blank" rel="noopener">這篇文章</a>, 覺得這樣server less的架構成本低, 又不需要一直開著, 也可以使用API Gateway來開一個https的api當作webhook。</p>
+<p>這裡當初在做的時候本來要讓linebot在資料有更新時自動使用push來通知使用者, 但是由於push功能需要付費, 所以就作罷了。</p>
+<hr>
+<p>下面就是成果<br><img src="https://qr-official.line.me/M/OkcTs6-FJF.png" alt="LineBot QRCode"><br>可以加入這個LineBot來測試</p>
+<p>以下是測試結果畫面<br>第一張圖, 隨便打幾個字可以得到目前有資料的版名<br><img src="https://i.imgur.com/I5ZyIf1.jpg?2" alt="Imgur"></p>
+<p>第二張圖, 輸入一個有資料的版名後, 可以得到爬蟲爬到的資料, 標題後是其分數<br><img src="https://i.imgur.com/6z3z8QK.jpg?2" alt="Imgur"></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LineBot/">LineBot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-python-selenium使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/20/python-selenium使用/">使用python + selenium 心得</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/03/20/python-selenium使用/" class="article-date">
+  <time datetime="2018-03-20T06:05:00.000Z" itemprop="datePublished">2018-03-20</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/03/20/python-selenium使用/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近寫了一個幫助自己解決一個煩人雜事的小程式<a href="https://gist.github.com/hsienwei/233b85fbcccc47b23f27266317c6dfce" target="_blank" rel="noopener">gist連結</a></p>
+<p>這支程式主要工作如下：<br>登入公司的jira, 從手上的issue中找出指定符合父issue ID的所有issue, 統一填上註解並轉給指定的人。<br>寫的比較匆忙沒有加太多的例外判定, 目標是快速解決手邊的雜事。</p>
+<p>之所以選擇<a href="http://selenium-python.readthedocs.io/" target="_blank" rel="noopener">selenium</a>主要還是看上他可以省去很多功, 以前寫的爬蟲主要還是使用mechanize + BeautifulSoup, 但是遇到js就會很麻煩, 後來使用selenium不只js部分的問題沒有了, 連BeautifulSoup都不需要了, 他的find方法已經足夠我使用。</p>
+<p>事前selenium module的安裝就不提, 要注意的是webdriver供許多瀏覽器版本可以用, 我用的是chrome, 必須要事前下載 <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">chromedriver</a> 使用, 並在使用時設置路徑, 如<code>webdriver.Chrome(executable_path=r&#39;.\\chromedriver.exe&#39;)</code> 。</p>
+<p>這支程式主要使用selenium幾個功能：</p>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p><a href="http://selenium-python.readthedocs.io/locating-elements.html" target="_blank" rel="noopener">api</a><br>selenium 提供了一系列的方法讓你去找到目標元件, 基本上都如同api所列的一樣, 你可以依照條件使用特定id或者class來查找, 唯獨比較特別的是如果id或class中間有空格的最好還是使用 <code>find_element_by_xpath</code> ,之前沒有看過XPath所以花了一點時間才清楚使用方法。</p>
+<p>基本上消耗最多時間還是在翻網頁原始碼找特定元素的id或class, 找到後基本上都不會有太大的問題, </p>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>找到元素後可以做一些行為, 這裡比較常用的有</p>
+<ul>
+<li>click: 模擬點擊行為, 主要用在<code>a</code>跟<code>button</code></li>
+<li>send_keys: 輸入的行為, 主要用在<code>input</code></li>
+<li>submit: form的提交行為</li>
+</ul>
+<h3 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h3><p>有時候在進行一些動作後, 需要等待特定元件出現才可以進行下一個動作, 此時就需要用wait功能, 這裡有<a href="https://huilansame.github.io/huilansame.github.io/archivers/sleep-implicitlywait-wait" target="_blank" rel="noopener">一篇文章</a>提到使用方法, 寫的很詳細。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/selenium/">selenium</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

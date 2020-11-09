@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android無法安裝Apk的處理方式 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="問題描述：同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？ 處置： 在手機直接安裝沒有任何錯誤訊息, 嘗試使用adb shell pm install的方式來安裝, 可以看到Failure [INSTALL_FAILED_CONTAINER_ERROR]錯誤。    經查詢處理方式：link要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..    同事在安裝adb shell p">
+<meta name="keywords" content="Unity,Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android無法安裝Apk的處理方式">
+<meta property="og:url" content="http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="問題描述：同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？ 處置： 在手機直接安裝沒有任何錯誤訊息, 嘗試使用adb shell pm install的方式來安裝, 可以看到Failure [INSTALL_FAILED_CONTAINER_ERROR]錯誤。    經查詢處理方式：link要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..    同事在安裝adb shell p">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android無法安裝Apk的處理方式">
+<meta name="twitter:description" content="問題描述：同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？ 處置： 在手機直接安裝沒有任何錯誤訊息, 嘗試使用adb shell pm install的方式來安裝, 可以看到Failure [INSTALL_FAILED_CONTAINER_ERROR]錯誤。    經查詢處理方式：link要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..    同事在安裝adb shell p">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-INSTALL-FAILED-CONTAINER-ERROR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android無法安裝Apk的處理方式
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/" class="article-date">
+  <time datetime="2017-06-05T06:27:27.000Z" itemprop="datePublished">2017-06-05</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="問題描述："><a href="#問題描述：" class="headerlink" title="問題描述："></a>問題描述：</h2><p>同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？</p>
+<h2 id="處置："><a href="#處置：" class="headerlink" title="處置："></a>處置：</h2><ol>
+<li><p>在手機直接安裝沒有任何錯誤訊息, 嘗試使用<code>adb shell pm install</code>的方式來安裝, 可以看到<code>Failure [INSTALL_FAILED_CONTAINER_ERROR]</code>錯誤。  </p>
+</li>
+<li><p>經查詢處理方式：<br><a href="https://stackoverflow.com/questions/5744298/what-does-this-mean-failure-install-failed-container-error" target="_blank" rel="noopener">link</a><br>要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..  </p>
+</li>
+<li><p>同事在安裝<code>adb shell pm install</code>時加上<code>-f</code>強制安裝在內部系統內存發現可以安裝成功, 將尋找方向移到ApplicationInstallLocation上。<br>經查詢有一些文章<br><a href="https://forum.unity3d.com/threads/failure-install_failed_container_error.210920/" target="_blank" rel="noopener">link</a><br><a href="http://qiita.com/ToniTakekawa/items/d457358c1e92bfa9d7b7" target="_blank" rel="noopener">link2</a><br>指出只要Player settings在Android項的Install Location改為Automatic即可, 測試後可行。</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/">Unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/07/12/UnityEngineAnalyzerTest/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          UnityEngineAnalyzer測試記錄
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/06/05/UnityCullingGroup/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unity Culling Group簡介&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

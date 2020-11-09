@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/page/5/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-Youtube_iframe_在 Apple_TV_上的播放問題" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/">（iOS）Youtube iframe 在 Apple TV 上的播放問題</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/" class="article-date">
+  <time datetime="2014-08-12T10:04:23.000Z" itemprop="datePublished">2014-08-12</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/08/12/Youtube_iframe_在 Apple_TV_上的播放問題/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>問題：</strong></p>
+<p>有一個頁面使用WebView + Youtube iframe 播放 live channel，在手機上播放正常，但如果使用AirPlay功能cast到Apple TV的話則會出現“ an error occurred loading this content ”。<br>如果播放的是非live則可以正常運行。</p>
+<p><strong>處置：</strong></p>
+<ul>
+<li>用電腦開啓Plex Home Theater作為測試裝置，可以播放live，故應該不是AirPlay本身不支援live。</li>
+<li>由於以相同的程式碼來作處理時，單則節目可以播放而live不行，故認為是Apple TV那邊無法處理。</li>
+<li>Apple TV裡的Youtube app 完全搜尋不到Live的節目。</li>
+<li>一開始懷疑是訊號來源問題，比方是否為Apple TV無法處理Youtube廣告要求，但查明目前並沒有廣告。</li>
+<li>後來發現Youtube官方iOS app並不會有這樣的問題，懷疑如果我不透過iframe的方式也許可以處理。</li>
+<li>最後使用<a href="https://github.com/hellozimi/HCYoutubeParser" target="_blank" rel="noopener">https://github.com/hellozimi/HCYoutubeParser</a> 來做處理，取得直接播放的URL，則可正常在Apple TV上播放。</li>
+<li>在使用HCYoutubeParser上需要小心，因為Youtube曾經改變過responceData，所以會有不能用的風險，這個要自行承擔。</li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AppleTV/">AppleTV</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/youtube/">youtube</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/">使用sublime為unity編輯器 in mac之CompleteSharp設定障礙排除</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/" class="article-date">
+  <time datetime="2014-06-26T18:51:40.000Z" itemprop="datePublished">2014-06-27</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/06/27/使用sublime為unity編輯器inmac之CompleteSharp設定障礙排除/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>標題下得很長<br>基本上是記載依照<a href="http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時" target="_blank" rel="noopener">http://wiki.unity3d.com/index.php/Using_Sublime_Text_as_a_script_editor的步驟進行時</a><br>CompleteSharp這個plugin在mac環境上遇到的一些問題</p>
+<ol>
+<li><p>CompleteSharp的安裝<br>個人測試在windows可以用package control直接安裝成功<br>而在mac下會出現Unable to download CompleteSharp的錯誤<br>這時候只能手動安裝<br>有兩種選擇<br>a) clone  <a href="https://github.com/ewilde/CompleteSharp" target="_blank" rel="noopener">https://github.com/ewilde/CompleteSharp</a> 到 Package資料夾<br>不需其他處理(建議)<br>b) 需事先安裝mono (下載<a href="http://www.go-mono.com/mono-downloads/download.html" target="_blank" rel="noopener">http://www.go-mono.com/mono-downloads/download.html</a>)<br>clone  <a href="https://github.com/quarnster/CompleteSharp" target="_blank" rel="noopener">https://github.com/quarnster/CompleteSharp</a> 到 Package資料夾<br>再執行CompleteSharp/build.py</p>
+</li>
+<li><p>CompleteSharp project setting<br>在mac環境中會用到completesharp_mono_path這個參數<br>wiki中寫的completesharp_mono_path是3.x 版時的路徑<br>4.x版可改為如下</p>
+<script src="//gist.github.com/ad4564e649a60996d9b0.js"></script></li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sublime/">sublime</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Crashlytics-申請使用記錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/06/Crashlytics-申請使用記錄/">Crashlytics 申請使用記錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/06/06/Crashlytics-申請使用記錄/" class="article-date">
+  <time datetime="2014-06-05T16:46:07.000Z" itemprop="datePublished">2014-06-06</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/06/06/Crashlytics-申請使用記錄/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>相較於Crittercism<br>Crashlytics專注於crash的記錄與統計<br>且目前為免費使用（2014/6/6）  </p>
+<p>要申請Crashlytics帳號必須先在<a href="http://try.crashlytics.com/留下你的資料" target="_blank" rel="noopener">http://try.crashlytics.com/留下你的資料</a><br>個人經驗是下午三點申請大概晚上9點就回覆你了<br>會收到兩封信<br>一封是Invitation<br>另一封是確認你有沒有收到Invitation的信件會要求你回覆（我有回覆，但感覺只是CRM的信件）  </p>
+<p>從Invitation裡的按鈕進入並依他的步驟一直往下走會進到下載plugin的頁面<br><img src="/2014/06/06/Crashlytics-申請使用記錄/20c872b148c50cde0b59847b9ad8a47e-767323.png"></p>
+<p>個人覺得這是Crashlytics的特色<br>透過一套plugin讓使用者在設定過程中得到幫助與需要的說明<br>並在有crash時提供一個清單讓你觀看<br>這裡我試裝了XCODE與Eclipse兩個plugin<br>XCODE會出現在右上角系統bar中<br><img src="/2014/06/06/Crashlytics-申請使用記錄/940352bececc230f3db3bbc654ba1292-770386.png"></p>
+<p>而Eclipse會出現在Eclipse Toolbar當中<br><img src="/2014/06/06/Crashlytics-申請使用記錄/55a952c8a6ee86818406f81d13070956-771720.png"></p>
+<p>以XCODE版為例<br>一開始按下ICON後會出現以下畫面<br><img src="/2014/06/06/Crashlytics-申請使用記錄/797ee9ab8961ab14fac9c7e27d20dee9-777744.png"></p>
+<p>基本上就是將我的XCODE專案都列出來方便我選擇要使用Crashlytics的專案<br>在這裡選擇專案以後會出現設定的說明如下<br><img src="/2014/06/06/Crashlytics-申請使用記錄/63978861f8946d0823a5c0d2ffaa4727-779625.png"></p>
+<p>這裡說明了要你在target中加一個Run Script並將設定內容列出來<br>要注意的是這裡已經幫你在該專案中加了Crashlytics.framework<br>當你完成設定並build之後他就會進到接下來的步驟像是framework設置以及程式碼的增加<br>我覺得這個教學的步驟對新手而言可以保證他設定完成<br>但對有經驗的人可能有點多餘<br>另外提一下，Eclipse版在選完專案後甚至幫你把Androidmanifest.xml設定與程式碼加進去  </p>
+<p>設定完成後就可以開始故意讓程式crash來測試<br>此時crash就會出現在清單中了<br><img src="/2014/06/06/Crashlytics-申請使用記錄/3986cc0128d372e0c7b7f942da8bf0bc-781673.png"></p>
+<p>根據個人測試，plugin上的crash清單反應似乎沒有web快，需要多等幾分鐘才會出現  </p>
+<p>點擊清單上的crash項目後會在瀏覽器上開啟該crash的詳細訊息<br><img src="/2014/06/06/Crashlytics-申請使用記錄/01e1ac2287bfd18fb2bc04042b70d818-783958.png"><br><img src="/2014/06/06/Crashlytics-申請使用記錄/1d56c7548fab83063804a0e779b93f9d-786311.png"><br>此時就可以依照錯誤訊息除錯囉  </p>
+<p>P.s. 尚未測試過，不確定NDK crash狀況是否可以正確呈現 </p>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-自製2048-for-Chromecast" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/19/自製2048-for-Chromecast/">自製2048 for Chromecast</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/05/19/自製2048-for-Chromecast/" class="article-date">
+  <time datetime="2014-05-19T03:20:49.000Z" itemprop="datePublished">2014-05-19</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/05/19/自製2048-for-Chromecast/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>近日在看Chromecast的相關文件，發現他可以自己做receiver app<br>receiver app是以HTML5來製作  但由於有一些效能限制 所以製作時需要注意<br>詳情可參考 <a href="https://developers.google.com/cast/docs/ux_guidelines#considerations" target="_blank" rel="noopener">https://developers.google.com/cast/docs/ux_guidelines#considerations</a><br>只要符合條件  基本上也是可以做遊戲的<br>剛好最近很紅的2048是開源的  所以就以它來當作例子<br>其實2048已經有人移植到chromecast上了<br>但反正是要做一個測驗所以無所謂</p>
+<p>以下是實際成品的聯結<br>Chrome: <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html" target="_blank" rel="noopener">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/index.html</a><br>Android(4.0以上): <a href="https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk" target="_blank" rel="noopener">https://dl.dropboxusercontent.com/u/10581994/chromecast_test/2048ForChromecast.apk</a></p>
+<p>其實做起來並不難，主要分為兩個部分(receiver and sender)，基本API的用法就不贅述，可以看<br><a href="https://developers.google.com/cast/docs/developers" target="_blank" rel="noopener">https://developers.google.com/cast/docs/developers</a>  及 <a href="https://github.com/googlecast/" target="_blank" rel="noopener">https://github.com/googlecast/</a></p>
+<p>###receiver<br>由於2048遊戲部分不太需要去寫邏輯部分，故主要只要處理訊息的接收與發出即可<br>初始化部分:<br>在 application.js 中 window.requestAnimationFrame中加入<br><script src="//gist.github.com/17a58ee1f2e1ba5ac479.js"></script><br>這裡我有一個部分是用偷懶的做法<br><code>window.senderId=event.senderId;</code> 這裡將senderId放在window底下以便之後要回傳訊息使用<br>但個人覺得不是好的做法 但這是測試用的程式就先略過</p>
+<p>鍵盤事件接收部分  在 keyboard_input_manager.js 中的KeyboardInputManager.prototype.listen方法中加入<br><script src="//gist.github.com/f7b4ba0b553e94195617.js"></script><br>將sender傳送過來的訊息對應該做的行為</p>
+<p>當玩家無法再移動或者是已達到2048的時候都會有訊息出現，在這種狀況下可以回傳訊息給sender出現相對應的操作界面，為此修改html_actuator.js如下<br><script src="//gist.github.com/b232fa188603c7b928ac.js"></script></p>
+<p>###sender<br>這裡我做了兩個平台的sender程式，其實主要也是改google的範例程式<br>chrome版主要就是把keyboard event send給receiver<br>android也是差不多, 只是把swipe的方向改為對應的key code傳給receiver<br>另外接收遊戲結束的訊息跳出對應的AlertDialog</p>
+<p>或許下次可以試試看現有 html5遊戲引擎在chromecast上的效能</p>
+<hr>
+<p>以下為參考資料</p>
+<p>模擬器<br>模擬器感覺在自定receiver app的部分支援並不完整  實機測還是比較好<br>以下是目前有看到的模擬器</p>
+<p>CR Cast (chrome 擴展)<br><a href="https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk" target="_blank" rel="noopener">https://chrome.google.com/webstore/detail/cr-cast/acmfmindblghbicdipoakcolegkcddbk</a><br>Leapcast (python, run on chrome)<br><a href="https://github.com/dz0ny/leapcast" target="_blank" rel="noopener">https://github.com/dz0ny/leapcast</a><br>android 模擬  cheapcast (跑不起來)<br><a href="https://github.com/mauimauer/cheapcast" target="_blank" rel="noopener">https://github.com/mauimauer/cheapcast</a><br>rPlay on iOS<br><a href="http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020" target="_blank" rel="noopener">http://www.vmlite.com/index.php?option=com_kunena&amp;Itemid=158&amp;func=view&amp;catid=23&amp;id=12020</a></p>
+<hr>
+<p>###Developer Console<br><a href="https://cast.google.com/publish/" target="_blank" rel="noopener">https://cast.google.com/publish/</a><br>由於要自行開發receiver app所以需要開通Developer Console<br>需要五元美金  如果只是要cast媒體就不需要</p>
+<p><img src="/2014/05/19/自製2048-for-Chromecast/chromecase_console.png" alt="console"><br>如圖，可以設置APP 與 測試用裝置<br>如果Application不是Published的話則要有輸入的裝置才能使用</p>
+<p>目前已有的遊戲應用<br>下面有兩個已在 Google Play上架的應用<br>GamingCast (for Chromecast)<br><a href="https://play.google.com/store/apps/details?id=co.essh.gamecast" target="_blank" rel="noopener">https://play.google.com/store/apps/details?id=co.essh.gamecast</a><br>2048 Chromecast<br><a href="https://play.google.com/store/apps/details?id=com.sunnydev.cast2048" target="_blank" rel="noopener">https://play.google.com/store/apps/details?id=com.sunnydev.cast2048</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/chromecast/">chromecast</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-facebook-comments-ios-native-ui" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/08/facebook-comments-ios-native-ui/">Facebook comments 在iOS用原生UI製作測試</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/04/08/facebook-comments-ios-native-ui/" class="article-date">
+  <time datetime="2014-04-08T06:45:00.000Z" itemprop="datePublished">2014-04-08</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/plugins/comments/</a><br>如果不要add comment的話應該是做的到的</p>
+<p>本次專案中有一個功能是可以對某個頁面做FB comment<br>在網頁中可以用Facebook的plugin<br>但在app當中SDK沒有提供相關的UI可供使用<br>要使用的話必須用UIWebView加上plugin來達成</p>
+<p>後來在Facebook的graph api當中找到有關的功能<br><a href="https://developers.facebook.com/docs/graph-api/reference/object/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/graph-api/reference/object/comments/</a><br>裡面有提到Reading與Publishing的功能</p>
+<p>但由於我使用的ID是網頁網址所以必須改一下</p>
+<pre><code>[FBRequestConnection startWithGraphPath:@&quot;/****** id *******/comments&quot;]
+[FBRequestConnection startWithGraphPath:@&quot;/comments/?ids=http://www.xxx.xxx.xx&quot;]
+</code></pre><p>在Reading的部分沒有問題，但在Publishing的部分就會收到錯誤訊息</p>
+<pre><code>body =  {
+        error = {
+            code = 100;
+            message = &quot;(#100) Comments may not be added to a comment plugin&quot;;
+            type = OAuthException;
+                };
+        };
+</code></pre><p>後來仔細查一下<br>發現原來這個功能是不能使用的<br>相關連結：<br><a href="http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box" target="_blank" rel="noopener">http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box</a><br><a href="http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module" target="_blank" rel="noopener">http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module</a><br><a href="https://developers.facebook.com/bugs/164794086987157" target="_blank" rel="noopener">https://developers.facebook.com/bugs/164794086987157</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/facebook/">facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

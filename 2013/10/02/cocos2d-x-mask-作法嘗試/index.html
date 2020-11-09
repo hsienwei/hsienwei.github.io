@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>cocos2d-x mask 作法嘗試 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="20151011補:新版本(3.x)用cliping node即可  這裡指的mask是說一張圖但我要將指定一部分挖掉這樣，我在做的時候都是以一張圖為主圖，另一張mask圖以alpha值指定要挖空的地方 目前有試過兩種做法 RenderTexture + BlendFunc大概程式碼如下 CCSprite* createMaskSprite() {     cocos2d::ccBlendFunc">
+<meta name="keywords" content="cocos2d-x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cocos2d-x mask 作法嘗試">
+<meta property="og:url" content="http://hsienwei.github.io/2013/10/02/cocos2d-x-mask-作法嘗試/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="20151011補:新版本(3.x)用cliping node即可  這裡指的mask是說一張圖但我要將指定一部分挖掉這樣，我在做的時候都是以一張圖為主圖，另一張mask圖以alpha值指定要挖空的地方 目前有試過兩種做法 RenderTexture + BlendFunc大概程式碼如下 CCSprite* createMaskSprite() {     cocos2d::ccBlendFunc">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cocos2d-x mask 作法嘗試">
+<meta name="twitter:description" content="20151011補:新版本(3.x)用cliping node即可  這裡指的mask是說一張圖但我要將指定一部分挖掉這樣，我在做的時候都是以一張圖為主圖，另一張mask圖以alpha值指定要挖空的地方 目前有試過兩種做法 RenderTexture + BlendFunc大概程式碼如下 CCSprite* createMaskSprite() {     cocos2d::ccBlendFunc">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-cocos2d-x-mask-作法嘗試" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      cocos2d-x mask 作法嘗試
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/10/02/cocos2d-x-mask-作法嘗試/" class="article-date">
+  <time datetime="2013-10-01T16:41:21.000Z" itemprop="datePublished">2013-10-02</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/10/02/cocos2d-x-mask-作法嘗試/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>20151011補:<br>新版本(3.x)用cliping node即可</p>
+<hr>
+<p>這裡指的mask是說一張圖但我要將指定一部分挖掉這樣，我在做的時候都是以一張圖為主圖，另一張mask圖以alpha值指定要挖空的地方</p>
+<p>目前有試過兩種做法</p>
+<h2 id="RenderTexture-BlendFunc"><a href="#RenderTexture-BlendFunc" class="headerlink" title="RenderTexture + BlendFunc"></a>RenderTexture + BlendFunc</h2><p>大概程式碼如下</p>
+<pre><code>CCSprite* createMaskSprite()
+{
+    cocos2d::ccBlendFunc bf;
+    bf.src = GL_DST_ALPHA;//GL_ONE_MINUS_DST_ALPHA;
+    bf.dst = GL_ZERO;
+
+    CCSprite* selfSprite = /*主圖的sprite*/;
+    CCSprite* maskSprite = /*mask圖的sprite*/;
+    selfSprite-&gt;setPosition(ccp(selfSprite-&gt;getContentSize().width/2, selfSprite-&gt;getContentSize().height/2));
+    maskSprite-&gt;setPosition(ccp(maskSprite-&gt;getContentSize().width/2, maskSprite-&gt;getContentSize().height/2));
+
+    selfSprite-&gt;setBlendFunc(bf);
+
+    CCRenderTexture *rt = CCRenderTexture::create((int)selfSprite-&gt;getContentSize().width, (int)selfSprite-&gt;getContentSize().height);
+    rt-&gt;beginWithClear(0, 0, 0, 0);
+    maskSprite-&gt;visit();
+    selfSprite-&gt;visit();
+    rt-&gt;end();
+
+    CCSprite *retval = CCSprite::createWithTexture(rt-&gt;getSprite()-&gt;getTexture());
+    retval-&gt;getTexture()-&gt;setAntiAliasTexParameters();
+    retval-&gt;setFlipY(true);
+
+    return retval;
+}
+</code></pre><p>主要是使用BlendFunc的方法，在RenderTexture畫出想要的效果之後再使用，但如果只直接用BlendFunc可能會被其他的sprite影響產不出想要的效果 </p>
+<h2 id="Shader"><a href="#Shader" class="headerlink" title="Shader"></a>Shader</h2><p>Shader程式碼處理起來比較麻煩，建議看cocos2d-x範例程式的shader部分<br>下面是我寫的一個小範例<br><a href="https://github.com/hsienwei/shader_cocos2dx" target="_blank" rel="noopener">https://github.com/hsienwei/shader_cocos2dx</a></p>
+<p>cocos2d-x的部分主要是參考範例程式改的<br>重要的是shader部分</p>
+<pre><code>#ifdef GL_ES
+precision mediump float;
+#endif
+
+varying vec4 v_fragmentColor;
+varying vec2 v_texCoord;
+
+uniform sampler2D u_texture;
+uniform sampler2D u_mask;
+
+void main() {
+    vec4 mainColor = texture2D(u_texture, v_texCoord);
+    vec4 maskColor = texture2D(u_mask, v_texCoord);
+    vec4 srcColor = vec4(mainColor.r * maskColor.a,
+                         mainColor.g * maskColor.a,
+                         mainColor.b * maskColor.a,
+                         mainColor.a * maskColor.a);
+
+    gl_FragColor = srcColor;
+}
+</code></pre><p>將主圖的rgba值都乘以mask圖的alpha值即可，要達到這個效果只要動Fragment Shader即可</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/11/13/Unity練習：夜市彈珠台/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Unity練習：夜市彈珠台
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/10/01/parse-html-to-json/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">剖析HTML資料轉為JSON&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2013/10/02/cocos2d-x-mask-作法嘗試/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

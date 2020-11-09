@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/page/10/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-Android-SoundPool的ID限制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/07/17/Android-SoundPool的ID限制/">Android_SoundPool的ID限制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/07/17/Android-SoundPool的ID限制/" class="article-date">
+  <time datetime="2012-07-17T15:15:28.000Z" itemprop="datePublished">2012-07-17</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/07/17/Android-SoundPool的ID限制/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>很久以前發現的，發現沒寫到，補一下。</p>
+<p>在使用cocos2d-x的SimpleAudioEngine時有遇到一個情形，就是有時候音效在幾個場景的切換後會撥不出來，後來發現到是因為我場景切換時會把舊場景的音效unload，再preload新場景的音效，不過照理講是不會有問題才對，後來測試是只有android會有這樣的問題。</p>
+<p>後來查到<a href="http://d.hatena.ne.jp/itog/20100927/1285550195，裡面有寫到他的ID最大就只會到256個，所以當在重複unload" target="_blank" rel="noopener">http://d.hatena.ne.jp/itog/20100927/1285550195，裡面有寫到他的ID最大就只會到256個，所以當在重複unload</a> 與 preload的動作之後，配到的ID就會大於256，大於256後就會發生音效撥不出來的問題。</p>
+<p>解決的方案是呼叫end()，就可以讓ID重新計算，但會連Music都一起清掉，所以如果不想連Music都一起停的話就要另外寫方法。</p>
+<p>另外那個網頁有提到一些其他SoundPool的限制，值得參閱一下。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-ios-app-crack-相關文章" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/06/11/ios-app-crack-相關文章/">ios app crack 相關文章</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/06/11/ios-app-crack-相關文章/" class="article-date">
+  <time datetime="2012-06-11T15:11:02.000Z" itemprop="datePublished">2012-06-11</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/06/11/ios-app-crack-相關文章/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>詳細教程<br>這兩篇主要教你使用GDB並使用修改組語方式改程式<br><a href="http://bbs.weiphone.com/read-htm-tid-672262.html" target="_blank" rel="noopener">http://bbs.weiphone.com/read-htm-tid-672262.html</a><br><a href="http://bbs.weiphone.com/read-htm-tid-1523875.html" target="_blank" rel="noopener">http://bbs.weiphone.com/read-htm-tid-1523875.html</a>  </p>
+<p>MAC APP的防堵方式  參考用<br>第一點基本上沒用  第二點弄發佈版的時候build不過  第三點還沒試<br><a href="http://www.seoxys.com/3-easy-tips-to-prevent-a-binary-crack/" target="_blank" rel="noopener">http://www.seoxys.com/3-easy-tips-to-prevent-a-binary-crack/</a>  </p>
+<p>最基本檢測方法<br><a href="http://stackoverflow.com/questions/1929166/how-to-programmatically-determine-if-drm-was-removed-from-iphone-application" target="_blank" rel="noopener">http://stackoverflow.com/questions/1929166/how-to-programmatically-determine-if-drm-was-removed-from-iphone-application</a><br>回應3 &gt;<br><a href="http://stackoverflow.com/questions/846309/reducing-piracy-of-iphone-applications" target="_blank" rel="noopener">http://stackoverflow.com/questions/846309/reducing-piracy-of-iphone-applications</a><br>最佳回答&gt;<br><a href="http://thwart-ipa-cracks.blogspot.com/2008/11/detection.html" target="_blank" rel="noopener">http://thwart-ipa-cracks.blogspot.com/2008/11/detection.html</a>  </p>
+<p>教學與效果<br><a href="http://www.youtube.com/watch?v=R0EIkCNyCiE" target="_blank" rel="noopener">http://www.youtube.com/watch?v=R0EIkCNyCiE</a>  </p>
+<p>關鍵文字<br>{SignerIdentity, Apple iPhone OS Application Signing}  </p>
+<p>關於那段文字似乎許多文章指出是在不用99鎂證書打包ipa時的步驟之一<br><a href="http://blog.csdn.net/yohunl/article/details/5971252" target="_blank" rel="noopener">http://blog.csdn.net/yohunl/article/details/5971252</a><br><a href="http://www.cocoachina.com/bbs/simple/?t7316.html" target="_blank" rel="noopener">http://www.cocoachina.com/bbs/simple/?t7316.html</a><br><a href="http://www.codeios.com/thread-1054-1-1.html" target="_blank" rel="noopener">http://www.codeios.com/thread-1054-1-1.html</a>  </p>
+<p>剛剛看過可以在改過的ipa檔中的*~.arm中找到Apple iPhone OS Application Signing<br>我自己打包的沒有  </p>
+<p>另外似乎還有其他防止方式<br>防止方式一覽<br><a href="http://lwbpeter.blog.163.com/blog/static/3850821120103180386372/" target="_blank" rel="noopener">http://lwbpeter.blog.163.com/blog/static/3850821120103180386372/</a>  </p>
+<p>改的方法, 那段文字的主要功用  還在尋找當中  </p>
+<p>一些相關資料<br><a href="http://lifehacker.com/5736101/how-to-crack-just-about-any-mac-app-and-how-to-prevent-it" target="_blank" rel="noopener">http://lifehacker.com/5736101/how-to-crack-just-about-any-mac-app-and-how-to-prevent-it</a><br><a href="http://hackulo.us/wiki/IOS_Cracking" target="_blank" rel="noopener">http://hackulo.us/wiki/IOS_Cracking</a><br><a href="http://www.mrspeaker.net/2011/01/06/mac-hacking/" target="_blank" rel="noopener">http://www.mrspeaker.net/2011/01/06/mac-hacking/</a>  </p>
+<p><a href="http://www.cocoanetics.com/anticrack/" target="_blank" rel="noopener">http://www.cocoanetics.com/anticrack/</a><br><a href="http://www.sensepost.com/blog/6254.html" target="_blank" rel="noopener">http://www.sensepost.com/blog/6254.html</a>  </p>
+<p><a href="http://38leinad.wordpress.com/2011/05/12/cracking-cocoa-apps-for-dummies/" target="_blank" rel="noopener">http://38leinad.wordpress.com/2011/05/12/cracking-cocoa-apps-for-dummies/</a>  </p>
+<p>使用CRACKULOUS破解App Store應用<br><a href="http://www.jindi.org/bbs/thread-183804-1-1.html" target="_blank" rel="noopener">http://www.jindi.org/bbs/thread-183804-1-1.html</a><br>揭秘破解软件的幕后，以及ARM那点事<br><a href="http://bbs.weiphone.com/read-htm-tid-1374779.html" target="_blank" rel="noopener">http://bbs.weiphone.com/read-htm-tid-1374779.html</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-lua的decompiler" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/29/lua的decompiler/">lua的decompiler &amp; checksum檢查</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/02/29/lua的decompiler/" class="article-date">
+  <time datetime="2012-02-28T16:23:29.000Z" itemprop="datePublished">2012-02-29</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/02/29/lua的decompiler/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前的文章<a href="/2011/12/05/Lua預編譯/" title="[Lua預編譯]">[Lua預編譯]</a>有提到預編譯可保護source code免於被用戶修改，但在最近的專案中有人修改預編譯的lua檔達到作弊的效果，雖然看來像是硬改的，但仍對lua的decompiler做了一下搜尋，找到了下面的東西：</p>
+<p><a href="http://luadec51.luaforge.net/" target="_blank" rel="noopener">LuaDec51 - A Lua Decompiler for lua 5.1.x</a></p>
+<p>這東西可以將預編譯後的lua檔反編譯，還原成一般人都看的懂的樣子，因此對於預編譯後的lua做防護仍有必要，主要的問題在於要選擇哪一種作法，最後是選擇用Checksum而不用加解密的方式，因為較快且基本上這個專案的設定一般玩家看到也不會有什麼問題。</p>
+<p>程式庫的選擇上，最後是選擇了<a href="http://hashlib2plus.sourceforge.net/" target="_blank" rel="noopener">hashlib++</a>，因為較小(專注於checksum )且便於使用(兩行code就可以取一個檔案的MD5)，並且在編譯上沒有其他需要特別修改的地方，搭配cocos2d-x基本上沒有問題。</p>
+
+      
+    </div>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Android裝置的唯一識別碼" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/02/29/Android裝置的唯一識別碼/">Android裝置的唯一識別碼</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/02/29/Android裝置的唯一識別碼/" class="article-date">
+  <time datetime="2012-02-28T16:20:11.000Z" itemprop="datePublished">2012-02-29</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/02/29/Android裝置的唯一識別碼/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先講我的結論：沒有一個方法是保證百分之百適用於全部的裝置</p>
+<p>以下列出找到的一些方法</p>
+<ol>
+<li><p>The IMEI/MEID<br>TelephonyManager.getDeviceId()<br>不能用的原因: IMEI有重複的疑慮(不肖廠商為省錢用相同的)</p>
+</li>
+<li><p>ANDROID_ID Settings.Secure.ANDROID_ID<br>不能用的原因：回原廠設定可能改變，root手機可改，某些廠牌取出來的都一樣</p>
+</li>
+<li><p>Serial Number android.os.Build.SERIAL<br>A hardware serial number, if available. Alphanumeric only, case-insensitive.<br>不能用的原因：僅2.3以上版本支援  </p>
+</li>
+<li><p>Mac Address(wifi, BlueTooth)<br>不能用的原因：官方不推，首先非全部裝置都有WiFi，其次如果關閉，可能會取不到(以下Ref2中有人試過)</p>
+</li>
+<li><p>Pseudo-Unique 請看Ref3第2項<br>不能用的原因：還是有可能相同</p>
+</li>
+</ol>
+<p>參考資料<br>Ref1: <a href="http://android-developers.blogspot.com/2011/03/identifying-app-installations.html" target="_blank" rel="noopener">http://android-developers.blogspot.com/2011/03/identifying-app-installations.html</a><br>Ref2: <a href="http://groups.google.com/group/android-developers/browse_thread/thread/48c7e15935a29eb1" target="_blank" rel="noopener">http://groups.google.com/group/android-developers/browse_thread/thread/48c7e15935a29eb1</a><br>Ref3: <a href="http://www.pocketmagic.net/?p=1662" target="_blank" rel="noopener">http://www.pocketmagic.net/?p=1662</a><br>Ref4: <a href="http://innovator.samsungmobile.com/cms/cnts/knowledge.detail.view.do?platformId=1&amp;cntsId=9640" target="_blank" rel="noopener">http://innovator.samsungmobile.com/cms/cnts/knowledge.detail.view.do?platformId=1&amp;cntsId=9640</a>  </p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-Amit’s-Game-Programming-Information" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/01/02/Amit’s-Game-Programming-Information/">Amit’s Game Programming Information</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/01/02/Amit’s-Game-Programming-Information/" class="article-date">
+  <time datetime="2012-01-01T16:55:48.000Z" itemprop="datePublished">2012-01-02</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/01/02/Amit’s-Game-Programming-Information/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://www-cs-students.stanford.edu/~amitp/gameprog.html" target="_blank" rel="noopener">http://www-cs-students.stanford.edu/~amitp/gameprog.html</a> </p>
+<p>作者收集許多遊戲主題與相關聯結的文章<br>從最短路徑搜尋到以至到遊戲經濟體系都有<br>感覺上相當豐富</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link/">link</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

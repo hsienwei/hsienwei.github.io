@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Unity Culling Group簡介 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="以下內容主要來自公司內部分享 Culling Group (Unity)link該API於Unity 5.1後版本出現主要用於攝影機可見範圍判定個人感覺算是容易使用API中提供距離判定功能, 以長度為主物件在出現與消失, 以及距離段變更會有通知 主要用他來決定一些特效是否要產出與播放以及當看不到時關閉某些效果主要的考量點還是在能少算就少算   // 建立   CullingGroup group">
+<meta name="keywords" content="unity,Culling Group">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity Culling Group簡介">
+<meta property="og:url" content="http://hsienwei.github.io/2017/06/05/UnityCullingGroup/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="以下內容主要來自公司內部分享 Culling Group (Unity)link該API於Unity 5.1後版本出現主要用於攝影機可見範圍判定個人感覺算是容易使用API中提供距離判定功能, 以長度為主物件在出現與消失, 以及距離段變更會有通知 主要用他來決定一些特效是否要產出與播放以及當看不到時關閉某些效果主要的考量點還是在能少算就少算   // 建立   CullingGroup group">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity Culling Group簡介">
+<meta name="twitter:description" content="以下內容主要來自公司內部分享 Culling Group (Unity)link該API於Unity 5.1後版本出現主要用於攝影機可見範圍判定個人感覺算是容易使用API中提供距離判定功能, 以長度為主物件在出現與消失, 以及距離段變更會有通知 主要用他來決定一些特效是否要產出與播放以及當看不到時關閉某些效果主要的考量點還是在能少算就少算   // 建立   CullingGroup group">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-UnityCullingGroup" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Unity Culling Group簡介
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/06/05/UnityCullingGroup/" class="article-date">
+  <time datetime="2017-06-04T17:01:51.000Z" itemprop="datePublished">2017-06-05</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2017/06/05/UnityCullingGroup/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下內容主要來自公司內部分享</p>
+<h1 id="Culling-Group-Unity"><a href="#Culling-Group-Unity" class="headerlink" title="Culling Group (Unity)"></a>Culling Group (Unity)</h1><p><a href="https://docs.unity3d.com/Manual/CullingGroupAPI.html" target="_blank" rel="noopener">link</a><br>該API於Unity 5.1後版本出現<br>主要用於攝影機可見範圍判定<br>個人感覺算是容易使用<br>API中提供距離判定功能, 以長度為主<br>物件在出現與消失, 以及距離段變更會有通知</p>
+<p>主要用他來決定一些特效是否要產出與播放以及當看不到時關閉某些效果<br>主要的考量點還是在能少算就少算  </p>
+<pre><code>// 建立  
+CullingGroup group = new CullingGroup();  
+</code></pre><p>一開始的Group建立  </p>
+<pre><code>// 設置攝影機  
+group.targetCamera = Camera.main;  
+</code></pre><p>設定攝影機, 攝影機可以之後再切換, 切換後會通知你物件的可見狀況</p>
+<pre><code>// 設定BoundingSphere  
+BoundingSphere[] spheres = new BoundingSphere[1000];
+spheres[0] = new BoundingSphere(Vector3.zero, 1f);
+group.SetBoundingSpheres(spheres);
+group.SetBoundingSphereCount(1);
+</code></pre><p>這裡主要是設定BoundingSphere, 之後只要更新位置, 就可以收到Culling Group的通知, BoundingSphere的大小依照需要來調整<br>另外是BoundingSphere的個數因為要丟一個array進去, 個人感覺需要另外作管理, 一開始給一個大一點的array後來再去管理裡面的使用狀況</p>
+<pre><code>// 關閉
+group.Dispose();
+group = null;
+</code></pre><p>要記得不用時一定要關閉他, 不做這個動作下一次可能運作會不正常, 且Unity會跳一個error來提示</p>
+<pre><code>// 區間帶設置
+group.SetBoundingDistances(new float[] { 5000, 10000, 15000, 20000, 25000});
+int DistanceBand = group.GetDistance(Idx);
+</code></pre><p>這裡主要是設置區間帶, 在可視狀態變更時會一起給你區間帶的Index, 可以用來作一些處理<br>有一點要注意, 像我最後設置25000, 則多於這個距離的都會判定為不可視</p>
+<pre><code>// 狀態通知設置
+group.onStateChanged = StateChangedMethod;
+
+private void StateChangedMethod(CullingGroupEvent evt)
+{
+    if(evt.hasBecomeVisible)
+        Debug.LogFormat(&quot;Sphere {0} has become visible!&quot;, evt.index);
+    if(evt.hasBecomeInvisible)
+        Debug.LogFormat(&quot;Sphere {0} has become invisible!&quot;, evt.index);
+}
+</code></pre><p>主要是通知你可視狀態的變更, 回傳Index, 再以Index來得到要處理的物件作處理, 所以紀錄Index與其對應的物件是必要的</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Culling-Group/">Culling Group</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Android無法安裝Apk的處理方式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/25/DOTweenInUnity/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">DOTween：一個好用的Unity Tween System plugin&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2017/06/05/UnityCullingGroup/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

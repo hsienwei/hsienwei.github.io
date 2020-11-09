@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Facebook comments 在iOS用原生UI製作測試 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="這裡指的是social plugin中的commentshttps://developers.facebook.com/docs/plugins/comments/如果不要add comment的話應該是做的到的 本次專案中有一個功能是可以對某個頁面做FB comment在網頁中可以用Facebook的plugin但在app當中SDK沒有提供相關的UI可供使用要使用的話必須用UIWebView加上">
+<meta name="keywords" content="ios,facebook">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Facebook comments 在iOS用原生UI製作測試">
+<meta property="og:url" content="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="這裡指的是social plugin中的commentshttps://developers.facebook.com/docs/plugins/comments/如果不要add comment的話應該是做的到的 本次專案中有一個功能是可以對某個頁面做FB comment在網頁中可以用Facebook的plugin但在app當中SDK沒有提供相關的UI可供使用要使用的話必須用UIWebView加上">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Facebook comments 在iOS用原生UI製作測試">
+<meta name="twitter:description" content="這裡指的是social plugin中的commentshttps://developers.facebook.com/docs/plugins/comments/如果不要add comment的話應該是做的到的 本次專案中有一個功能是可以對某個頁面做FB comment在網頁中可以用Facebook的plugin但在app當中SDK沒有提供相關的UI可供使用要使用的話必須用UIWebView加上">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-facebook-comments-ios-native-ui" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Facebook comments 在iOS用原生UI製作測試
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/04/08/facebook-comments-ios-native-ui/" class="article-date">
+  <time datetime="2014-04-08T06:45:00.000Z" itemprop="datePublished">2014-04-08</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/plugins/comments/</a><br>如果不要add comment的話應該是做的到的</p>
+<p>本次專案中有一個功能是可以對某個頁面做FB comment<br>在網頁中可以用Facebook的plugin<br>但在app當中SDK沒有提供相關的UI可供使用<br>要使用的話必須用UIWebView加上plugin來達成</p>
+<p>後來在Facebook的graph api當中找到有關的功能<br><a href="https://developers.facebook.com/docs/graph-api/reference/object/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/graph-api/reference/object/comments/</a><br>裡面有提到Reading與Publishing的功能</p>
+<p>但由於我使用的ID是網頁網址所以必須改一下</p>
+<pre><code>[FBRequestConnection startWithGraphPath:@&quot;/****** id *******/comments&quot;]
+[FBRequestConnection startWithGraphPath:@&quot;/comments/?ids=http://www.xxx.xxx.xx&quot;]
+</code></pre><p>在Reading的部分沒有問題，但在Publishing的部分就會收到錯誤訊息</p>
+<pre><code>body =  {
+        error = {
+            code = 100;
+            message = &quot;(#100) Comments may not be added to a comment plugin&quot;;
+            type = OAuthException;
+                };
+        };
+</code></pre><p>後來仔細查一下<br>發現原來這個功能是不能使用的<br>相關連結：<br><a href="http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box" target="_blank" rel="noopener">http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box</a><br><a href="http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module" target="_blank" rel="noopener">http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module</a><br><a href="https://developers.facebook.com/bugs/164794086987157" target="_blank" rel="noopener">https://developers.facebook.com/bugs/164794086987157</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/facebook/">facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/19/自製2048-for-Chromecast/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          自製2048 for Chromecast
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/07/ios-play-youtube/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS中播放youtube影片經驗&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

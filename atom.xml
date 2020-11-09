@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>雜物聚集地</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://hsienwei.github.io/"/>
+  <updated>2020-11-09T17:05:39.919Z</updated>
+  <id>http://hsienwei.github.io/</id>
+  
+  <author>
+    <name>Hsien-Wei Hsiang</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Godot最小產出測試</title>
+    <link href="http://hsienwei.github.io/2020/11/10/Godot%E6%9C%80%E5%B0%8F%E7%94%A2%E5%87%BA%E6%B8%AC%E8%A9%A6/"/>
+    <id>http://hsienwei.github.io/2020/11/10/Godot最小產出測試/</id>
+    <published>2020-11-09T16:03:56.000Z</published>
+    <updated>2020-11-09T17:05:39.919Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Godot"><a href="#Godot" class="headerlink" title="Godot"></a>Godot</h1><p>一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引擎產出的release版遊戲大概最小可以到什麼程度，這在網頁遊戲來講還滿重要的。<br>以前曾經用unity產出幾個非常簡單的網頁遊戲大概都要4M起跳，其實跟一般html5的framework(如pixi.js)的所需檔案大小相差甚遠(V4.4.5 約403KB)。</p><h1 id="初始系統安裝"><a href="#初始系統安裝" class="headerlink" title="初始系統安裝"></a>初始系統安裝</h1><ol><li>安裝python 3.8</li><li>安裝scons<br><code>python -m pip install scons</code></li><li><a href="#設定cc-compiler">設定c/c++ compiler</a></li></ol><h1 id="下載-godot-source-code"><a href="#下載-godot-source-code" class="headerlink" title="下載 godot source code"></a>下載 godot source code</h1><p>一開始以為是要在遊戲專案下使用scons，會有以下訊息</p><blockquote><p>scons: *** No SConstruct file found.<br>File “d:\dev\python\python38\lib\site-packages\SCons\Script\Main.py”, line 947, in _main</p></blockquote><p>後來看了<a href="https://godotengine.org/qa/24836/compiling-for-the-web-no-sconstruct-file-found" target="_blank" rel="noopener">這篇</a>才發現是要下載原始碼，在godot 原始碼目錄下使用</p><p>個人使用 3.2.3-stable<br>release 連結如下<br><a href="https://github.com/godotengine/godot/releases/tag/3.2.3-stable" target="_blank" rel="noopener">https://github.com/godotengine/godot/releases/tag/3.2.3-stable</a><br>或者也可以使用 git clone tag 3.2.3-stable</p><p>下載結束後，可以執行<code>scons platform=list</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; scons platform=list</span><br><span class="line">scons: Reading SConscript files ...</span><br><span class="line">The following platforms are available:</span><br><span class="line"></span><br><span class="line">        windows</span><br></pre></td></tr></table></figure><p>一開始只會有windows，scons會檢查是否有相關toolchain<br><a href="https://godotengine.org/qa/30417/scons-build-only-has-windows-platform" target="_blank" rel="noopener">https://godotengine.org/qa/30417/scons-build-only-has-windows-platform</a></p><h1 id="設定c-c-compiler"><a href="#設定c-c-compiler" class="headerlink" title="設定c/c++ compiler"></a>設定c/c++ compiler</h1><p>如果遇到下面的訊息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scons: warning: No version of Visual Studio compiler found - C/C++ compilers most likely not set correctly</span><br><span class="line">File &quot;D:\godot\test\SConstruct&quot;, line 3, in &lt;module&gt;</span><br><span class="line">ModuleNotFoundError: No module named &apos;glsl_builders&apos;:</span><br><span class="line">  File &quot;D:\godot\test\SConstruct&quot;, line 15:</span><br><span class="line">    import glsl_builders</span><br></pre></td></tr></table></figure></p><p>表示需要安裝VS compiler, 此時可參照下面網頁內容<br><a href="https://wiki.python.org/moin/WindowsCompilers" target="_blank" rel="noopener">https://wiki.python.org/moin/WindowsCompilers</a><br>我使用python 3.8 故照<a href="https://wiki.python.org/moin/WindowsCompilers#Microsoft_Visual_C.2B-.2B-_14.2_standalone:_Build_Tools_for_Visual_Studio_2019_.28x86.2C_x64.2C_ARM.2C_ARM64.29" target="_blank" rel="noopener">這一節</a>處理</p><h1 id="編譯web版"><a href="#編譯web版" class="headerlink" title="編譯web版"></a>編譯web版</h1><p>主要參照以下內容<br><a href="https://docs.godotengine.org/en/stable/development/compiling/compiling_for_web.html" target="_blank" rel="noopener">https://docs.godotengine.org/en/stable/development/compiling/compiling_for_web.html</a></p><p>安裝emscripten<br><a href="https://emscripten.org/docs/getting_started/downloads.html" target="_blank" rel="noopener">https://emscripten.org/docs/getting_started/downloads.html</a><br>參照這個連結，照著操作就可以<br>唯一要注意的點是每次要編譯前需要設定環境<br>只要執行sdk底下的<code>emsdk_env.bat</code>就可以</p><p>設定成功後輸入<code>scons platform=list</code>應該會多出一個新的選項</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scons platform=list</span><br><span class="line">scons: Reading SConscript files ...</span><br><span class="line">The following platforms are available:</span><br><span class="line"></span><br><span class="line">        javascript</span><br><span class="line">        windows</span><br></pre></td></tr></table></figure><p>看到javascript後可以輸入<code>scons platform=javascript tools=no target=release -j 4</code>開始編譯，如果編譯成功的話檔案會在<code>godot_root/bin/godot.javascript.opt.zip</code>。如果<code>target=release_debug</code>的話會是<code>godot_root/bin/godot.javascript.opt.debug.zip</code>,<code>-j 4</code>是使用多核編譯</p><p>根據<a href="https://docs.godotengine.org/en/stable/development/compiling/optimizing_for_size.html" target="_blank" rel="noopener">這一節</a>的內容，我們可以藉由關閉一些功能來減少產出的程式庫大小，其調整可以使用console的選項，但godot提供另一個方法，可以放一個<code>custom.py</code>檔案來設置選項，並且提供<a href="https://godot-build-options-generator.github.io/" target="_blank" rel="noopener">工具</a>來生成這個檔案，以下是我使用的設置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># Generated using https://godot-build-options-generator.github.io</span><br><span class="line"></span><br><span class="line">disable_3d = &quot;yes&quot;</span><br><span class="line">optimize = &quot;size&quot;</span><br><span class="line">disable_advanced_gui = &quot;yes&quot;</span><br><span class="line">deprecated = &quot;no&quot;</span><br><span class="line">module_arkit_enabled = &quot;no&quot;</span><br><span class="line">module_bmp_enabled = &quot;no&quot;</span><br><span class="line">module_bullet_enabled = &quot;no&quot;</span><br><span class="line">module_camera_enabled = &quot;no&quot;</span><br><span class="line">module_csg_enabled = &quot;no&quot;</span><br><span class="line">module_dds_enabled = &quot;no&quot;</span><br><span class="line">module_enet_enabled = &quot;no&quot;</span><br><span class="line">module_etc_enabled = &quot;no&quot;</span><br><span class="line">module_gdnative_enabled = &quot;no&quot;</span><br><span class="line">module_gdnavigation_enabled = &quot;no&quot;</span><br><span class="line">module_gdscript_enabled = &quot;no&quot;</span><br><span class="line">module_gridmap_enabled = &quot;no&quot;</span><br><span class="line">module_hdr_enabled = &quot;no&quot;</span><br><span class="line">module_jpg_enabled = &quot;no&quot;</span><br><span class="line">module_jsonrpc_enabled = &quot;no&quot;</span><br><span class="line">module_mbedtls_enabled = &quot;no&quot;</span><br><span class="line">module_mobile_vr_enabled = &quot;no&quot;</span><br><span class="line">module_ogg_enabled = &quot;no&quot;</span><br><span class="line">module_opensimplex_enabled = &quot;no&quot;</span><br><span class="line">module_opus_enabled = &quot;no&quot;</span><br><span class="line">module_regex_enabled = &quot;no&quot;</span><br><span class="line">module_stb_vorbis_enabled = &quot;no&quot;</span><br><span class="line">module_tga_enabled = &quot;no&quot;</span><br><span class="line">module_theora_enabled = &quot;no&quot;</span><br><span class="line">module_tinyexr_enabled = &quot;no&quot;</span><br><span class="line">module_upnp_enabled = &quot;no&quot;</span><br><span class="line">module_vorbis_enabled = &quot;no&quot;</span><br><span class="line">module_webm_enabled = &quot;no&quot;</span><br><span class="line">module_webp_enabled = &quot;no&quot;</span><br></pre></td></tr></table></figure></p><p>應該是能關的都關了，唯一沒關的是<code>Enable module: FreeType</code>,關了之後我遇到編譯錯誤，所以就放棄了，這樣編譯的<code>godot.wasm</code>檔案大小是10051KB，沒有使用<code>custom.py</code>的檔案大小是14643KB</p><h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>這裡有<a href="https://www.reddit.com/r/godot/comments/8b67lb/guide_how_to_compress_wasmpck_file_to_make_html5/" target="_blank" rel="noopener">一篇文章</a>是以壓縮wasm來減少檔案大小，但其實應該Unity也是做得到，且壓縮後大小還是有其限度，故參考即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Godot&quot;&gt;&lt;a href=&quot;#Godot&quot; class=&quot;headerlink&quot; title=&quot;Godot&quot;&gt;&lt;/a&gt;Godot&lt;/h1&gt;&lt;p&gt;一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引
+      
+    
+    </summary>
+    
+    
+      <category term="godot" scheme="http://hsienwei.github.io/tags/godot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Jenkins使用筆記(Windows版)</title>
+    <link href="http://hsienwei.github.io/2019/11/24/Jenkins%E4%BD%BF%E7%94%A8%E7%AD%86%E8%A8%98/"/>
+    <id>http://hsienwei.github.io/2019/11/24/Jenkins使用筆記/</id>
+    <published>2019-11-23T17:08:09.000Z</published>
+    <updated>2020-11-09T17:05:39.920Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h1><ol><li><a href="https://jenkins.io/download/" target="_blank" rel="noopener">https://jenkins.io/download/</a> 下載windows Long-term Support version並安裝。</li><li>安裝完後，瀏覽器會自動開啟 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> ，此時可以看到Jenkins正在工作中。</li><li>之後Jenkins會要求你輸入一個在指定路徑檔案的密碼，路徑大概像是<code>C:\Program Files (x86)\Jenkins\secrets\initialAdminPassword</code> 。</li><li>密碼輸入後，Jenkins會要你安裝建議的plugin或者是選擇你自己需要的plugin，由於之後還可以再設定，所以可以先使用建議的就可以，之後的安裝會花幾分鐘的時間。</li><li>安裝完後，Jenkins會要求你輸入第一個管理者的資料，稍後可以再加入其他管理者的資料。</li><li>Jenkins會要求輸入使用的URL，可以使用預設設定，安裝程序結束後可以再設定。</li><li>至此Jenkins已經設定完成，可以用左上角的 add job來增加建置job。</li></ol><h1 id="如何重啟或停止Jenkins服務"><a href="#如何重啟或停止Jenkins服務" class="headerlink" title="如何重啟或停止Jenkins服務"></a>如何重啟或停止Jenkins服務</h1><ul><li>透過 <a href="http://localhost:8080/restart" target="_blank" rel="noopener">http://localhost:8080/restart</a> 或 <a href="http://localhost:8080/safeRestart" target="_blank" rel="noopener">http://localhost:8080/safeRestart</a> 可以重啟jenkins服務。<br>(jenkins_url)/safeRestart - 允許所有正在進行的jobs完成，新的jobs會被保持在queue中等到重啟完成後再執行。<br>(jenkins_url)/restart - 強制重啟並不等待進行中的jobs完成。</li><li>直接執行command, 加上參數如下<br>( jenkins_path)/jenkins.exe stop<blockquote><p>‘install’ - install the service to Windows Service Controller<br>‘uninstall’ - uninstall the service<br>‘start’ - start the service (must be installed before)<br>‘stop’ - stop the service<br>‘restart’ - restart the service</p></blockquote></li><li>如果需要重開的理由是PATH的修改變動，必須要使用jenkins.exe來restart。</li></ul><h1 id="How-to-add-SSH-key"><a href="#How-to-add-SSH-key" class="headerlink" title="How to add SSH key"></a>How to add SSH key</h1><p>如果需要透過 ssh方式連接到git或者是建置過程需要使用到ssh，就需要先設定ssh key。</p><p>按下 <code>Credentials</code>.<br><img src="https://i.imgur.com/fLlC09T.png" alt><br>按下 <code>System</code>.<br><img src="https://i.imgur.com/O4VYtj8.png" alt><br>按下 <code>Global credentials (unrestricted)</code>.<br><img src="https://i.imgur.com/q5CoExt.png" alt><br>按下 <code>Add Credentials</code> . 選擇 <code>SSH Username with private key</code>.<br>複製 SSH private key 的全部內容到 private key 欄位<br>(ssh private key 的預設路徑 : C:\Users\user_name\.ssh\id_rsa)<br>並輸入Username 與 passphrase (如果有的話).<br><img src="https://i.imgur.com/X8yzK0d.png" alt></p><h1 id="Using-ssh-agent-in-build-process"><a href="#Using-ssh-agent-in-build-process" class="headerlink" title="Using ssh-agent in build process"></a>Using ssh-agent in build process</h1><p><a href="https://plugins.jenkins.io/ssh-agent" target="_blank" rel="noopener">https://plugins.jenkins.io/ssh-agent</a><br>如果建置過程需要使用到ssh-agent，可以安裝這個plugin來使用<br>在安裝之後，在建置環境中可以看到<code>SSH agent</code>選項，選取以設定ssh key</p><h1 id="Using-Slack-notification"><a href="#Using-Slack-notification" class="headerlink" title="Using Slack notification"></a>Using Slack notification</h1><p><a href="https://plugins.jenkins.io/slack" target="_blank" rel="noopener">https://plugins.jenkins.io/slack</a><br>slack是一個企業用的通訊軟體，如果剛好公司使用了這個軟體而且需要通知建置結果，除了使用api方式來通知，也可以透過這個plugin來處理。</p><h1 id="我覺得好用的plugin"><a href="#我覺得好用的plugin" class="headerlink" title="我覺得好用的plugin"></a>我覺得好用的plugin</h1><ul><li><p><a href="https://wiki.jenkins.io/display/JENKINS/Extended+Choice+Parameter+plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Extended+Choice+Parameter+plugin</a><br>提供更多樣化的參數使用方式，像是選擇清單，讓參數輸入可以更方便</p></li><li><p><a href="https://wiki.jenkins.io/display/JENKINS/Mask+Passwords+Plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Mask+Passwords+Plugin</a><br>可以將console log中的參數給隱藏起來的plugin，可以避免被看到輸入的密碼參數</p></li><li><p><a href="https://wiki.jenkins.io/display/JENKINS/SCM+Sync+configuration+plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/SCM+Sync+configuration+plugin</a><br>提供使用版控系統來備份jenkins設定的功能</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安裝&quot;&gt;&lt;a href=&quot;#安裝&quot; class=&quot;headerlink&quot; title=&quot;安裝&quot;&gt;&lt;/a&gt;安裝&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://jenkins.io/download/&quot; target=&quot;_blank&quot; rel=&quot;noop
+      
+    
+    </summary>
+    
+    
+      <category term="Jenkins" scheme="http://hsienwei.github.io/tags/Jenkins/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 BitBucket PullRequest API</title>
+    <link href="http://hsienwei.github.io/2019/10/30/%E4%BD%BF%E7%94%A8-BitBucket-PullRequest-API/"/>
+    <id>http://hsienwei.github.io/2019/10/30/使用-BitBucket-PullRequest-API/</id>
+    <published>2019-10-30T03:35:15.000Z</published>
+    <updated>2020-11-09T17:05:40.084Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>由於目前公司專案數量大約有幾十個<br>有一些共同的修正因為設計關係需要對所有專案都進行類似的修改<br>這類作業舉例來說會是一些換圖或者是一些檔案調整<br>目前大多是自己寫腳本來處理<br>流程一開始如下<br>開branch-&gt;修改-&gt;commit-&gt;push-&gt;提PR<br>由於一開始提PR這個流程沒有自動化<br>所以還是需要一些人工去處理</p><p>後來將流程改成<br>主branch修改-&gt;commit-&gt;push<br>這樣的風險在於腳本萬一處理有問題的話沒有檢查處理結果的機會<br>後來覺得應該還是要走PR的流程<br>所以需要將PR自動化</p><h1 id="App-password"><a href="#App-password" class="headerlink" title="App password"></a>App password</h1><p>這是一個需要預先準備的東西<br>在bitbucket settings中可以找到這個選項<br>因為有的api需要你輸入使用username以及password<br>(官方給的curl範例是-u選項<br>postman中會是在Authorization分頁中使用Basic Auth)<br>此處的password是指App password<br>可以針對不同的權限需求使用不同的密碼</p><p>使用PR API需要的權限<br>Team membership     R<br>Pull requests     R/W</p><h1 id="curl-轉-python"><a href="#curl-轉-python" class="headerlink" title="curl 轉 python"></a>curl 轉 python</h1><p>由於官方給的範例主要是curl<br>我自己用的是python<br>可以用以下網頁轉換<br><a href="https://curl.trillworks.com/" target="_blank" rel="noopener">https://curl.trillworks.com/</a></p><p>如果用postman也會有提供轉換功能</p><h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><h2 id="前置作業-取得使用者資訊-uuid"><a href="#前置作業-取得使用者資訊-uuid" class="headerlink" title="前置作業: 取得使用者資訊(uuid)"></a>前置作業: 取得使用者資訊(uuid)</h2><p>主要用於設定reviewer<br>在使用PR API時會需要對方的uuid</p><p>api page:<br><a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/users/%7Busername%7D" target="_blank" rel="noopener">https://developer.atlassian.com/bitbucket/api/2/reference/resource/users/%7Busername%7D</a></p><p>使用範例:<br><a href="https://api.bitbucket.org/2.0/users/hsienwei" target="_blank" rel="noopener">https://api.bitbucket.org/2.0/users/hsienwei</a></p><p>response 範例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;display_name&quot;: &quot;hsienwei hsiang&quot;, &quot;uuid&quot;: &quot;&#123;c56de9fd-b17b-4fd0-9d42-89a114ba839c&#125;&quot;, &quot;links&quot;: &#123;&quot;hooks&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/users/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D/hooks&quot;&#125;, &quot;self&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/users/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D&quot;&#125;, &quot;repositories&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/repositories/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D&quot;&#125;, &quot;html&quot;: &#123;&quot;href&quot;: &quot;https://bitbucket.org/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D/&quot;&#125;, &quot;avatar&quot;: &#123;&quot;href&quot;: &quot;https://secure.gravatar.com/avatar/e75de8273492ae27638a55f7effc2f37?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FHH-6.png&quot;&#125;, &quot;snippets&quot;: &#123;&quot;href&quot;: &quot;https://api.bitbucket.org/2.0/snippets/%7Bc56de9fd-b17b-4fd0-9d42-89a114ba839c%7D&quot;&#125;&#125;, &quot;nickname&quot;: &quot;hsienwei&quot;, &quot;created_on&quot;: &quot;2013-12-19T07:57:15.653135+00:00&quot;, &quot;is_staff&quot;: false, &quot;account_status&quot;: &quot;active&quot;, &quot;type&quot;: &quot;user&quot;, &quot;account_id&quot;: &quot;557058:43f113de-285b-40cd-8271-e4a9e28f7331&quot;&#125;</span><br></pre></td></tr></table></figure></p><p>這裡有一點需要注意，如果要使用uuid需要連左右大括弧一起使用，如上面範例的<code>{c56de9fd-b17b-4fd0-9d42-89a114ba839c}</code></p><h2 id="前置作業-取得repo-slug"><a href="#前置作業-取得repo-slug" class="headerlink" title="前置作業: 取得repo slug"></a>前置作業: 取得repo slug</h2><p>一般來講repo slug就觀察來說應該就是你在網頁上看到的名稱，所以不太需要用API來看，但這裡有一個方法可以讓你看到指定team/user的所有repo資訊<br>api page:<br><a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/teams/%7Busername%7D/repositories" target="_blank" rel="noopener">https://developer.atlassian.com/bitbucket/api/2/reference/resource/teams/%7Busername%7D/repositories</a><br>使用範例:<br><a href="https://api.bitbucket.org/2.0/repositories/hsienwei" target="_blank" rel="noopener">https://api.bitbucket.org/2.0/repositories/hsienwei</a></p><p>需要使用username跟password才能取到private的資訊</p><p>如數量較多會分多頁顯示<br>會有幾個欄位提供如</p><ul><li>pagelen 有幾頁</li><li>page 第幾頁</li><li>next 下一頁網址<br><a href="https://api.bitbucket.org/2.0/repositories/hsienwei?page=2" target="_blank" rel="noopener">https://api.bitbucket.org/2.0/repositories/hsienwei?page=2</a></li></ul><h2 id="Pull-Request-API"><a href="#Pull-Request-API" class="headerlink" title="Pull Request API"></a>Pull Request API</h2><p>api page:<br><a href="https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post" target="_blank" rel="noopener">https://developer.atlassian.com/bitbucket/api/2/reference/resource/repositories/%7Busername%7D/%7Brepo_slug%7D/pullrequests#post</a></p><h1 id="簡易python範例"><a href="#簡易python範例" class="headerlink" title="簡易python範例"></a>簡易python範例</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    &apos;Content-Type&apos;: &apos;application/json&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data =  &#123;</span><br><span class="line">            &apos;title&apos;: &apos;Just test&apos;,</span><br><span class="line">            &apos;source&apos;:</span><br><span class="line">            &#123;</span><br><span class="line">                &apos;branch&apos;:</span><br><span class="line">                &#123;</span><br><span class="line">                    &apos;name&apos;: &apos;source-branch-name&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &apos;destination&apos;:</span><br><span class="line">            &#123;</span><br><span class="line">                &apos;branch&apos;:</span><br><span class="line">                &#123;</span><br><span class="line">                    &apos;name&apos;: &apos;destination-branch-name&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &apos;reviewers&apos;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &apos;uuid&apos;: &apos;&#123;c56de9fd-b17b-4fd0-9d42-89a114ba839c&#125;&apos;</span><br><span class="line">                &#125;</span><br><span class="line">            ],</span><br><span class="line">            &apos;description&apos;: &apos;aaa&apos;,</span><br><span class="line">            &apos;close_source_branch&apos;: True</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">data_str = json.dumps(data)</span><br><span class="line"></span><br><span class="line">response = requests.request(&quot;POST&quot;, &apos;https://api.bitbucket.org/2.0/repositories/username/reposlug/pullrequests&apos;</span><br><span class="line">    , headers=headers, data=data_str, auth=(&apos;username&apos;, &apos;password&apos;))</span><br><span class="line"></span><br><span class="line">print(response.text)</span><br></pre></td></tr></table></figure><p>這裡需要給的資料大概就幾個</p><ul><li>title : PR的標題</li><li>source &gt; branch : 來源分支</li><li>destination &gt; branch : 目標分支</li><li>reviewers : 這裡填的是reviewer的uuid</li><li>description : 該PR的說明內容</li><li>close_source_branch : 合併後是否關閉該分支</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;由於目前公司專案數量大約有幾十個&lt;br&gt;有一些共同的修正因為設計關係需要對所有專案都進行類似的修改&lt;br&gt;這類作業舉例來說會是一些換圖或者是
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://hsienwei.github.io/tags/python/"/>
+    
+      <category term="git" scheme="http://hsienwei.github.io/tags/git/"/>
+    
+      <category term="bitbucket" scheme="http://hsienwei.github.io/tags/bitbucket/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AWS Lambda + LineBot</title>
+    <link href="http://hsienwei.github.io/2018/07/07/LineBotWithLambda/"/>
+    <id>http://hsienwei.github.io/2018/07/07/LineBotWithLambda/</id>
+    <published>2018-07-07T07:00:18.000Z</published>
+    <updated>2020-11-09T17:05:39.921Z</updated>
+    
+    <content type="html"><![CDATA[<p>這篇主要紀錄一下之前寫的一個小玩具<br>主要是分為兩個部分</p><ul><li>使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB</li><li>使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料</li></ul><hr><p>第一部分是Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB</p><p>這裡主要是改以前寫的一個爬蟲程式, 以前寫的時候那時用的是python2.7版本並使用Mechanize 與 BeautifulSoup, 最近把它改成python3以及selenium<a href="https://github.com/hsienwei/ptt_data_parse" target="_blank" rel="noopener">連結</a>, 目前還會有一些舊的程式碼在裡面。</p><p>程式可以指定要對哪個版來爬資料, 並可以指定要幾小時內的資料, 目前針對推文數高於一定程度以上的文章，另外使用<a href="https://developers.facebook.com/docs/graph-api/reference/v2.11/url" target="_blank" rel="noopener">FB API</a>去取該連結的互動狀況, 用該資料簡單去算一個分數(可以在下面的測試結果畫面看到)用來作為熱門文章的排序, 這個數字的好處是可以看到實際在FB的熱門狀況, 因為有時候PTT推文數高的文章不一定是值得分享的文章, 也有可能是閒聊文。</p><p>另一part是將得到的資料寫進 AWS 的DynamoDB當中, <a href="https://github.com/hsienwei/ptt_data_parse/blob/master/dynamodb_conn.py" target="_blank" rel="noopener">程式碼在這</a>，會使用DynamoDB的原因主要是因為我的AWS 免費已經過期了, 所以我選擇使用目前還是有免費方案的DynamoDB。</p><p>主要使用了兩張表, 一張是索引, 主要紀錄各個板對應到另一張表的資料ID，另一張表就是爬下來的資料，以版名以及爬資料的時間當作ID來儲存。</p><hr><p>第二部分是使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料</p><p>會使用lambda其實是一個湊巧, 一開始本來是要開一個EC2加上Nodejs或Python+flask來回應linebot webhook, 但是想一想我已經沒有免費Tier了, 作為一個小玩具成本有點高, 後來在查資料的時候看到<a href="https://blog.5000164.jp/2017/8/14/line-bot/" target="_blank" rel="noopener">這篇文章</a>, 覺得這樣server less的架構成本低, 又不需要一直開著, 也可以使用API Gateway來開一個https的api當作webhook。</p><p>這裡當初在做的時候本來要讓linebot在資料有更新時自動使用push來通知使用者, 但是由於push功能需要付費, 所以就作罷了。</p><hr><p>下面就是成果<br><img src="https://qr-official.line.me/M/OkcTs6-FJF.png" alt="LineBot QRCode"><br>可以加入這個LineBot來測試</p><p>以下是測試結果畫面<br>第一張圖, 隨便打幾個字可以得到目前有資料的版名<br><img src="https://i.imgur.com/I5ZyIf1.jpg?2" alt="Imgur"></p><p>第二張圖, 輸入一個有資料的版名後, 可以得到爬蟲爬到的資料, 標題後是其分數<br><img src="https://i.imgur.com/6z3z8QK.jpg?2" alt="Imgur"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;這篇主要紀錄一下之前寫的一個小玩具&lt;br&gt;主要是分為兩個部分&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB&lt;/li&gt;
+&lt;li&gt;使用LintBot api加上AWS lambda回應上一步存在Dyna
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://hsienwei.github.io/tags/python/"/>
+    
+      <category term="AWS" scheme="http://hsienwei.github.io/tags/AWS/"/>
+    
+      <category term="LineBot" scheme="http://hsienwei.github.io/tags/LineBot/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用python + selenium 心得</title>
+    <link href="http://hsienwei.github.io/2018/03/20/python-selenium%E4%BD%BF%E7%94%A8/"/>
+    <id>http://hsienwei.github.io/2018/03/20/python-selenium使用/</id>
+    <published>2018-03-20T06:05:00.000Z</published>
+    <updated>2020-11-09T17:05:39.936Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近寫了一個幫助自己解決一個煩人雜事的小程式<a href="https://gist.github.com/hsienwei/233b85fbcccc47b23f27266317c6dfce" target="_blank" rel="noopener">gist連結</a></p><p>這支程式主要工作如下：<br>登入公司的jira, 從手上的issue中找出指定符合父issue ID的所有issue, 統一填上註解並轉給指定的人。<br>寫的比較匆忙沒有加太多的例外判定, 目標是快速解決手邊的雜事。</p><p>之所以選擇<a href="http://selenium-python.readthedocs.io/" target="_blank" rel="noopener">selenium</a>主要還是看上他可以省去很多功, 以前寫的爬蟲主要還是使用mechanize + BeautifulSoup, 但是遇到js就會很麻煩, 後來使用selenium不只js部分的問題沒有了, 連BeautifulSoup都不需要了, 他的find方法已經足夠我使用。</p><p>事前selenium module的安裝就不提, 要注意的是webdriver供許多瀏覽器版本可以用, 我用的是chrome, 必須要事前下載 <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">chromedriver</a> 使用, 並在使用時設置路徑, 如<code>webdriver.Chrome(executable_path=r&#39;.\\chromedriver.exe&#39;)</code> 。</p><p>這支程式主要使用selenium幾個功能：</p><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p><a href="http://selenium-python.readthedocs.io/locating-elements.html" target="_blank" rel="noopener">api</a><br>selenium 提供了一系列的方法讓你去找到目標元件, 基本上都如同api所列的一樣, 你可以依照條件使用特定id或者class來查找, 唯獨比較特別的是如果id或class中間有空格的最好還是使用 <code>find_element_by_xpath</code> ,之前沒有看過XPath所以花了一點時間才清楚使用方法。</p><p>基本上消耗最多時間還是在翻網頁原始碼找特定元素的id或class, 找到後基本上都不會有太大的問題, </p><h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>找到元素後可以做一些行為, 這裡比較常用的有</p><ul><li>click: 模擬點擊行為, 主要用在<code>a</code>跟<code>button</code></li><li>send_keys: 輸入的行為, 主要用在<code>input</code></li><li>submit: form的提交行為</li></ul><h3 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h3><p>有時候在進行一些動作後, 需要等待特定元件出現才可以進行下一個動作, 此時就需要用wait功能, 這裡有<a href="https://huilansame.github.io/huilansame.github.io/archivers/sleep-implicitlywait-wait" target="_blank" rel="noopener">一篇文章</a>提到使用方法, 寫的很詳細。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近寫了一個幫助自己解決一個煩人雜事的小程式&lt;a href=&quot;https://gist.github.com/hsienwei/233b85fbcccc47b23f27266317c6dfce&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;gist連結&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://hsienwei.github.io/tags/python/"/>
+    
+      <category term="selenium" scheme="http://hsienwei.github.io/tags/selenium/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>轉換NGUI atlas到UGUI的spritesheet</title>
+    <link href="http://hsienwei.github.io/2018/03/05/ngui-atlas-to-spritesheet/"/>
+    <id>http://hsienwei.github.io/2018/03/05/ngui-atlas-to-spritesheet/</id>
+    <published>2018-03-05T02:48:35.000Z</published>
+    <updated>2020-11-09T17:05:39.935Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近嘗試將一些效能消耗較大的NGUI UI轉換成UGUI測試, 不過目前暫時是自行測試, 所以在圖集部分暫時沿用以前的NGUI atlas來使用, 只是UGUI是不吃NGUI的atlas只吃sprite, 所以寫了一個工具來將NGUI的atlas資料寫到Texture的設定當中。</p><p><a href="https://gist.github.com/hsienwei/1b76d6dfb43e281394e2cab07e331a7b" target="_blank" rel="noopener">連結在此</a>    </p><p>最主要是要把讀取到SpriteData的y軸做額外的反轉處理.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近嘗試將一些效能消耗較大的NGUI UI轉換成UGUI測試, 不過目前暫時是自行測試, 所以在圖集部分暫時沿用以前的NGUI atlas來使用, 只是UGUI是不吃NGUI的atlas只吃sprite, 所以寫了一個工具來將NGUI的atlas資料寫到Texture的設定
+      
+    
+    </summary>
+    
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+      <category term="NGUI" scheme="http://hsienwei.github.io/tags/NGUI/"/>
+    
+      <category term="UGUI" scheme="http://hsienwei.github.io/tags/UGUI/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>c++與c＃間的溝通與資料傳遞</title>
+    <link href="http://hsienwei.github.io/2018/02/07/struct-between-native-c/"/>
+    <id>http://hsienwei.github.io/2018/02/07/struct-between-native-c/</id>
+    <published>2018-02-07T02:55:29.000Z</published>
+    <updated>2020-11-09T17:05:40.084Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前的專案server端與client端間的共用邏輯是用C++寫的, 而Unity的主要使用程式碼又是c#, 所以有需要從c#呼叫c++端的方法, 以及從c++取資料, 這裡主要整理一下專案用的方法以及遇到的一些問題。<br><a id="more"></a></p><ol><li><p>Windows是編成dll, android是編成.so, ios主要是編成.a</p></li><li><p>溝通方式有分兩種:     </p><ul><li><p>PInvoke (DllImport 屬性)<br><a href="https://msdn.microsoft.com/zh-tw/library/eyzhw3s8.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/eyzhw3s8.aspx</a></p>  <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(PlatformDllName)</span>]     </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">TEST_Init</span>(<span class="params"></span>)</span>;</span><br></pre></td></tr></table></figure><p>如此宣告後可以直接呼叫直接呼叫<br>在Unity上面使用DllImport後會鎖死該dll檔, 想要更新的話要關閉unity</p></li><li>It Just Works (IJW)  使用Marshal類別<br><a href="http://forum.unity3d.com/threads/unloading-native-plugins-in-the-unity-editor.198296/" target="_blank" rel="noopener">http://forum.unity3d.com/threads/unloading-native-plugins-in-the-unity-editor.198296/</a><br>做起來挺麻煩, 但是可以避免dll不能unload問題<br>前期使用的是第二種方式, 但是後來覺得需要更多時間去維護還是都改用第一種<br>ref： 從 Managed 程式碼呼叫原生函式  <a href="https://msdn.microsoft.com/zh-tw/library/ms235282.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-tw/library/ms235282.aspx</a></li></ul></li><li><p>簡單的呼叫範例<br> c++用的巨集        </p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _MSC_VER </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLUGIN_DLL_API __declspec(dllexport) </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PLUGIN_DLL_API</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure><p> c++端的方法    </p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line">    <span class="function">PLUGIN_DLL_API <span class="keyword">void</span> <span class="title">Test_Func</span><span class="params">(<span class="keyword">int</span> StartIdx, <span class="keyword">int</span> Count, <span class="keyword">int</span>* OutArray)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p> c#的lib名稱宣告    </p> <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (UNITY_IOS &amp;&amp; !UNITY_EDITOR_OSX) || UNITY_XBOX360</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// On iOS and Xbox 360 plugins are statically linked into</span></span><br><span class="line">    <span class="comment">// the executable, so we have to use **Internal as the</span></span><br><span class="line">    <span class="comment">// library name.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> PlatformDllName = <span class="string">"__Internal"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> PlatformDllName = <span class="string">"Name"</span>;  <span class="comment">// 不用加lib.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure><p> c#端方法宣告    </p> <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(SysPluginBase.PlatformDllName)</span>]   </span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">Test_Func</span>(<span class="params"><span class="keyword">int</span> StartIdx, <span class="keyword">int</span> Count, System.IntPtr OutArray</span>)</span>;</span><br></pre></td></tr></table></figure><p> 要注意的有兩點:</p><ul><li>如果c++要傳指標給c#, c#需要用<code>System.IntPtr</code>來處理。    </li><li>兩邊的名稱必須一樣, 不然會有<code>EntryPointNotFoundException</code>。    </li></ul></li><li><p>簡單的結構範例<br> c++端    </p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Data</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">        <span class="keyword">int</span> m_Int;          <span class="comment">// int</span></span><br><span class="line">        <span class="keyword">char</span> m_Str[<span class="number">32</span>];     <span class="comment">// 字串</span></span><br><span class="line">        <span class="keyword">int</span> m_IntAry[<span class="number">10</span>];   <span class="comment">// int陣列</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p> c#端    </p> <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">StructLayout(LayoutKind.Sequential, Pack = 4)</span>]</span><br><span class="line">[<span class="meta">Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Data</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> m_Int;                 <span class="comment">// int</span></span><br><span class="line">    [<span class="meta">MarshalAs(UnmanagedType.ByValTStr, SizeConst = 32)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> m_Str;              <span class="comment">// 字串</span></span><br><span class="line">    [<span class="meta">MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] m_IntAry;            <span class="comment">// int陣列</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p> <code>LayoutKind.Sequential</code>主要是告知這個結構的記憶體是照順序排下來, 也可以宣告成 Explicit 來自己指定, 不過用 Sequential 是比較簡單的作法, 只要注意順序不要有錯誤就行了<br> 最基本的作法, 是傳該結構的指標到c#(IntPtr), 再使用<code>Marshal.PtrToStructure</code>來轉換成c#用的結構    </p> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;    </span><br><span class="line">    <span class="function">PLUGIN_DLL_API Data* <span class="title">Test_Func</span><span class="params">()</span></span>&#123;   ...   &#125;    </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p> 在取IntPtr時需要檢查是否為null, 可以檢查該值是否為IntPtr.Zero    </p> <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">DllImport(SysPluginBase.PlatformDllName)</span>]   </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> System.<span class="function">IntPtr <span class="title">Test_Func</span>(<span class="params"></span>)</span>;    </span><br><span class="line"><span class="function"><span class="keyword">public</span> Data <span class="title">GetData</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    System.IntPtr DataPtr = Test_Func();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (DataPtr == System.IntPtr.Zero)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    Data Dta = (Data)Marshal.PtrToStructure(DataPtr, <span class="keyword">typeof</span>(Data));</span><br><span class="line">    <span class="keyword">return</span> Dta;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>除了最基本的<code>Marshal.PtrToStructure</code>方法以外, 還有幾種其他的方法可以取得結構的值, 由於實在太多程式碼用gist來存</p><ul><li><a href="https://gist.github.com/hsienwei/6eb886d0579117a26235c437d18561d4" target="_blank" rel="noopener">c++指標到c#從IntPtr轉換成byte後再依照自己的指定順序塞進結構中</a>     </li><li><a href="https://gist.github.com/hsienwei/4adc8bab1b97dd1616f7b6ec47aeba00" target="_blank" rel="noopener">將結構傳入c++中memcpy填值</a>     </li><li><a href="https://gist.github.com/hsienwei/4e2c19d03f1bf78303dce99fb32aceec" target="_blank" rel="noopener">只用IntPtr做參照, 要取值再個別呼叫</a>     </li><li>後來有找到一篇還滿詳細的文章有講到大部分的作法, 參照<a href="https://www.codeproject.com/Articles/25896/Reading-Unmanaged-Data-Into-Structures" target="_blank" rel="noopener">連結</a>    </li></ul></li><li><p>iOS要使用CallBack C++Plugin, MonoPInvokeCallback 是一定要加的<br><a href="https://developer.xamarin.com/guides/ios/advanced_topics/limitations/#Reverse_Callbacks" target="_blank" rel="noopener">https://developer.xamarin.com/guides/ios/advanced_topics/limitations/#Reverse_Callbacks</a><br>原文節錄如下：</p><blockquote><p>When using the ahead-of-time compiler required by the iPhone there are two important limitations at this point:<br>You must flag all of your callback methods with the MonoPInvokeCallbackAttribute<br>The methods have to be static methods, there is no support for instance methods.    </p></blockquote><p> 除了要在方法上方加上<code>[AOT.MonoPInvokeCallback(typeof(對應該方法的delegate))]</code>外, 該方法還需要是static方法.<br> PC端跟android不需要</p></li><li><p>在android上如果結構使用pack = 1 , 在加上該struct有float的話, c#在使用<code>Marshal.PtrToStructure</code>就會造成crash, 只有android會有這個問題, 該問題找不到確切造成的原因。</p></li><li><p>結構中不要使用bool, 因為無法保證他的位元長度, 最好的方法還是用byte之類的代替。</p></li></ol><p>ref: <a href="http://www.mono-project.com/docs/advanced/pinvoke/" target="_blank" rel="noopener">http://www.mono-project.com/docs/advanced/pinvoke/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目前的專案server端與client端間的共用邏輯是用C++寫的, 而Unity的主要使用程式碼又是c#, 所以有需要從c#呼叫c++端的方法, 以及從c++取資料, 這裡主要整理一下專案用的方法以及遇到的一些問題。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://hsienwei.github.io/tags/android/"/>
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+      <category term="c++" scheme="http://hsienwei.github.io/tags/c/"/>
+    
+      <category term="c#" scheme="http://hsienwei.github.io/tags/c/"/>
+    
+      <category term="mono" scheme="http://hsienwei.github.io/tags/mono/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeanTouch 方便的手勢控制plugin</title>
+    <link href="http://hsienwei.github.io/2018/01/24/LeanTouch/"/>
+    <id>http://hsienwei.github.io/2018/01/24/LeanTouch/</id>
+    <published>2018-01-24T05:51:10.000Z</published>
+    <updated>2020-11-09T17:05:39.920Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://www.assetstore.unity3d.com/#!/content/30111" target="_blank" rel="noopener">Asset Store Link</a>  </p><p>一開始專案在處理手勢的部份大多是自行處理, 以Unity的狀況來說如果是單指點擊來說寫起來沒有什麼大問題, 但後來專案中有需要處理Pinch與Twist兩種手勢, 一旦進入需要兩隻手指以上的手勢就開始麻煩了, 主要還是因為PC開發環境在多指的行為上需要自行模擬, 以及可能需要用執行環境來判斷來做不同的處理.</p><pre><code>#if UNITY_EDITOR    if (Input.GetAxis(&quot;Mouse ScrollWheel&quot;) != 0)    {        ...    }#elif UNITY_ANDROID || UNITY_IOS    if (Input.touchCount == 2)    {        ...    }#endif</code></pre><p>一開始的作法是用替代的方式來取代, 比方說PC端用滑鼠滾輪來取代Twist, 但是用久了感覺不是很直覺, 而且維護起來確實比較麻煩, 要抓真實的感覺需要編譯apk至手機上測試, 於是之後就改用這個套件。</p><p>這個套件對我的好處主要在於可以省略多平台的一些實作細節, 而且在PC端就可以模擬Pinch與Twist手勢（可選擇組合鍵）, 測試起來比較方便。<br><img src="/2018/01/24/LeanTouch/1.png" title="[組件設置]"></p><p>事件提供了以下幾種</p><pre><code>LeanTouch.OnFingerDown  LeanTouch.OnFingerSet   LeanTouch.OnFingerUp    LeanTouch.OnFingerTap   LeanTouch.OnFingerSwipe LeanTouch.OnGesture     </code></pre><p>除了前幾個基本的事件以外, 也可以用LeanTouch.OnGesture來處理複雜的手勢,另外也提供了相關的取值方法：</p><pre><code>LeanGesture.GetTwistDegreesLeanGesture.GetPinchScaleLeanGesture.GetScreenDelta</code></pre><p>不用再去計算一些細節比方說pinch兩指間移動的量之類的。</p><p>看一些文章有提到該套件有一些組件可以提供一些預設行為可供套用, 雖然沒有用到但感覺也是挺方便的。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://www.assetstore.unity3d.com/#!/content/30111&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Asset Store Link&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;一開始專案在處理手勢的部份大
+      
+    
+    </summary>
+    
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+      <category term="LeanTouch" scheme="http://hsienwei.github.io/tags/LeanTouch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>UnityEngineAnalyzer測試記錄</title>
+    <link href="http://hsienwei.github.io/2017/07/12/UnityEngineAnalyzerTest/"/>
+    <id>http://hsienwei.github.io/2017/07/12/UnityEngineAnalyzerTest/</id>
+    <published>2017-07-12T02:16:55.000Z</published>
+    <updated>2020-11-09T17:05:39.922Z</updated>
+    
+    <content type="html"><![CDATA[<p>今年不同場合的Unity研討會好像都有提到Unity腳本靜態分析的分享，所以心血來潮測試一下Unity Engine Analyzer。  </p><ol><li><p>官方說安裝可以透過NnGet Package Manager搜索來找到，但是就我的狀況直接找是找不到的。<br>因為我的vs2015內建的是<a href="https://www.nuget.org/api/v2/curated-feeds/microsoftdotnet/" target="_blank" rel="noopener">https://www.nuget.org/api/v2/curated-feeds/microsoftdotnet/</a> 這個source<br>需要的話連到<a href="https://www.nuget.org/" target="_blank" rel="noopener">NuGet首頁</a>可以看到下面有寫新的URL <a href="https://api.nuget.org/v3/index.json" target="_blank" rel="noopener">https://api.nuget.org/v3/index.json</a><br>改用這個就可以找的到了。  </p></li><li><p>unity專案裡面一般會有三個: 一般, Editor, plugins，然而測試的時候安裝好像不會全部都幫你加上analyzer, 只會在其中的一個加上（我找不到他的邏輯）。<br>要在其他專案中加入的話, 只需要自行增加analyzer, 選擇ProjectPath\packages\UnityEngineAnalyzer.1.0.0.0\analyzers\dotnet\cs\UnityEngineAnalyzer.dll 就會加入了。</p></li><li><p>目前提供9種檢查, 主要是不要使用一些耗效能的方法, 刪除空的方法, 避免使用coroutines這類的檢查, 有需要可以自己擴充。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;今年不同場合的Unity研討會好像都有提到Unity腳本靜態分析的分享，所以心血來潮測試一下Unity Engine Analyzer。  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;官方說安裝可以透過NnGet Package Manager搜索來找到，但是就我的狀況直接找是找不到
+      
+    
+    </summary>
+    
+    
+      <category term="Unity" scheme="http://hsienwei.github.io/tags/Unity/"/>
+    
+      <category term="UnityEngineAnalyzer" scheme="http://hsienwei.github.io/tags/UnityEngineAnalyzer/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android無法安裝Apk的處理方式</title>
+    <link href="http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/"/>
+    <id>http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/</id>
+    <published>2017-06-05T06:27:27.000Z</published>
+    <updated>2020-11-09T17:05:39.919Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="問題描述："><a href="#問題描述：" class="headerlink" title="問題描述："></a>問題描述：</h2><p>同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？</p><h2 id="處置："><a href="#處置：" class="headerlink" title="處置："></a>處置：</h2><ol><li><p>在手機直接安裝沒有任何錯誤訊息, 嘗試使用<code>adb shell pm install</code>的方式來安裝, 可以看到<code>Failure [INSTALL_FAILED_CONTAINER_ERROR]</code>錯誤。  </p></li><li><p>經查詢處理方式：<br><a href="https://stackoverflow.com/questions/5744298/what-does-this-mean-failure-install-failed-container-error" target="_blank" rel="noopener">link</a><br>要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..  </p></li><li><p>同事在安裝<code>adb shell pm install</code>時加上<code>-f</code>強制安裝在內部系統內存發現可以安裝成功, 將尋找方向移到ApplicationInstallLocation上。<br>經查詢有一些文章<br><a href="https://forum.unity3d.com/threads/failure-install_failed_container_error.210920/" target="_blank" rel="noopener">link</a><br><a href="http://qiita.com/ToniTakekawa/items/d457358c1e92bfa9d7b7" target="_blank" rel="noopener">link2</a><br>指出只要Player settings在Android項的Install Location改為Automatic即可, 測試後可行。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;問題描述：&quot;&gt;&lt;a href=&quot;#問題描述：&quot; class=&quot;headerlink&quot; title=&quot;問題描述：&quot;&gt;&lt;/a&gt;問題描述：&lt;/h2&gt;&lt;p&gt;同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？&lt;/p&gt;
+&lt;h2 id=&quot;處置：&quot;&gt;&lt;a href=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="Unity" scheme="http://hsienwei.github.io/tags/Unity/"/>
+    
+      <category term="Android" scheme="http://hsienwei.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity Culling Group簡介</title>
+    <link href="http://hsienwei.github.io/2017/06/05/UnityCullingGroup/"/>
+    <id>http://hsienwei.github.io/2017/06/05/UnityCullingGroup/</id>
+    <published>2017-06-04T17:01:51.000Z</published>
+    <updated>2020-11-09T17:05:39.922Z</updated>
+    
+    <content type="html"><![CDATA[<p>以下內容主要來自公司內部分享</p><h1 id="Culling-Group-Unity"><a href="#Culling-Group-Unity" class="headerlink" title="Culling Group (Unity)"></a>Culling Group (Unity)</h1><p><a href="https://docs.unity3d.com/Manual/CullingGroupAPI.html" target="_blank" rel="noopener">link</a><br>該API於Unity 5.1後版本出現<br>主要用於攝影機可見範圍判定<br>個人感覺算是容易使用<br>API中提供距離判定功能, 以長度為主<br>物件在出現與消失, 以及距離段變更會有通知</p><p>主要用他來決定一些特效是否要產出與播放以及當看不到時關閉某些效果<br>主要的考量點還是在能少算就少算  </p><pre><code>// 建立  CullingGroup group = new CullingGroup();  </code></pre><p>一開始的Group建立  </p><pre><code>// 設置攝影機  group.targetCamera = Camera.main;  </code></pre><p>設定攝影機, 攝影機可以之後再切換, 切換後會通知你物件的可見狀況</p><pre><code>// 設定BoundingSphere  BoundingSphere[] spheres = new BoundingSphere[1000];spheres[0] = new BoundingSphere(Vector3.zero, 1f);group.SetBoundingSpheres(spheres);group.SetBoundingSphereCount(1);</code></pre><p>這裡主要是設定BoundingSphere, 之後只要更新位置, 就可以收到Culling Group的通知, BoundingSphere的大小依照需要來調整<br>另外是BoundingSphere的個數因為要丟一個array進去, 個人感覺需要另外作管理, 一開始給一個大一點的array後來再去管理裡面的使用狀況</p><pre><code>// 關閉group.Dispose();group = null;</code></pre><p>要記得不用時一定要關閉他, 不做這個動作下一次可能運作會不正常, 且Unity會跳一個error來提示</p><pre><code>// 區間帶設置group.SetBoundingDistances(new float[] { 5000, 10000, 15000, 20000, 25000});int DistanceBand = group.GetDistance(Idx);</code></pre><p>這裡主要是設置區間帶, 在可視狀態變更時會一起給你區間帶的Index, 可以用來作一些處理<br>有一點要注意, 像我最後設置25000, 則多於這個距離的都會判定為不可視</p><pre><code>// 狀態通知設置group.onStateChanged = StateChangedMethod;private void StateChangedMethod(CullingGroupEvent evt){    if(evt.hasBecomeVisible)        Debug.LogFormat(&quot;Sphere {0} has become visible!&quot;, evt.index);    if(evt.hasBecomeInvisible)        Debug.LogFormat(&quot;Sphere {0} has become invisible!&quot;, evt.index);}</code></pre><p>主要是通知你可視狀態的變更, 回傳Index, 再以Index來得到要處理的物件作處理, 所以紀錄Index與其對應的物件是必要的</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;以下內容主要來自公司內部分享&lt;/p&gt;
+&lt;h1 id=&quot;Culling-Group-Unity&quot;&gt;&lt;a href=&quot;#Culling-Group-Unity&quot; class=&quot;headerlink&quot; title=&quot;Culling Group (Unity)&quot;&gt;&lt;/a&gt;Culli
+      
+    
+    </summary>
+    
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+      <category term="Culling Group" scheme="http://hsienwei.github.io/tags/Culling-Group/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DOTween：一個好用的Unity Tween System plugin</title>
+    <link href="http://hsienwei.github.io/2017/05/25/DOTweenInUnity/"/>
+    <id>http://hsienwei.github.io/2017/05/25/DOTweenInUnity/</id>
+    <published>2017-05-25T09:57:33.000Z</published>
+    <updated>2020-11-09T17:05:39.907Z</updated>
+    
+    <content type="html"><![CDATA[<p>以下內容為之前在公司分享的東西</p><ul><li><p>目前專案使用的Tween System   </p><ul><li>美術:UITweener(來自NGUI)</li><li>程式:視狀況使用DOTween或UITweener</li></ul></li><li><p>為何要使用DOTween</p><ul><li>從Cocos2d-X轉到Unity, 突然少了Action很不方便</li><li>我個人來看UITweener不太夠用</li></ul></li></ul><h2 id="DOTween"><a href="#DOTween" class="headerlink" title="DOTween"></a>DOTween</h2><p><a href="http://dotween.demigiant.com/index.php" target="_blank" rel="noopener">http://dotween.demigiant.com/index.php</a><br>2016年10月左右開始使用  </p><p>優點：  </p><ul><li>Open Source</li><li>文件完整</li></ul><p>缺點：  </p><ul><li>功能限制(Pro版)</li><li>沒有Component</li></ul><h2 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h2><p>個人比較在乎的  </p><ul><li>Speed and efficiency<br>Not only very fast, but also very efficient: everything is cached and reused to avoid useless GC allocations.</li><li>Shortcuts<br>Shortcut extensions that directly extend common objects like this:<br>// Move a transform to position 1,2,3 in 1 second<br>transform.DOMove(new Vector3(1,2,3), 1);</li><li>Full control<br>Play, Pause, Rewind, Restart, Complete, Goto and tons of other useful methods to control your tweens.</li></ul><p>其他見 <a href="http://dotween.demigiant.com/index.php#features" target="_blank" rel="noopener">http://dotween.demigiant.com/index.php#features</a></p><h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>Transform  </p><ul><li>DOMove</li><li>DOMoveX/DOMoveY/DOMoveZ</li><li>DORotate</li><li>DORotateQuaternion</li><li>DOLookAt</li><li>DOScale</li><li>DOScaleX/DOScaleY/DOScaleZ</li><li>DOShakePosition</li><li>DOShakeRotation</li><li>DOShakeScale</li><li>DOPath</li></ul><p>Material  </p><ul><li>DOColor</li><li>DOFade</li><li>DOFloat</li><li>DOOffset</li><li>DOTiling</li></ul><p>Camera  </p><ul><li>DOAspect</li><li>DOColor</li><li>DOFieldOfView</li><li>DONearClipPlane</li><li>DOOrthoSize</li></ul><p>通用方法<br>// Tween a Vector3 called myVector to 3,4,8 in 1 second<br>DOTween.To(()=&gt; myVector, x=&gt; myVector = x, new Vector3(3,4,8), 1);<br><img src="http://dotween.demigiant.com/_imgs/splash_lambda.png" alt></p><h3 id="callbacks"><a href="#callbacks" class="headerlink" title="callbacks"></a>callbacks</h3><p>幾乎可以應付所有狀況的callback可以使用  </p><ul><li>OnComplete</li><li>OnUpdate</li><li>OnKill</li><li>OnPlay</li><li>OnPause</li><li>OnRewind</li><li>OnStart</li><li>OnStepComplete: 這個比較特別, 如果有repeat的話每一次都會呼叫</li></ul><h3 id="options"><a href="#options" class="headerlink" title="options"></a>options</h3><p>這裡列出幾個比較常用的選項  </p><ul><li>SetEase(Ease easeType \ AnimationCurve animCurve \ EaseFunction customEase)<br>漸進的設置</li><li>SetId(object id)<br>設置一個獨特的id, 以便以後取用</li><li>SetLoops(int loops, LoopType loopType = LoopType.Restart)<br>播放次數</li><li>SetUpdate(UpdateType updateType, bool isIndependentUpdate = false)<br>設置該tween要在Update, FixedUpdate, LateUpdate處理</li><li>SetDelay(float delay)<br>延遲時間</li><li>SetSpeedBased(bool isSpeedBased = true)<br>以單位時間為基準, 打開後設置的時間會變成每單位的時間。<br>比方說DOMove(4, 1)原本是一秒移動4單位，會變成一秒移動一單位, 移動4秒。</li></ul><h3 id="效能"><a href="#效能" class="headerlink" title="效能"></a>效能</h3><p>官方測試<br><a href="http://dotween.demigiant.com/#enginesComparison" target="_blank" rel="noopener">http://dotween.demigiant.com/#enginesComparison</a></p><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>個人喜歡他的DoPath會有預覽線條的功能。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;以下內容為之前在公司分享的東西&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;目前專案使用的Tween System   &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;美術:UITweener(來自NGUI)&lt;/li&gt;
+&lt;li&gt;程式:視狀況使用DOTween或UITweener&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="Unity" scheme="http://hsienwei.github.io/tags/Unity/"/>
+    
+      <category term="DOTween" scheme="http://hsienwei.github.io/tags/DOTween/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>一些shader相關網站</title>
+    <link href="http://hsienwei.github.io/2016/01/24/shader-calculate-help/"/>
+    <id>http://hsienwei.github.io/2016/01/24/shader-calculate-help/</id>
+    <published>2016-01-24T02:52:25.000Z</published>
+    <updated>2020-11-09T17:05:39.936Z</updated>
+    
+    <content type="html"><![CDATA[<p>Formulas for Photoshop blending modes<br>講解一些Blend mode的公式<br><a href="http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html" target="_blank" rel="noopener">http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photoshop-blending-modes.html</a></p><p>Photoshop Blendmodi in GLSL<br>同上, 但是主要針對GLSL<br><a href="http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/" target="_blank" rel="noopener">http://renderingpipeline.com/2012/06/photoshop-blendmodi-glsl/</a></p><p>ANDROID LESSON FIVE: AN INTRODUCTION TO BLENDING<br>講解OpenGL中的BlendFunc的計算公式<br><a href="http://www.learnopengles.com/tag/additive-blending/" target="_blank" rel="noopener">http://www.learnopengles.com/tag/additive-blending/</a></p><p>GLSL : common mistakes<br>常見的GLSL錯誤<br><a href="https://www.opengl.org/wiki/GLSL_:_common_mistakes" target="_blank" rel="noopener">https://www.opengl.org/wiki/GLSL_:_common_mistakes</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Formulas for Photoshop blending modes&lt;br&gt;講解一些Blend mode的公式&lt;br&gt;&lt;a href=&quot;http://www.deepskycolors.com/archive/2010/04/21/formulas-for-Photo
+      
+    
+    </summary>
+    
+    
+      <category term="link" scheme="http://hsienwei.github.io/tags/link/"/>
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用瀏覽器做shader效果測試</title>
+    <link href="http://hsienwei.github.io/2015/11/07/%E4%BD%BF%E7%94%A8%E7%80%8F%E8%A6%BD%E5%99%A8%E5%81%9Ashader%E6%95%88%E6%9E%9C%E6%B8%AC%E8%A9%A6/"/>
+    <id>http://hsienwei.github.io/2015/11/07/使用瀏覽器做shader效果測試/</id>
+    <published>2015-11-07T13:11:51.000Z</published>
+    <updated>2020-11-09T17:05:40.089Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在與特效美術之間溝通一些shader效果時，基本希望能夠便於溝通以及快速的測試一個雛形，所以把念頭打到瀏覽器上，主要是因為HTML5上的WebGL已經相當成熟，也有一些相關服務可以用，所以想說可以試試看，找了以下幾個服務:</p><ul><li><a href="https://www.shadertoy.com/" target="_blank" rel="noopener">ShaderToy</a><br>基本上應該是範例最多的一個，特別的是除了紋理以外還提供影片、聲音可以使用，目前的成品數量應該也是最多最好的，不過僅提供fragment shader，但感覺網路上的強者都可以用特別的方式達到想要的效果。</li><li><a href="http://shaderfrog.com/app" target="_blank" rel="noopener">ShaderFrog</a><br>一個新的服務，提供兩種作法來建立shader，一個是Composed Shader，這有點像是一些現成的shader讓你來組合，另一個是Basic Shader就是讓你寫自己的shader，可以寫vertex shader，另外感覺這個網站有心要作大，有計畫要提供一些付費服務，像是shader匯出到unity或者是自行上傳紋理等功能，不過目前未開放。</li><li><a href="http://shdr.bkcore.com/" target="_blank" rel="noopener">shdr</a><br>可寫vertex shader與fragment shader，但似乎不能使用紋理，內建多種模型供使用。</li><li><a href="http://www.kickjs.org/tool/shader_editor/shader_editor.html" target="_blank" rel="noopener">Kick.js Shader Editor</a><br>另一個比較陽春的線上shader編輯工具，只是我還是搞不懂他的紋理怎麼增加。</li></ul><p>綜觀上面的一些服務，基本上提供了shader的編輯與測試，但是還是缺少了一些功能，第一是大多不支援自己自訂紋理，第二是如果要給美術可能需要更方便的編輯方式。</p><p>所以最後還是選了使用自己來的方式，選擇的是<a href="http://threejs.org/" target="_blank" rel="noopener">three.js</a>,這個程式庫很久以前就在一些文章中見到他的名字，去到他的官網可以看到許多特色專案，另外就是他提供了詳細的文件與範例，基本上不用怕找不到寫法。</p><p>這裡是一個製作出來的簡單範例：<br><a href="../../pages/skiprender/test.html">連結</a><br>畫面的部分使用three.js，右上的UI使用<a href="https://github.com/dataarts/dat.gui" target="_blank" rel="noopener">dat.GUI</a>可以很方便的設置要修改的參數並顯示介面，這樣美術也可以簡單的調整參數，程式也可以即時的修改程式碼，美術只要更新一下即可。</p><p>另外要注意的是網頁需要放到網路上chrome瀏覽器在讀圖的時候才不會出錯，個人使用最簡單的Dropbox public資料夾，產出公開鏈結即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近在與特效美術之間溝通一些shader效果時，基本希望能夠便於溝通以及快速的測試一個雛形，所以把念頭打到瀏覽器上，主要是因為HTML5上的WebGL已經相當成熟，也有一些相關服務可以用，所以想說可以試試看，找了以下幾個服務:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;h
+      
+    
+    </summary>
+    
+    
+      <category term="shader" scheme="http://hsienwei.github.io/tags/shader/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cocos2d-x 骨骼動畫方案</title>
+    <link href="http://hsienwei.github.io/2015/10/03/cocos2dx-skeleton/"/>
+    <id>http://hsienwei.github.io/2015/10/03/cocos2dx-skeleton/</id>
+    <published>2015-10-03T04:44:37.000Z</published>
+    <updated>2020-11-09T17:05:39.929Z</updated>
+    
+    <content type="html"><![CDATA[<p>cocos2d-x上面可用的骨骼動畫方案並不多，列出如下：</p><ul><li><a href="http://zh.esotericsoftware.com/" target="_blank" rel="noopener">Spine</a><br>一個支援多引擎的骨骼動畫方案，功能強大，支援IK，為骨骼動畫而生。<br>其檔案格式有json與binary兩種，cocos2d-x只支援json檔，這點要注意，有需要的話需要自行寫parser，之前看只有libgdx版本支援binary，現在狀況不太確定。</li><li><a href="http://dragonbones.github.io/" target="_blank" rel="noopener">DragonBone</a><br>以Flash為基礎，刀塔傳奇的骨骼動畫方案，個人是沒有操作過，不過開發prototype時倒是用第三方程式庫讀刀塔的人物來使用<br><a href="https://github.com/zym2014/DotaSkeletonAnim" target="_blank" rel="noopener">《刀塔传奇》骨骼动画查看器</a><br><a href="https://github.com/DragonBones/DragonBonesCPP" target="_blank" rel="noopener">DragonBonesCPP</a></li><li><a href="http://www.webtech.co.jp/spritestudio/index.html" target="_blank" rel="noopener">OPTPiX SpriteStudio</a><br>個人感覺編輯器最強的一套，不過看似沒有IK。</li><li>cocostudio<br>cocos2d-x自己的編輯器，只是實在不能算好用。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;cocos2d-x上面可用的骨骼動畫方案並不多，列出如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://zh.esotericsoftware.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Spine&lt;/a&gt;&lt;br&gt;一個支援多引擎的
+      
+    
+    </summary>
+    
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>cocos2d-x中使用wxWidget</title>
+    <link href="http://hsienwei.github.io/2015/02/23/cocos2dx-with-wxwidget/"/>
+    <id>http://hsienwei.github.io/2015/02/23/cocos2dx-with-wxwidget/</id>
+    <published>2015-02-23T01:45:59.000Z</published>
+    <updated>2020-11-09T17:05:39.929Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近在研究製作cocos2d-x的編輯器，所以嘗試了一下怎麼跟gui程式庫作結合<br>這篇是測試如何跟wxwidget結合使用的初步測試</p><p>以下測試使用cocos2d-x 3.4 與 wxWidget 3.0.2</p><ol start="0"><li><p>先準備一個新的cocos2d-x專案(或使用之前就有的)</p></li><li><p>下載wxWidgets Binaries<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/" target="_blank" rel="noopener">http://sourceforge.net/projects/wxwindows/files/3.0.2/binaries/</a><br>我抓的是<code>wxMSW-3.0.2_vc120_Dev.7z</code>  </p></li><li><p>下載Headers<br>下載頁面在<a href="http://sourceforge.net/projects/wxwindows/files/3.0.2/" target="_blank" rel="noopener">http://sourceforge.net/projects/wxwindows/files/3.0.2/</a><br>檔案為<code>wxWidgets-3.0.2_headers.7z</code>    </p></li><li><p>解壓縮兩個檔案並放在同一資料夾當中<br>該檔案夾應該會有include與lib兩個子資料夾<br>我是放在<code>D:\wxwidget_3_2\</code>    </p></li><li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;一般&gt;其他include目錄</code>，加入    </p><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    </span></span><br><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\include    </span><br><span class="line">D:\wxwidget<span class="emphasis">_3_</span>2\lib\vc120<span class="emphasis">_dll\mswud    </span></span><br></pre></td></tr></table></figure></li><li><p>專案屬性頁中 <code>組態屬性&gt;C/C++&gt;前置處理器&gt;前置處理器定義</code>，加入    </p><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    </span></span><br><span class="line">WXUSINGDLL    </span><br><span class="line">HAVE<span class="emphasis">_SSIZE_</span>T    </span><br></pre></td></tr></table></figure>    </li><li><p>專案屬性頁中 <code>組態屬性&gt;連結器&gt;輸入&gt;其他相依性</code>，加入    </p><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="code">    </span></span><br><span class="line">wxbase30ud.lib    </span><br><span class="line">wxbase30ud<span class="emphasis">_net.lib   </span></span><br><span class="line"><span class="emphasis">wxbase30ud_</span>xml.lib   </span><br><span class="line">wxexpatd.lib   </span><br><span class="line">wxjpegd.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_adv.lib   </span></span><br><span class="line"><span class="emphasis">wxmsw30ud_</span>aui.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_core.lib   </span></span><br><span class="line"><span class="emphasis">wxmsw30ud_</span>gl.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_html.lib   </span></span><br><span class="line"><span class="emphasis">wxmsw30ud_</span>media.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_propgrid.lib   </span></span><br><span class="line"><span class="emphasis">wxmsw30ud_</span>qa.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_ribbon.lib   </span></span><br><span class="line"><span class="emphasis">wxmsw30ud_</span>richtext.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_stc.lib   </span></span><br><span class="line"><span class="emphasis">wxmsw30ud_</span>webview.lib   </span><br><span class="line">wxmsw30ud<span class="emphasis">_xrc.lib   </span></span><br><span class="line"><span class="emphasis">wxpngd.lib   </span></span><br><span class="line"><span class="emphasis">wxregexud.lib   </span></span><br><span class="line"><span class="emphasis">wxscintillad.lib   </span></span><br><span class="line"><span class="emphasis">wxtiffd.lib   </span></span><br><span class="line"><span class="emphasis">wxzlibd.lib   </span></span><br></pre></td></tr></table></figure>   </li><li><p>dll檔設置<br>看是要把dll copy到執行目錄或者在環境設置中設定PATH都可以</p></li><li><p>修改main.cpp    </p><script src="//gist.github.com/10524981e5d15f92d25c.js"></script>    <p>這樣應該就可以了<br>要注意的是我在HelloWorld中增加了一個singleton方法方便我取得HelloWorld物件作測試<br>順利的話可以看到有兩個視窗，一個是原本的cocos2d-x執行視窗，一個是wxWidget產生的視窗<br>在wxWidget視窗的按鈕按下去會新增一個Label到Layer中   </p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;最近在研究製作cocos2d-x的編輯器，所以嘗試了一下怎麼跟gui程式庫作結合&lt;br&gt;這篇是測試如何跟wxwidget結合使用的初步測試&lt;/p&gt;
+&lt;p&gt;以下測試使用cocos2d-x 3.4 與 wxWidget 3.0.2&lt;/p&gt;
+&lt;ol start=&quot;0&quot;&gt;
+&lt;li&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="wxWidget" scheme="http://hsienwei.github.io/tags/wxWidget/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spine二進制檔轉json檔測試</title>
+    <link href="http://hsienwei.github.io/2015/02/21/spine-binary2json/"/>
+    <id>http://hsienwei.github.io/2015/02/21/spine-binary2json/</id>
+    <published>2015-02-20T16:31:40.000Z</published>
+    <updated>2020-11-09T17:05:39.936Z</updated>
+    
+    <content type="html"><![CDATA[<p>由於cocos2d-x目前版本(3.4)仍然不能讀取spine 2.0後推出的binary格式(.skel)<br>加上自己沒有購買spine所以不能將binary檔匯入後再輸出為json格式<br>所以嚐試自己弄一個轉換的小工具<br>雖然最後沒有使用<br>但還是記載一下過程</p><hr><p>由於spine官方目前有支援binary的runtime似乎只有libgdx<br>所以下面主要會以參考libgdx的方式來進行</p><ol><li><p>使用eclipse新建一個java application</p></li><li><p>下載spine libgdx程式庫，放在src下</p></li><li><p>下載libgdx release版本(本次測試使用1.5.3)<br>解開後將gdx.jar加入專案<br>由於由於裡面有使用到nativecode<br>打開gdx-natives.jar<br>將需要的library取出(這裡使用的是libbdx64.dll)<br>並在讀入該library</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    System.loadLibrary(<span class="string">"gdx64"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>    <p>如果有找不到lib的狀況要記得在VM Arguments中加入下面內容<br><code>-Djava.library.path=D:\workspace_new\SpineBinary2Json\libs</code></p></li><li><p>新增libgdx的application並實作applicationListener<br>Application我是使用LwjglApplication，所以要將gdx-backend-lwjgl.jar與gdx-backend-lwjgl-natives.jar加入專案裡<br>之所以要這樣弄是因為我原本以為可以直接將TextureAtlas物件建立起來並生成SkeletonData<br>後來發現會出現錯誤如下</p><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread "main" java.lang.NullPointerException</span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.GLTexture.createGLHandle(GLTexture.java:197)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.Texture.&lt;init&gt;(Texture.java:123)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.Texture.&lt;init&gt;(Texture.java:103)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.g2d.TextureAtlas.load(TextureAtlas.java:244)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:236)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:231)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:226)</span></span><br><span class="line"><span class="code">at com.badlogic.gdx.graphics.g2d.TextureAtlas.&lt;init&gt;(TextureAtlas.java:216)</span></span><br><span class="line"><span class="code">at Main.main(Main.java:76)</span></span><br></pre></td></tr></table></figure>    <p>發現應該是gl物件未產出<br>後來採最簡單的解法就是建立一個libgdx的application就會進行需要的初始化行為了</p></li><li><p>依照binary編寫json檔案<br>這裡可以參照下面兩個格式的讀取行為<br><a href="https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonJson.java" target="_blank" rel="noopener">https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonJson.java</a><br><a href="https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonBinary.java" target="_blank" rel="noopener">https://github.com/EsotericSoftware/spine-runtimes/blob/master/spine-libgdx/spine-libgdx/src/com/esotericsoftware/spine/SkeletonBinary.java</a><br>一開始採取從SkeletonData逆推的方式，但最後失敗<br>卡在我無法從skin逆推attachment<br>後來只好改採在SkeletonBinary讀取檔案的過程中同時將json建立起來的方法(直接修改SkeletonBinary.java)<br>但由於這樣做可能會有版權的問題<br>故這裡並不提供程式碼<br>做起來應該是不難只是有點麻煩而已</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;由於cocos2d-x目前版本(3.4)仍然不能讀取spine 2.0後推出的binary格式(.skel)&lt;br&gt;加上自己沒有購買spine所以不能將binary檔匯入後再輸出為json格式&lt;br&gt;所以嚐試自己弄一個轉換的小工具&lt;br&gt;雖然最後沒有使用&lt;br&gt;但還是記載一
+      
+    
+    </summary>
+    
+    
+      <category term="cocos2d-x" scheme="http://hsienwei.github.io/tags/cocos2d-x/"/>
+    
+      <category term="spine" scheme="http://hsienwei.github.io/tags/spine/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>簡易文件編碼轉換工具</title>
+    <link href="http://hsienwei.github.io/2015/02/20/file-encode-converter/"/>
+    <id>http://hsienwei.github.io/2015/02/20/file-encode-converter/</id>
+    <published>2015-02-20T15:34:07.000Z</published>
+    <updated>2020-11-09T17:05:39.933Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原由"><a href="#原由" class="headerlink" title="原由"></a>原由</h2><p>因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具<br>該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf<br><strong>注意:目前無備份功能, 轉換前須自行備份</strong></p><hr><h2 id="開發相關"><a href="#開發相關" class="headerlink" title="開發相關"></a>開發相關</h2><p>####開發工具<br><code>python 2.7</code> + <code>chardet</code> + <code>py2exe</code><br>gui部分為內建的<code>tkinter</code><br>py2exe_dist.zip是我自行用py2exe轉換的執行檔<br>如要自行產生請安裝py2exe module以及chardet並在專案目錄下執行<br><code>python setup.py py2exe</code></p><p>####基本原理<br>用chardet這個module來測文件的編碼<br>測出後將其解碼再轉碼為utf</p><p>####特殊例子<br>在測試時有遇到一個特殊狀況<br>就是當文件編碼為gb2312<br>但裡面又含有繁體字元<br>此時要改用gbk編碼來處理</p><p>github:<br><a href="https://github.com/hsienwei/file_encode_to_utf_converter" target="_blank" rel="noopener">https://github.com/hsienwei/file_encode_to_utf_converter</a></p><p><img src="/2015/02/20/file-encode-converter/ui.jpg" alt="執行畫面"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;原由&quot;&gt;&lt;a href=&quot;#原由&quot; class=&quot;headerlink&quot; title=&quot;原由&quot;&gt;&lt;/a&gt;原由&lt;/h2&gt;&lt;p&gt;因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具&lt;br&gt;該工具的作用:將目標資料夾下的指定副檔名文件的編碼改
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://hsienwei.github.io/tags/python/"/>
+    
+      <category term="tool" scheme="http://hsienwei.github.io/tags/tool/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Unity autosave</title>
+    <link href="http://hsienwei.github.io/2014/11/04/unity-autosave/"/>
+    <id>http://hsienwei.github.io/2014/11/04/unity-autosave/</id>
+    <published>2014-11-03T17:59:58.000Z</published>
+    <updated>2020-11-09T17:05:40.084Z</updated>
+    
+    <content type="html"><![CDATA[<p>昨天遇到了一次unity的當機，使得我工作三小時的結果完全消失，查了一下Unity本身沒有自動存檔功能卻能用script作到相同的效果。<br>連結如下：<br><a href="http://www.daikonforge.com/dfgui/save-on-run/" target="_blank" rel="noopener">http://www.daikonforge.com/dfgui/save-on-run/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;昨天遇到了一次unity的當機，使得我工作三小時的結果完全消失，查了一下Unity本身沒有自動存檔功能卻能用script作到相同的效果。&lt;br&gt;連結如下：&lt;br&gt;&lt;a href=&quot;http://www.daikonforge.com/dfgui/save-on-run/&quot; 
+      
+    
+    </summary>
+    
+    
+      <category term="link" scheme="http://hsienwei.github.io/tags/link/"/>
+    
+      <category term="unity" scheme="http://hsienwei.github.io/tags/unity/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Hexo與github pages自建blog</title>
+    <link href="http://hsienwei.github.io/2014/10/29/%E4%BD%BF%E7%94%A8hexo%E8%88%87github%20pages%E8%87%AA%E5%BB%BAblog/"/>
+    <id>http://hsienwei.github.io/2014/10/29/使用hexo與github pages自建blog/</id>
+    <published>2014-10-29T08:01:25.000Z</published>
+    <updated>2020-11-09T17:05:40.088Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="評估"><a href="#評估" class="headerlink" title="評估"></a>評估</h2><p>用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是</p><ul><li>wordpress </li><li>logdown</li><li>簡書</li></ul><p>但是後來發現有blog framework可以將blog架在github pages上，一來不用花到錢，二來多個新玩具，於是就找找看有沒有好的服務，找到的有以下幾個</p><ul><li>jekyll</li><li>octopress</li><li>Hexo</li></ul><p>最後考慮了幾點</p><ul><li>前兩個是使用ruby，Hexo是使用nodejs，模板引擎預設是ejs，基本上之前有摸過一陣子express所以有一點認識，較易入門</li><li>網上使用心得都說octopress有效能上的問題</li><li>Hexo台灣製造，這就是愛台灣？</li><li>看文檔的感覺Hexo跟octopress比較易入手</li></ul><p>最後的結果就是我決定用hexo來建立blog</p><h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><ol><li>先建立自己的 Github Pages<br><a href="https://pages.github.com/" target="_blank" rel="noopener">https://pages.github.com/</a> 裡面講得很清楚了</li><li>安裝nodejs<br><a href="http://nodejs.org/" target="_blank" rel="noopener">http://nodejs.org/</a> 基本上就照著各個平台的安裝步驟去把nodejs裝起來<br>安裝完nodejs後，此時應該也安裝完npm了，可用以下指令測試<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure></li><li>安裝Hexo<br>由於裝起來是在太簡單，還是請看<a href="http://hexo.io/docs/index.html" target="_blank" rel="noopener">官方文件</a>吧<br>下面列出最快建立的步驟<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>此時在瀏覽器開啟 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 應該可以看到一個最簡單的blog了</li><li>deploy<br>hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，<code>開啟_config.yml</code>，移到最下面修改相關設定<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"><span class="code">type: github</span></span><br><span class="line"><span class="code">repo: &lt;repository url&gt;</span></span><br></pre></td></tr></table></figure>儲存後，輸入下面指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現</li></ol><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul><li>使用post_asset_folder<br>在_config.yml中開啓這個選項，當你new出文章時，他會產出一個資料夾給你放該文章的資料，以我來講我會拿來放要展示的圖檔，管理起來也比較方便。<br>引用方式如下<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![effect](/2013/12/26/cocos2dx中實作幾個shader效果/effect.png)</span><br></pre></td></tr></table></figure></li><li>markdown語法說明<br><a href="http://markdown.tw/" target="_blank" rel="noopener">http://markdown.tw/</a></li><li>addthis(社群分享plugin)<br><a href="http://www.addthis.com/" target="_blank" rel="noopener">http://www.addthis.com/</a></li><li>gravatar(頭像)<br><a href="http://en.gravatar.com/" target="_blank" rel="noopener">http://en.gravatar.com/</a></li><li>favicon製作<br>我是直接拿一個來用就是 <a href="http://www.favicon.cc/" target="_blank" rel="noopener">http://www.favicon.cc/</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;評估&quot;&gt;&lt;a href=&quot;#評估&quot; class=&quot;headerlink&quot; title=&quot;評估&quot;&gt;&lt;/a&gt;評估&lt;/h2&gt;&lt;p&gt;用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="Hexo" scheme="http://hsienwei.github.io/tags/Hexo/"/>
+    
+      <category term="Blog" scheme="http://hsienwei.github.io/tags/Blog/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Jenkins使用筆記(Windows版) - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="安裝 https://jenkins.io/download/ 下載windows Long-term Support version並安裝。 安裝完後，瀏覽器會自動開啟 http://localhost:8080/ ，此時可以看到Jenkins正在工作中。 之後Jenkins會要求你輸入一個在指定路徑檔案的密碼，路徑大概像是C:\Program Files (x86)\Jenkins\secre">
+<meta name="keywords" content="Jenkins">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins使用筆記(Windows版)">
+<meta property="og:url" content="http://hsienwei.github.io/2019/11/24/Jenkins使用筆記/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="安裝 https://jenkins.io/download/ 下載windows Long-term Support version並安裝。 安裝完後，瀏覽器會自動開啟 http://localhost:8080/ ，此時可以看到Jenkins正在工作中。 之後Jenkins會要求你輸入一個在指定路徑檔案的密碼，路徑大概像是C:\Program Files (x86)\Jenkins\secre">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:image" content="https://i.imgur.com/fLlC09T.png">
+<meta property="og:image" content="https://i.imgur.com/O4VYtj8.png">
+<meta property="og:image" content="https://i.imgur.com/q5CoExt.png">
+<meta property="og:image" content="https://i.imgur.com/X8yzK0d.png">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.920Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Jenkins使用筆記(Windows版)">
+<meta name="twitter:description" content="安裝 https://jenkins.io/download/ 下載windows Long-term Support version並安裝。 安裝完後，瀏覽器會自動開啟 http://localhost:8080/ ，此時可以看到Jenkins正在工作中。 之後Jenkins會要求你輸入一個在指定路徑檔案的密碼，路徑大概像是C:\Program Files (x86)\Jenkins\secre">
+<meta name="twitter:image" content="https://i.imgur.com/fLlC09T.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-Jenkins使用筆記" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Jenkins使用筆記(Windows版)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2019/11/24/Jenkins使用筆記/" class="article-date">
+  <time datetime="2019-11-23T17:08:09.000Z" itemprop="datePublished">2019-11-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2019/11/24/Jenkins使用筆記/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h1><ol>
+<li><a href="https://jenkins.io/download/" target="_blank" rel="noopener">https://jenkins.io/download/</a> 下載windows Long-term Support version並安裝。</li>
+<li>安裝完後，瀏覽器會自動開啟 <a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a> ，此時可以看到Jenkins正在工作中。</li>
+<li>之後Jenkins會要求你輸入一個在指定路徑檔案的密碼，路徑大概像是<code>C:\Program Files (x86)\Jenkins\secrets\initialAdminPassword</code> 。</li>
+<li>密碼輸入後，Jenkins會要你安裝建議的plugin或者是選擇你自己需要的plugin，由於之後還可以再設定，所以可以先使用建議的就可以，之後的安裝會花幾分鐘的時間。</li>
+<li>安裝完後，Jenkins會要求你輸入第一個管理者的資料，稍後可以再加入其他管理者的資料。</li>
+<li>Jenkins會要求輸入使用的URL，可以使用預設設定，安裝程序結束後可以再設定。</li>
+<li>至此Jenkins已經設定完成，可以用左上角的 add job來增加建置job。</li>
+</ol>
+<h1 id="如何重啟或停止Jenkins服務"><a href="#如何重啟或停止Jenkins服務" class="headerlink" title="如何重啟或停止Jenkins服務"></a>如何重啟或停止Jenkins服務</h1><ul>
+<li>透過 <a href="http://localhost:8080/restart" target="_blank" rel="noopener">http://localhost:8080/restart</a> 或 <a href="http://localhost:8080/safeRestart" target="_blank" rel="noopener">http://localhost:8080/safeRestart</a> 可以重啟jenkins服務。<br>(jenkins_url)/safeRestart - 允許所有正在進行的jobs完成，新的jobs會被保持在queue中等到重啟完成後再執行。<br>(jenkins_url)/restart - 強制重啟並不等待進行中的jobs完成。</li>
+<li>直接執行command, 加上參數如下<br>( jenkins_path)/jenkins.exe stop<blockquote>
+<p>‘install’ - install the service to Windows Service Controller<br>‘uninstall’ - uninstall the service<br>‘start’ - start the service (must be installed before)<br>‘stop’ - stop the service<br>‘restart’ - restart the service</p>
+</blockquote>
+</li>
+<li>如果需要重開的理由是PATH的修改變動，必須要使用jenkins.exe來restart。</li>
+</ul>
+<h1 id="How-to-add-SSH-key"><a href="#How-to-add-SSH-key" class="headerlink" title="How to add SSH key"></a>How to add SSH key</h1><p>如果需要透過 ssh方式連接到git或者是建置過程需要使用到ssh，就需要先設定ssh key。</p>
+<p>按下 <code>Credentials</code>.<br><img src="https://i.imgur.com/fLlC09T.png" alt><br>按下 <code>System</code>.<br><img src="https://i.imgur.com/O4VYtj8.png" alt><br>按下 <code>Global credentials (unrestricted)</code>.<br><img src="https://i.imgur.com/q5CoExt.png" alt><br>按下 <code>Add Credentials</code> . 選擇 <code>SSH Username with private key</code>.<br>複製 SSH private key 的全部內容到 private key 欄位<br>(ssh private key 的預設路徑 : C:\Users\user_name\.ssh\id_rsa)<br>並輸入Username 與 passphrase (如果有的話).<br><img src="https://i.imgur.com/X8yzK0d.png" alt></p>
+<h1 id="Using-ssh-agent-in-build-process"><a href="#Using-ssh-agent-in-build-process" class="headerlink" title="Using ssh-agent in build process"></a>Using ssh-agent in build process</h1><p><a href="https://plugins.jenkins.io/ssh-agent" target="_blank" rel="noopener">https://plugins.jenkins.io/ssh-agent</a><br>如果建置過程需要使用到ssh-agent，可以安裝這個plugin來使用<br>在安裝之後，在建置環境中可以看到<code>SSH agent</code>選項，選取以設定ssh key</p>
+<h1 id="Using-Slack-notification"><a href="#Using-Slack-notification" class="headerlink" title="Using Slack notification"></a>Using Slack notification</h1><p><a href="https://plugins.jenkins.io/slack" target="_blank" rel="noopener">https://plugins.jenkins.io/slack</a><br>slack是一個企業用的通訊軟體，如果剛好公司使用了這個軟體而且需要通知建置結果，除了使用api方式來通知，也可以透過這個plugin來處理。</p>
+<h1 id="我覺得好用的plugin"><a href="#我覺得好用的plugin" class="headerlink" title="我覺得好用的plugin"></a>我覺得好用的plugin</h1><ul>
+<li><p><a href="https://wiki.jenkins.io/display/JENKINS/Extended+Choice+Parameter+plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Extended+Choice+Parameter+plugin</a><br>提供更多樣化的參數使用方式，像是選擇清單，讓參數輸入可以更方便</p>
+</li>
+<li><p><a href="https://wiki.jenkins.io/display/JENKINS/Mask+Passwords+Plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/Mask+Passwords+Plugin</a><br>可以將console log中的參數給隱藏起來的plugin，可以避免被看到輸入的密碼參數</p>
+</li>
+<li><p><a href="https://wiki.jenkins.io/display/JENKINS/SCM+Sync+configuration+plugin" target="_blank" rel="noopener">https://wiki.jenkins.io/display/JENKINS/SCM+Sync+configuration+plugin</a><br>提供使用版控系統來備份jenkins設定的功能</p>
+</li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jenkins/">Jenkins</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/11/10/Godot最小產出測試/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Godot最小產出測試
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/30/使用-BitBucket-PullRequest-API/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用 BitBucket PullRequest API&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2019/11/24/Jenkins使用筆記/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

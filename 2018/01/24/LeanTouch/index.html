@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>LeanTouch 方便的手勢控制plugin - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Asset Store Link   一開始專案在處理手勢的部份大多是自行處理, 以Unity的狀況來說如果是單指點擊來說寫起來沒有什麼大問題, 但後來專案中有需要處理Pinch與Twist兩種手勢, 一旦進入需要兩隻手指以上的手勢就開始麻煩了, 主要還是因為PC開發環境在多指的行為上需要自行模擬, 以及可能需要用執行環境來判斷來做不同的處理. #if UNITY_EDITOR     if (I">
+<meta name="keywords" content="unity,LeanTouch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LeanTouch 方便的手勢控制plugin">
+<meta property="og:url" content="http://hsienwei.github.io/2018/01/24/LeanTouch/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="Asset Store Link   一開始專案在處理手勢的部份大多是自行處理, 以Unity的狀況來說如果是單指點擊來說寫起來沒有什麼大問題, 但後來專案中有需要處理Pinch與Twist兩種手勢, 一旦進入需要兩隻手指以上的手勢就開始麻煩了, 主要還是因為PC開發環境在多指的行為上需要自行模擬, 以及可能需要用執行環境來判斷來做不同的處理. #if UNITY_EDITOR     if (I">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:image" content="http://hsienwei.github.io/2018/01/24/LeanTouch/1.png">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.920Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LeanTouch 方便的手勢控制plugin">
+<meta name="twitter:description" content="Asset Store Link   一開始專案在處理手勢的部份大多是自行處理, 以Unity的狀況來說如果是單指點擊來說寫起來沒有什麼大問題, 但後來專案中有需要處理Pinch與Twist兩種手勢, 一旦進入需要兩隻手指以上的手勢就開始麻煩了, 主要還是因為PC開發環境在多指的行為上需要自行模擬, 以及可能需要用執行環境來判斷來做不同的處理. #if UNITY_EDITOR     if (I">
+<meta name="twitter:image" content="http://hsienwei.github.io/2018/01/24/LeanTouch/1.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-LeanTouch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LeanTouch 方便的手勢控制plugin
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/01/24/LeanTouch/" class="article-date">
+  <time datetime="2018-01-24T05:51:10.000Z" itemprop="datePublished">2018-01-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/01/24/LeanTouch/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.assetstore.unity3d.com/#!/content/30111" target="_blank" rel="noopener">Asset Store Link</a>  </p>
+<p>一開始專案在處理手勢的部份大多是自行處理, 以Unity的狀況來說如果是單指點擊來說寫起來沒有什麼大問題, 但後來專案中有需要處理Pinch與Twist兩種手勢, 一旦進入需要兩隻手指以上的手勢就開始麻煩了, 主要還是因為PC開發環境在多指的行為上需要自行模擬, 以及可能需要用執行環境來判斷來做不同的處理.</p>
+<pre><code>#if UNITY_EDITOR
+    if (Input.GetAxis(&quot;Mouse ScrollWheel&quot;) != 0)
+    {
+        ...
+    }
+#elif UNITY_ANDROID || UNITY_IOS
+    if (Input.touchCount == 2)
+    {
+        ...
+    }
+#endif
+</code></pre><p>一開始的作法是用替代的方式來取代, 比方說PC端用滑鼠滾輪來取代Twist, 但是用久了感覺不是很直覺, 而且維護起來確實比較麻煩, 要抓真實的感覺需要編譯apk至手機上測試, 於是之後就改用這個套件。</p>
+<p>這個套件對我的好處主要在於可以省略多平台的一些實作細節, 而且在PC端就可以模擬Pinch與Twist手勢（可選擇組合鍵）, 測試起來比較方便。<br><img src="/2018/01/24/LeanTouch/1.png" title="[組件設置]"></p>
+<p>事件提供了以下幾種</p>
+<pre><code>LeanTouch.OnFingerDown  
+LeanTouch.OnFingerSet   
+LeanTouch.OnFingerUp    
+LeanTouch.OnFingerTap   
+LeanTouch.OnFingerSwipe 
+LeanTouch.OnGesture     
+</code></pre><p>除了前幾個基本的事件以外, 也可以用LeanTouch.OnGesture來處理複雜的手勢,另外也提供了相關的取值方法：</p>
+<pre><code>LeanGesture.GetTwistDegrees
+LeanGesture.GetPinchScale
+LeanGesture.GetScreenDelta
+</code></pre><p>不用再去計算一些細節比方說pinch兩指間移動的量之類的。</p>
+<p>看一些文章有提到該套件有一些組件可以提供一些預設行為可供套用, 雖然沒有用到但感覺也是挺方便的。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeanTouch/">LeanTouch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/02/07/struct-between-native-c/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          c++與c＃間的溝通與資料傳遞
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/12/UnityEngineAnalyzerTest/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UnityEngineAnalyzer測試記錄&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2018/01/24/LeanTouch/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

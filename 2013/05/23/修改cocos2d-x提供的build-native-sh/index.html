@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>修改cocos2d-x提供的build_native.sh - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在cocos2d-x專案中要編譯native code時會用到build_native.sh來做編譯，這個Bash腳本會使用NDK的ndk-build   隨著專案越來越複雜有些需求需要特別去處理,以我自己的狀況來講，須要分為Debug與Release兩個版本以及分為國際版與韓國版，上述兩個部分都可以經由修改build_native.sh來達到，下面會分成幾個部分來說： 先列出幾個教學網站http">
+<meta name="keywords" content="cocos2d-x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="修改cocos2d-x提供的build_native.sh">
+<meta property="og:url" content="http://hsienwei.github.io/2013/05/23/修改cocos2d-x提供的build-native-sh/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="在cocos2d-x專案中要編譯native code時會用到build_native.sh來做編譯，這個Bash腳本會使用NDK的ndk-build   隨著專案越來越複雜有些需求需要特別去處理,以我自己的狀況來講，須要分為Debug與Release兩個版本以及分為國際版與韓國版，上述兩個部分都可以經由修改build_native.sh來達到，下面會分成幾個部分來說： 先列出幾個教學網站http">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:40.089Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="修改cocos2d-x提供的build_native.sh">
+<meta name="twitter:description" content="在cocos2d-x專案中要編譯native code時會用到build_native.sh來做編譯，這個Bash腳本會使用NDK的ndk-build   隨著專案越來越複雜有些需求需要特別去處理,以我自己的狀況來講，須要分為Debug與Release兩個版本以及分為國際版與韓國版，上述兩個部分都可以經由修改build_native.sh來達到，下面會分成幾個部分來說： 先列出幾個教學網站http">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-修改cocos2d-x提供的build-native-sh" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      修改cocos2d-x提供的build_native.sh
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/05/23/修改cocos2d-x提供的build-native-sh/" class="article-date">
+  <time datetime="2013-05-23T14:41:27.000Z" itemprop="datePublished">2013-05-23</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/05/23/修改cocos2d-x提供的build-native-sh/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在cocos2d-x專案中要編譯native code時會用到build_native.sh來做編譯，這個Bash腳本會使用NDK的ndk-build  </p>
+<p>隨著專案越來越複雜有些需求需要特別去處理,以我自己的狀況來講，須要分為Debug與Release兩個版本以及分為國際版與韓國版，上述兩個部分都可以經由修改build_native.sh來達到，下面會分成幾個部分來說：</p>
+<p>先列出幾個教學網站<br><a href="http://www.ibm.com/developerworks/cn/linux/l-bash-parameters.html" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/linux/l-bash-parameters.html</a><br><a href="http://linuxconfig.org/Bash_scripting_Tutorial#18-redirections" target="_blank" rel="noopener">http://linuxconfig.org/Bash_scripting_Tutorial#18-redirections</a><br><a href="http://linux.vbird.org/linux_basic/0340bashshell-scripts.php" target="_blank" rel="noopener">http://linux.vbird.org/linux_basic/0340bashshell-scripts.php</a><br>我都是有需要在去查</p>
+<p>基本上這個部份我是在版本2.0.3加的  但是最新的2.1.3應該也可用</p>
+<h2 id="選項修改"><a href="#選項修改" class="headerlink" title="選項修改"></a>選項修改</h2><p>原本build_native.sh中的選項部分的程式碼如下<br>其實要不是因為要改這個部份我還不知道這個腳本有選項可以用  </p>
+<pre><code>while getopts &quot;sh&quot; OPTION; do  
+case &quot;$OPTION&quot; in  
+s)  
+buildexternalsfromsource=1  
+;;  
+h)  
+usage  
+exit 0  
+;;  
+esac  
+done  
+</code></pre><p>上面的寫法主要是處理”-s”這種型態的選項，也就是說如果今天的的指令是長下面這樣：<br><code>bash build_native.sh  -s  xxx</code><br>就只會處理-s的部分。</p>
+<p>原本是想說就再加一個選項，結果並不如我想的這樣簡單，基本上先看到下面跟ndk-build有關的程式碼如下  </p>
+<pre><code>&quot;$NDK_ROOT&quot;/ndk-build -C &quot;$APP_ANDROID_ROOT&quot; $* \
+NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/source&quot;  
+</code></pre><p>重點在於<code>$*</code>代表該腳本的所有參數，如果今天我用了一個ndk-build已經有的參數就會影響ndk-build的行為，如果用了一個沒有的又會說是一個invalid option。</p>
+<p>此時有兩個做法  一個是把 $*拿掉，但是這樣有一個缺點，原本可以下如下指令<br><code>bash build_native.sh clean</code>，也就是<code>ndk-build clean</code>，就會變成不能用。</p>
+<p>另一個做法就是在選項的部分作修改，以下是我的改法：</p>
+<pre><code>for p in $*
+do
+     echo &quot;$p&quot;
+     case $p in
+          &quot;kr&quot;)
+               echo &quot;force build kr&quot;
+               forcebuildkr=1
+               #Can not pass this parameter to next call bash
+               ;;
+          &quot;debug&quot;)
+               echo &quot;get debug&quot;
+               debugflag=1
+               #Can not pass this parameter to next call bash
+               ;;
+          &quot;-s&quot;)
+               buildexternalsfromsource=1
+               param=&quot;$param$p &quot;
+               ;;
+          &quot;-h&quot;)
+               usage
+               exit 0
+               ;;
+          *)
+               param=&quot;$param$p &quot;
+               ;;
+     esac
+done  
+</code></pre><p>這是另一種選項的做法，以上面提到的<code>bash build_native.sh  -s  xxx</code>，在這裡就會全都處理到，又由於我不想全部選項都傳到<code>ndk-build</code>，所以該傳的我就存在<code>$param</code>，再把<code>$</code>*改為<code>$param</code>即可，此時我已經可以透過選項來選擇我要怎樣的版本。</p>
+<h2 id="利用Application-mk分不同的版本"><a href="#利用Application-mk分不同的版本" class="headerlink" title="利用Application.mk分不同的版本"></a>利用Application.mk分不同的版本</h2><p>在最早的時候，我在分debug與release版的時候是直接去android.mk中修改CPPFLAG，後來覺得實在是太麻煩要改來改去，就採取我現在使用的方法</p>
+<p>ndk-build有一個選項：<code>ndk-build NDK_APPLICATION_MK=</code>，可以讓你自己指定要使用的Application.mk，所以我將不同狀況需要的CPPFLAG設定寫到不同的Application.mk檔中，再依照選項不同設定不同的數值去決定到底要用哪一個，大概如下：</p>
+<pre><code>if [[ &quot;$debugflag&quot; ]]; then
+     echo &quot;debug on!!&quot;
+     if [[ &quot;$forcebuildkr&quot; ]]; then
+          echo &quot;force build kr!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_debug_kr.mk&quot;
+     else
+          echo &quot;build global!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_debug.mk&quot;
+     fi
+else
+     echo &quot;debug off!!&quot;
+     if [[ &quot;$forcebuildkr&quot; ]]; then
+          echo &quot;force build kr!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_kr.mk&quot;
+     else
+          echo &quot;build global!!&quot;
+          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application.mk&quot;
+     fi
+fi
+&quot;$NDK_ROOT&quot;/ndk-build NDK_APPLICATION_MK=&quot;$usedebugappmk&quot; -C &quot;$APP_ANDROID_ROOT&quot; $param \
+&quot;NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/prebuilt&quot;
+</code></pre><h2 id="控制資源"><a href="#控制資源" class="headerlink" title="控制資源"></a>控制資源</h2><p>一般cocos2d-x專案的資源檔都放在Resource資料夾下，後來我遇到了某種情況是某些檔案只在android狀況下改變，所以我另外開個一個資料夾Resource_android，在原本的# copy resources腳本下，添加了一段處理android特有資源的程式：</p>
+<pre><code># copy ver android
+for file in &quot;$APP_ROOT&quot;/Resource_android/*
+do
+if [ -d &quot;$file&quot; ]; then
+    cp -rf &quot;$file&quot; &quot;$APP_ANDROID_ROOT&quot;/assets
+fi
+if [ -f &quot;$file&quot; ]; then
+    cp &quot;$file&quot; &quot;$APP_ANDROID_ROOT&quot;/assets
+fi
+done
+</code></pre><p>另外也可以將腳本寫在別的.sh中在去呼叫如下  </p>
+<pre><code>if [[ &quot;$debugflag&quot; -ne 1 ]]; then
+     echo &quot;delete .lua .bat .exe&quot;
+     if [ -e &quot;del_lua.sh&quot; ]; then
+          ./del_lua.sh
+     fi
+fi
+</code></pre><p>專案在做release版時會將lua檔全部刪除，這部分是寫在另一個.sh中。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/05/30/專案中與cURL相關瀕繁當機處理記錄/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          專案中與cURL相關瀕繁當機處理記錄
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/05/22/JNI中是否需要自行呼叫DeleteLocalRef/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JNI中是否需要自行呼叫DeleteLocalRef&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2013/05/23/修改cocos2d-x提供的build-native-sh/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作上的筆記">
+<meta property="og:type" content="website">
+<meta property="og:title" content="雜物聚集地">
+<meta property="og:url" content="http://hsienwei.github.io/page/2/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="工作上的筆記">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="雜物聚集地">
+<meta name="twitter:description" content="工作上的筆記">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer">
+      <article id="post-ngui-atlas-to-spritesheet" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/05/ngui-atlas-to-spritesheet/">轉換NGUI atlas到UGUI的spritesheet</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/03/05/ngui-atlas-to-spritesheet/" class="article-date">
+  <time datetime="2018-03-05T02:48:35.000Z" itemprop="datePublished">2018-03-05</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/03/05/ngui-atlas-to-spritesheet/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近嘗試將一些效能消耗較大的NGUI UI轉換成UGUI測試, 不過目前暫時是自行測試, 所以在圖集部分暫時沿用以前的NGUI atlas來使用, 只是UGUI是不吃NGUI的atlas只吃sprite, 所以寫了一個工具來將NGUI的atlas資料寫到Texture的設定當中。</p>
+<p><a href="https://gist.github.com/hsienwei/1b76d6dfb43e281394e2cab07e331a7b" target="_blank" rel="noopener">連結在此</a>    </p>
+<p>最主要是要把讀取到SpriteData的y軸做額外的反轉處理.</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NGUI/">NGUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UGUI/">UGUI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-struct-between-native-c" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/07/struct-between-native-c/">c++與c＃間的溝通與資料傳遞</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/02/07/struct-between-native-c/" class="article-date">
+  <time datetime="2018-02-07T02:55:29.000Z" itemprop="datePublished">2018-02-07</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/02/07/struct-between-native-c/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>目前的專案server端與client端間的共用邏輯是用C++寫的, 而Unity的主要使用程式碼又是c#, 所以有需要從c#呼叫c++端的方法, 以及從c++取資料, 這裡主要整理一下專案用的方法以及遇到的一些問題。<br>
+        
+          <p class="article-more-link">
+            <a href="/2018/02/07/struct-between-native-c/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mono/">mono</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-LeanTouch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/24/LeanTouch/">LeanTouch 方便的手勢控制plugin</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/01/24/LeanTouch/" class="article-date">
+  <time datetime="2018-01-24T05:51:10.000Z" itemprop="datePublished">2018-01-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/01/24/LeanTouch/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://www.assetstore.unity3d.com/#!/content/30111" target="_blank" rel="noopener">Asset Store Link</a>  </p>
+<p>一開始專案在處理手勢的部份大多是自行處理, 以Unity的狀況來說如果是單指點擊來說寫起來沒有什麼大問題, 但後來專案中有需要處理Pinch與Twist兩種手勢, 一旦進入需要兩隻手指以上的手勢就開始麻煩了, 主要還是因為PC開發環境在多指的行為上需要自行模擬, 以及可能需要用執行環境來判斷來做不同的處理.</p>
+<pre><code>#if UNITY_EDITOR
+    if (Input.GetAxis(&quot;Mouse ScrollWheel&quot;) != 0)
+    {
+        ...
+    }
+#elif UNITY_ANDROID || UNITY_IOS
+    if (Input.touchCount == 2)
+    {
+        ...
+    }
+#endif
+</code></pre><p>一開始的作法是用替代的方式來取代, 比方說PC端用滑鼠滾輪來取代Twist, 但是用久了感覺不是很直覺, 而且維護起來確實比較麻煩, 要抓真實的感覺需要編譯apk至手機上測試, 於是之後就改用這個套件。</p>
+<p>這個套件對我的好處主要在於可以省略多平台的一些實作細節, 而且在PC端就可以模擬Pinch與Twist手勢（可選擇組合鍵）, 測試起來比較方便。<br><img src="/2018/01/24/LeanTouch/1.png" title="[組件設置]"></p>
+<p>事件提供了以下幾種</p>
+<pre><code>LeanTouch.OnFingerDown  
+LeanTouch.OnFingerSet   
+LeanTouch.OnFingerUp    
+LeanTouch.OnFingerTap   
+LeanTouch.OnFingerSwipe 
+LeanTouch.OnGesture     
+</code></pre><p>除了前幾個基本的事件以外, 也可以用LeanTouch.OnGesture來處理複雜的手勢,另外也提供了相關的取值方法：</p>
+<pre><code>LeanGesture.GetTwistDegrees
+LeanGesture.GetPinchScale
+LeanGesture.GetScreenDelta
+</code></pre><p>不用再去計算一些細節比方說pinch兩指間移動的量之類的。</p>
+<p>看一些文章有提到該套件有一些組件可以提供一些預設行為可供套用, 雖然沒有用到但感覺也是挺方便的。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeanTouch/">LeanTouch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unity/">unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-UnityEngineAnalyzerTest" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/12/UnityEngineAnalyzerTest/">UnityEngineAnalyzer測試記錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/07/12/UnityEngineAnalyzerTest/" class="article-date">
+  <time datetime="2017-07-12T02:16:55.000Z" itemprop="datePublished">2017-07-12</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2017/07/12/UnityEngineAnalyzerTest/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今年不同場合的Unity研討會好像都有提到Unity腳本靜態分析的分享，所以心血來潮測試一下Unity Engine Analyzer。  </p>
+<ol>
+<li><p>官方說安裝可以透過NnGet Package Manager搜索來找到，但是就我的狀況直接找是找不到的。<br>因為我的vs2015內建的是<a href="https://www.nuget.org/api/v2/curated-feeds/microsoftdotnet/" target="_blank" rel="noopener">https://www.nuget.org/api/v2/curated-feeds/microsoftdotnet/</a> 這個source<br>需要的話連到<a href="https://www.nuget.org/" target="_blank" rel="noopener">NuGet首頁</a>可以看到下面有寫新的URL <a href="https://api.nuget.org/v3/index.json" target="_blank" rel="noopener">https://api.nuget.org/v3/index.json</a><br>改用這個就可以找的到了。  </p>
+</li>
+<li><p>unity專案裡面一般會有三個: 一般, Editor, plugins，然而測試的時候安裝好像不會全部都幫你加上analyzer, 只會在其中的一個加上（我找不到他的邏輯）。<br>要在其他專案中加入的話, 只需要自行增加analyzer, 選擇ProjectPath\packages\UnityEngineAnalyzer.1.0.0.0\analyzers\dotnet\cs\UnityEngineAnalyzer.dll 就會加入了。</p>
+</li>
+<li><p>目前提供9種檢查, 主要是不要使用一些耗效能的方法, 刪除空的方法, 避免使用coroutines這類的檢查, 有需要可以自己擴充。</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/">Unity</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UnityEngineAnalyzer/">UnityEngineAnalyzer</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <article id="post-INSTALL-FAILED-CONTAINER-ERROR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/">Android無法安裝Apk的處理方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/" class="article-date">
+  <time datetime="2017-06-05T06:27:27.000Z" itemprop="datePublished">2017-06-05</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="問題描述："><a href="#問題描述：" class="headerlink" title="問題描述："></a>問題描述：</h2><p>同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？</p>
+<h2 id="處置："><a href="#處置：" class="headerlink" title="處置："></a>處置：</h2><ol>
+<li><p>在手機直接安裝沒有任何錯誤訊息, 嘗試使用<code>adb shell pm install</code>的方式來安裝, 可以看到<code>Failure [INSTALL_FAILED_CONTAINER_ERROR]</code>錯誤。  </p>
+</li>
+<li><p>經查詢處理方式：<br><a href="https://stackoverflow.com/questions/5744298/what-does-this-mean-failure-install-failed-container-error" target="_blank" rel="noopener">link</a><br>要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..  </p>
+</li>
+<li><p>同事在安裝<code>adb shell pm install</code>時加上<code>-f</code>強制安裝在內部系統內存發現可以安裝成功, 將尋找方向移到ApplicationInstallLocation上。<br>經查詢有一些文章<br><a href="https://forum.unity3d.com/threads/failure-install_failed_container_error.210920/" target="_blank" rel="noopener">link</a><br><a href="http://qiita.com/ToniTakekawa/items/d457358c1e92bfa9d7b7" target="_blank" rel="noopener">link2</a><br>指出只要Player settings在Android項的Install Location改為Automatic即可, 測試後可行。</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/">Unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
+      <nav id="page-nav">
+        <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      </nav>
+    </section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Android設定寄送夾帶附件的E-mail時附件無法使用 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="問題起因基本上使用常見的方法如下 Intent i = new Intent(Intent.ACTION_SEND); i.setType(&amp;quot;image/jpeg&amp;quot;); i.putExtra(Intent.EXTRA_EMAIL  , new String[]{sendTarget}); i.putExtra(Intent.EXTRA_SUBJECT, sendSubject)">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android設定寄送夾帶附件的E-mail時附件無法使用">
+<meta property="og:url" content="http://hsienwei.github.io/2013/04/19/Android設定寄送夾帶附件的E-mail時附件無法使用/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="問題起因基本上使用常見的方法如下 Intent i = new Intent(Intent.ACTION_SEND); i.setType(&amp;quot;image/jpeg&amp;quot;); i.putExtra(Intent.EXTRA_EMAIL  , new String[]{sendTarget}); i.putExtra(Intent.EXTRA_SUBJECT, sendSubject)">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.863Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android設定寄送夾帶附件的E-mail時附件無法使用">
+<meta name="twitter:description" content="問題起因基本上使用常見的方法如下 Intent i = new Intent(Intent.ACTION_SEND); i.setType(&amp;quot;image/jpeg&amp;quot;); i.putExtra(Intent.EXTRA_EMAIL  , new String[]{sendTarget}); i.putExtra(Intent.EXTRA_SUBJECT, sendSubject)">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-Android設定寄送夾帶附件的E-mail時附件無法使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android設定寄送夾帶附件的E-mail時附件無法使用
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/04/19/Android設定寄送夾帶附件的E-mail時附件無法使用/" class="article-date">
+  <time datetime="2013-04-19T15:01:26.000Z" itemprop="datePublished">2013-04-19</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/04/19/Android設定寄送夾帶附件的E-mail時附件無法使用/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="問題起因"><a href="#問題起因" class="headerlink" title="問題起因"></a>問題起因</h3><p>基本上使用常見的方法如下</p>
+<pre><code>Intent i = new Intent(Intent.ACTION_SEND);
+i.setType(&quot;image/jpeg&quot;);
+i.putExtra(Intent.EXTRA_EMAIL  , new String[]{sendTarget});
+i.putExtra(Intent.EXTRA_SUBJECT, sendSubject);
+i.putExtra(Intent.EXTRA_TEXT   , sendText);
+i.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;file://&quot;+ filePath));
+try {
+     curActivity.startActivity(Intent.createChooser(i, &quot;Please select Email client&quot;));
+} catch (android.content.ActivityNotFoundException ex) {
+    Toast.makeText(curActivity, &quot;There are no email clients installed.&quot;, Toast.LENGTH_SHORT).show();
+}
+</code></pre><p>問題出於我給的是Internal Storage的路徑，所以基本上當其它的應用程式要取用檔案時有有存取權限問題</p>
+<h3 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h3><p>copy一份到External Storage再用copy檔的路徑即可</p>
+<pre><code>File externalPicPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+File dstFile = new File(externalPicPath, &quot;picture.png&quot;);
+try{
+    FileInputStream in = new FileInputStream(filePath);
+    FileOutputStream out = new FileOutputStream(dstFile);
+    byte[] buf = new byte[1024];
+    int len;
+    while ((len = in.read(buf)) &gt; 0) {
+        out.write(buf, 0, len);
+    }
+    in.close();
+    out.close();
+}
+catch(IOException e)
+{
+    Toast.makeText(curActivity, &quot;I/O Error.&quot;, Toast.LENGTH_SHORT).show();
+     return;
+}
+</code></pre>
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/05/22/JNI中是否需要自行呼叫DeleteLocalRef/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          JNI中是否需要自行呼叫DeleteLocalRef
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/04/07/Unity練習：使用Texture-Packer自製簡易2D-Sprite物件/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unity練習：使用Texture Packer自製簡易2D Sprite物件&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2013/04/19/Android設定寄送夾帶附件的E-mail時附件無法使用/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

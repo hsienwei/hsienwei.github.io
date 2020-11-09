@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>AWS Lambda + LineBot - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="這篇主要紀錄一下之前寫的一個小玩具主要是分為兩個部分  使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB 使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料   第一部分是Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB 這裡主要是改以前寫的一個爬蟲程式, 以前寫的時候那時">
+<meta name="keywords" content="python,AWS,LineBot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AWS Lambda + LineBot">
+<meta property="og:url" content="http://hsienwei.github.io/2018/07/07/LineBotWithLambda/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="這篇主要紀錄一下之前寫的一個小玩具主要是分為兩個部分  使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB 使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料   第一部分是Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB 這裡主要是改以前寫的一個爬蟲程式, 以前寫的時候那時">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:image" content="https://qr-official.line.me/M/OkcTs6-FJF.png">
+<meta property="og:image" content="https://i.imgur.com/I5ZyIf1.jpg?2">
+<meta property="og:image" content="https://i.imgur.com/6z3z8QK.jpg?2">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.921Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AWS Lambda + LineBot">
+<meta name="twitter:description" content="這篇主要紀錄一下之前寫的一個小玩具主要是分為兩個部分  使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB 使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料   第一部分是Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB 這裡主要是改以前寫的一個爬蟲程式, 以前寫的時候那時">
+<meta name="twitter:image" content="https://qr-official.line.me/M/OkcTs6-FJF.png">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-LineBotWithLambda" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AWS Lambda + LineBot
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2018/07/07/LineBotWithLambda/" class="article-date">
+  <time datetime="2018-07-07T07:00:18.000Z" itemprop="datePublished">2018-07-07</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2018/07/07/LineBotWithLambda/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這篇主要紀錄一下之前寫的一個小玩具<br>主要是分為兩個部分</p>
+<ul>
+<li>使用Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB</li>
+<li>使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料</li>
+</ul>
+<hr>
+<p>第一部分是Python + selenium 爬Ptt網頁版的資料並儲存在 AWS DynamoDB</p>
+<p>這裡主要是改以前寫的一個爬蟲程式, 以前寫的時候那時用的是python2.7版本並使用Mechanize 與 BeautifulSoup, 最近把它改成python3以及selenium<a href="https://github.com/hsienwei/ptt_data_parse" target="_blank" rel="noopener">連結</a>, 目前還會有一些舊的程式碼在裡面。</p>
+<p>程式可以指定要對哪個版來爬資料, 並可以指定要幾小時內的資料, 目前針對推文數高於一定程度以上的文章，另外使用<a href="https://developers.facebook.com/docs/graph-api/reference/v2.11/url" target="_blank" rel="noopener">FB API</a>去取該連結的互動狀況, 用該資料簡單去算一個分數(可以在下面的測試結果畫面看到)用來作為熱門文章的排序, 這個數字的好處是可以看到實際在FB的熱門狀況, 因為有時候PTT推文數高的文章不一定是值得分享的文章, 也有可能是閒聊文。</p>
+<p>另一part是將得到的資料寫進 AWS 的DynamoDB當中, <a href="https://github.com/hsienwei/ptt_data_parse/blob/master/dynamodb_conn.py" target="_blank" rel="noopener">程式碼在這</a>，會使用DynamoDB的原因主要是因為我的AWS 免費已經過期了, 所以我選擇使用目前還是有免費方案的DynamoDB。</p>
+<p>主要使用了兩張表, 一張是索引, 主要紀錄各個板對應到另一張表的資料ID，另一張表就是爬下來的資料，以版名以及爬資料的時間當作ID來儲存。</p>
+<hr>
+<p>第二部分是使用LintBot api加上AWS lambda回應上一步存在DynamoDB中的資料</p>
+<p>會使用lambda其實是一個湊巧, 一開始本來是要開一個EC2加上Nodejs或Python+flask來回應linebot webhook, 但是想一想我已經沒有免費Tier了, 作為一個小玩具成本有點高, 後來在查資料的時候看到<a href="https://blog.5000164.jp/2017/8/14/line-bot/" target="_blank" rel="noopener">這篇文章</a>, 覺得這樣server less的架構成本低, 又不需要一直開著, 也可以使用API Gateway來開一個https的api當作webhook。</p>
+<p>這裡當初在做的時候本來要讓linebot在資料有更新時自動使用push來通知使用者, 但是由於push功能需要付費, 所以就作罷了。</p>
+<hr>
+<p>下面就是成果<br><img src="https://qr-official.line.me/M/OkcTs6-FJF.png" alt="LineBot QRCode"><br>可以加入這個LineBot來測試</p>
+<p>以下是測試結果畫面<br>第一張圖, 隨便打幾個字可以得到目前有資料的版名<br><img src="https://i.imgur.com/I5ZyIf1.jpg?2" alt="Imgur"></p>
+<p>第二張圖, 輸入一個有資料的版名後, 可以得到爬蟲爬到的資料, 標題後是其分數<br><img src="https://i.imgur.com/6z3z8QK.jpg?2" alt="Imgur"></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LineBot/">LineBot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/10/30/使用-BitBucket-PullRequest-API/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          使用 BitBucket PullRequest API
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/20/python-selenium使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用python + selenium 心得&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2018/07/07/LineBotWithLambda/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

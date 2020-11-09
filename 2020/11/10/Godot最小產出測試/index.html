@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Godot最小產出測試 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Godot一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引擎產出的release版遊戲大概最小可以到什麼程度，這在網頁遊戲來講還滿重要的。以前曾經用unity產出幾個非常簡單的網頁遊戲大概都要4M起跳，其實跟一般html5的framework(如pixi.js)的所需檔案大小相差甚遠(V4.4.5 約403KB)。 初始系統安裝">
+<meta name="keywords" content="godot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Godot最小產出測試">
+<meta property="og:url" content="http://hsienwei.github.io/2020/11/10/Godot最小產出測試/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="Godot一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引擎產出的release版遊戲大概最小可以到什麼程度，這在網頁遊戲來講還滿重要的。以前曾經用unity產出幾個非常簡單的網頁遊戲大概都要4M起跳，其實跟一般html5的framework(如pixi.js)的所需檔案大小相差甚遠(V4.4.5 約403KB)。 初始系統安裝">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Godot最小產出測試">
+<meta name="twitter:description" content="Godot一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引擎產出的release版遊戲大概最小可以到什麼程度，這在網頁遊戲來講還滿重要的。以前曾經用unity產出幾個非常簡單的網頁遊戲大概都要4M起跳，其實跟一般html5的framework(如pixi.js)的所需檔案大小相差甚遠(V4.4.5 約403KB)。 初始系統安裝">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-Godot最小產出測試" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Godot最小產出測試
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2020/11/10/Godot最小產出測試/" class="article-date">
+  <time datetime="2020-11-09T16:03:56.000Z" itemprop="datePublished">2020-11-10</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2020/11/10/Godot最小產出測試/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Godot"><a href="#Godot" class="headerlink" title="Godot"></a>Godot</h1><p>一個開源的遊戲引擎並具備編輯器，第一次知道這個遊戲引擎是大概2年前偶然發現的，會記錄這篇文章的原因主要是想知道這個引擎產出的release版遊戲大概最小可以到什麼程度，這在網頁遊戲來講還滿重要的。<br>以前曾經用unity產出幾個非常簡單的網頁遊戲大概都要4M起跳，其實跟一般html5的framework(如pixi.js)的所需檔案大小相差甚遠(V4.4.5 約403KB)。</p>
+<h1 id="初始系統安裝"><a href="#初始系統安裝" class="headerlink" title="初始系統安裝"></a>初始系統安裝</h1><ol>
+<li>安裝python 3.8</li>
+<li>安裝scons<br><code>python -m pip install scons</code></li>
+<li><a href="#設定cc-compiler">設定c/c++ compiler</a></li>
+</ol>
+<h1 id="下載-godot-source-code"><a href="#下載-godot-source-code" class="headerlink" title="下載 godot source code"></a>下載 godot source code</h1><p>一開始以為是要在遊戲專案下使用scons，會有以下訊息</p>
+<blockquote>
+<p>scons: *** No SConstruct file found.<br>File “d:\dev\python\python38\lib\site-packages\SCons\Script\Main.py”, line 947, in _main</p>
+</blockquote>
+<p>後來看了<a href="https://godotengine.org/qa/24836/compiling-for-the-web-no-sconstruct-file-found" target="_blank" rel="noopener">這篇</a>才發現是要下載原始碼，在godot 原始碼目錄下使用</p>
+<p>個人使用 3.2.3-stable<br>release 連結如下<br><a href="https://github.com/godotengine/godot/releases/tag/3.2.3-stable" target="_blank" rel="noopener">https://github.com/godotengine/godot/releases/tag/3.2.3-stable</a><br>或者也可以使用 git clone tag 3.2.3-stable</p>
+<p>下載結束後，可以執行<code>scons platform=list</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; scons platform=list</span><br><span class="line">scons: Reading SConscript files ...</span><br><span class="line">The following platforms are available:</span><br><span class="line"></span><br><span class="line">        windows</span><br></pre></td></tr></table></figure>
+<p>一開始只會有windows，scons會檢查是否有相關toolchain<br><a href="https://godotengine.org/qa/30417/scons-build-only-has-windows-platform" target="_blank" rel="noopener">https://godotengine.org/qa/30417/scons-build-only-has-windows-platform</a></p>
+<h1 id="設定c-c-compiler"><a href="#設定c-c-compiler" class="headerlink" title="設定c/c++ compiler"></a>設定c/c++ compiler</h1><p>如果遇到下面的訊息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scons: warning: No version of Visual Studio compiler found - C/C++ compilers most likely not set correctly</span><br><span class="line">File &quot;D:\godot\test\SConstruct&quot;, line 3, in &lt;module&gt;</span><br><span class="line">ModuleNotFoundError: No module named &apos;glsl_builders&apos;:</span><br><span class="line">  File &quot;D:\godot\test\SConstruct&quot;, line 15:</span><br><span class="line">    import glsl_builders</span><br></pre></td></tr></table></figure></p>
+<p>表示需要安裝VS compiler, 此時可參照下面網頁內容<br><a href="https://wiki.python.org/moin/WindowsCompilers" target="_blank" rel="noopener">https://wiki.python.org/moin/WindowsCompilers</a><br>我使用python 3.8 故照<a href="https://wiki.python.org/moin/WindowsCompilers#Microsoft_Visual_C.2B-.2B-_14.2_standalone:_Build_Tools_for_Visual_Studio_2019_.28x86.2C_x64.2C_ARM.2C_ARM64.29" target="_blank" rel="noopener">這一節</a>處理</p>
+<h1 id="編譯web版"><a href="#編譯web版" class="headerlink" title="編譯web版"></a>編譯web版</h1><p>主要參照以下內容<br><a href="https://docs.godotengine.org/en/stable/development/compiling/compiling_for_web.html" target="_blank" rel="noopener">https://docs.godotengine.org/en/stable/development/compiling/compiling_for_web.html</a></p>
+<p>安裝emscripten<br><a href="https://emscripten.org/docs/getting_started/downloads.html" target="_blank" rel="noopener">https://emscripten.org/docs/getting_started/downloads.html</a><br>參照這個連結，照著操作就可以<br>唯一要注意的點是每次要編譯前需要設定環境<br>只要執行sdk底下的<code>emsdk_env.bat</code>就可以</p>
+<p>設定成功後輸入<code>scons platform=list</code>應該會多出一個新的選項</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scons platform=list</span><br><span class="line">scons: Reading SConscript files ...</span><br><span class="line">The following platforms are available:</span><br><span class="line"></span><br><span class="line">        javascript</span><br><span class="line">        windows</span><br></pre></td></tr></table></figure>
+<p>看到javascript後可以輸入<code>scons platform=javascript tools=no target=release -j 4</code>開始編譯，如果編譯成功的話檔案會在<code>godot_root/bin/godot.javascript.opt.zip</code>。如果<code>target=release_debug</code>的話會是<code>godot_root/bin/godot.javascript.opt.debug.zip</code>,<code>-j 4</code>是使用多核編譯</p>
+<p>根據<a href="https://docs.godotengine.org/en/stable/development/compiling/optimizing_for_size.html" target="_blank" rel="noopener">這一節</a>的內容，我們可以藉由關閉一些功能來減少產出的程式庫大小，其調整可以使用console的選項，但godot提供另一個方法，可以放一個<code>custom.py</code>檔案來設置選項，並且提供<a href="https://godot-build-options-generator.github.io/" target="_blank" rel="noopener">工具</a>來生成這個檔案，以下是我使用的設置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"># Generated using https://godot-build-options-generator.github.io</span><br><span class="line"></span><br><span class="line">disable_3d = &quot;yes&quot;</span><br><span class="line">optimize = &quot;size&quot;</span><br><span class="line">disable_advanced_gui = &quot;yes&quot;</span><br><span class="line">deprecated = &quot;no&quot;</span><br><span class="line">module_arkit_enabled = &quot;no&quot;</span><br><span class="line">module_bmp_enabled = &quot;no&quot;</span><br><span class="line">module_bullet_enabled = &quot;no&quot;</span><br><span class="line">module_camera_enabled = &quot;no&quot;</span><br><span class="line">module_csg_enabled = &quot;no&quot;</span><br><span class="line">module_dds_enabled = &quot;no&quot;</span><br><span class="line">module_enet_enabled = &quot;no&quot;</span><br><span class="line">module_etc_enabled = &quot;no&quot;</span><br><span class="line">module_gdnative_enabled = &quot;no&quot;</span><br><span class="line">module_gdnavigation_enabled = &quot;no&quot;</span><br><span class="line">module_gdscript_enabled = &quot;no&quot;</span><br><span class="line">module_gridmap_enabled = &quot;no&quot;</span><br><span class="line">module_hdr_enabled = &quot;no&quot;</span><br><span class="line">module_jpg_enabled = &quot;no&quot;</span><br><span class="line">module_jsonrpc_enabled = &quot;no&quot;</span><br><span class="line">module_mbedtls_enabled = &quot;no&quot;</span><br><span class="line">module_mobile_vr_enabled = &quot;no&quot;</span><br><span class="line">module_ogg_enabled = &quot;no&quot;</span><br><span class="line">module_opensimplex_enabled = &quot;no&quot;</span><br><span class="line">module_opus_enabled = &quot;no&quot;</span><br><span class="line">module_regex_enabled = &quot;no&quot;</span><br><span class="line">module_stb_vorbis_enabled = &quot;no&quot;</span><br><span class="line">module_tga_enabled = &quot;no&quot;</span><br><span class="line">module_theora_enabled = &quot;no&quot;</span><br><span class="line">module_tinyexr_enabled = &quot;no&quot;</span><br><span class="line">module_upnp_enabled = &quot;no&quot;</span><br><span class="line">module_vorbis_enabled = &quot;no&quot;</span><br><span class="line">module_webm_enabled = &quot;no&quot;</span><br><span class="line">module_webp_enabled = &quot;no&quot;</span><br></pre></td></tr></table></figure></p>
+<p>應該是能關的都關了，唯一沒關的是<code>Enable module: FreeType</code>,關了之後我遇到編譯錯誤，所以就放棄了，這樣編譯的<code>godot.wasm</code>檔案大小是10051KB，沒有使用<code>custom.py</code>的檔案大小是14643KB</p>
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>這裡有<a href="https://www.reddit.com/r/godot/comments/8b67lb/guide_how_to_compress_wasmpck_file_to_make_html5/" target="_blank" rel="noopener">一篇文章</a>是以壓縮wasm來減少檔案大小，但其實應該Unity也是做得到，且壓縮後大小還是有其限度，故參考即可。</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/godot/">godot</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/24/Jenkins使用筆記/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Jenkins使用筆記(Windows版)&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2020/11/10/Godot最小產出測試/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

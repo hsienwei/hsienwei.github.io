@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>簡易文件編碼轉換工具 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原由因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf注意:目前無備份功能, 轉換前須自行備份  開發相關####開發工具python 2.7 + chardet + py2exegui部分為內建的tkinterpy2exe_dist.zip是我自行用py2exe轉換的執行檔如要自行產生請安裝py2exe m">
+<meta name="keywords" content="python,tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="簡易文件編碼轉換工具">
+<meta property="og:url" content="http://hsienwei.github.io/2015/02/20/file-encode-converter/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="原由因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf注意:目前無備份功能, 轉換前須自行備份  開發相關####開發工具python 2.7 + chardet + py2exegui部分為內建的tkinterpy2exe_dist.zip是我自行用py2exe轉換的執行檔如要自行產生請安裝py2exe m">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:image" content="http://hsienwei.github.io/2015/02/20/file-encode-converter/ui.jpg">
+<meta property="og:updated_time" content="2020-11-09T17:05:39.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="簡易文件編碼轉換工具">
+<meta name="twitter:description" content="原由因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf注意:目前無備份功能, 轉換前須自行備份  開發相關####開發工具python 2.7 + chardet + py2exegui部分為內建的tkinterpy2exe_dist.zip是我自行用py2exe轉換的執行檔如要自行產生請安裝py2exe m">
+<meta name="twitter:image" content="http://hsienwei.github.io/2015/02/20/file-encode-converter/ui.jpg">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-file-encode-converter" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      簡易文件編碼轉換工具
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2015/02/20/file-encode-converter/" class="article-date">
+  <time datetime="2015-02-20T15:34:07.000Z" itemprop="datePublished">2015-02-20</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2015/02/20/file-encode-converter/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="原由"><a href="#原由" class="headerlink" title="原由"></a>原由</h2><p>因為在工作上有需要將一些簡體編碼的程式碼文件轉換成utf格式，所以寫了這個小工具<br>該工具的作用:將目標資料夾下的指定副檔名文件的編碼改為utf<br><strong>注意:目前無備份功能, 轉換前須自行備份</strong></p>
+<hr>
+<h2 id="開發相關"><a href="#開發相關" class="headerlink" title="開發相關"></a>開發相關</h2><p>####開發工具<br><code>python 2.7</code> + <code>chardet</code> + <code>py2exe</code><br>gui部分為內建的<code>tkinter</code><br>py2exe_dist.zip是我自行用py2exe轉換的執行檔<br>如要自行產生請安裝py2exe module以及chardet並在專案目錄下執行<br><code>python setup.py py2exe</code></p>
+<p>####基本原理<br>用chardet這個module來測文件的編碼<br>測出後將其解碼再轉碼為utf</p>
+<p>####特殊例子<br>在測試時有遇到一個特殊狀況<br>就是當文件編碼為gb2312<br>但裡面又含有繁體字元<br>此時要改用gbk編碼來處理</p>
+<p>github:<br><a href="https://github.com/hsienwei/file_encode_to_utf_converter" target="_blank" rel="noopener">https://github.com/hsienwei/file_encode_to_utf_converter</a></p>
+<p><img src="/2015/02/20/file-encode-converter/ui.jpg" alt="執行畫面"></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tool/">tool</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/21/spine-binary2json/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-title"><span>&lt;</span>&nbsp;
+        
+          Spine二進制檔轉json檔測試
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/04/unity-autosave/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Unity autosave&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2015/02/20/file-encode-converter/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>
