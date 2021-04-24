@@ -68,6 +68,64 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-facebook-comments-ios-native-ui" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/08/facebook-comments-ios-native-ui/">Facebook comments 在iOS用原生UI製作測試</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/04/08/facebook-comments-ios-native-ui/" class="article-date">
+  <time datetime="2014-04-08T06:45:00.000Z" itemprop="datePublished">2014-04-08</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/plugins/comments/</a><br>如果不要add comment的話應該是做的到的</p>
+<p>本次專案中有一個功能是可以對某個頁面做FB comment<br>在網頁中可以用Facebook的plugin<br>但在app當中SDK沒有提供相關的UI可供使用<br>要使用的話必須用UIWebView加上plugin來達成</p>
+<p>後來在Facebook的graph api當中找到有關的功能<br><a href="https://developers.facebook.com/docs/graph-api/reference/object/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/graph-api/reference/object/comments/</a><br>裡面有提到Reading與Publishing的功能</p>
+<p>但由於我使用的ID是網頁網址所以必須改一下</p>
+<pre><code>[FBRequestConnection startWithGraphPath:@&quot;/****** id *******/comments&quot;]
+[FBRequestConnection startWithGraphPath:@&quot;/comments/?ids=http://www.xxx.xxx.xx&quot;]
+</code></pre><p>在Reading的部分沒有問題，但在Publishing的部分就會收到錯誤訊息</p>
+<pre><code>body =  {
+        error = {
+            code = 100;
+            message = &quot;(#100) Comments may not be added to a comment plugin&quot;;
+            type = OAuthException;
+                };
+        };
+</code></pre><p>後來仔細查一下<br>發現原來這個功能是不能使用的<br>相關連結：<br><a href="http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box" target="_blank" rel="noopener">http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box</a><br><a href="http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module" target="_blank" rel="noopener">http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module</a><br><a href="https://developers.facebook.com/bugs/164794086987157" target="_blank" rel="noopener">https://developers.facebook.com/bugs/164794086987157</a></p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/facebook/">facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-ios-play-youtube" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -309,65 +367,15 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-45度角地圖-Z-Sort-實作" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/11/14/45度角地圖-Z-Sort-實作/">45度角地圖 Z-Sort 實作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/11/14/45度角地圖-Z-Sort-實作/" class="article-date">
-  <time datetime="2013-11-14T15:50:21.000Z" itemprop="datePublished">2013-11-14</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/11/14/45度角地圖-Z-Sort-實作/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Demo：<a href="https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html" target="_blank" rel="noopener">https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html</a><br>Github：<a href="https://github.com/hsienwei/zSort_cocos2dx_html5" target="_blank" rel="noopener">https://github.com/hsienwei/zSort_cocos2dx_html5</a></p>
-<p>2014/01/16：cocos2d-x 2.2.2已修正此問題<br>2013/11/24 : 目前在chrome中會無法顯示(火狐可以), 為cocos2d-x html5的bug</p>
-<p>這個專案主要是以cocos2d-x html5版本來實作一個我之前在工作中使用的45度角地圖Z-Sort演算法，一來練習cocos2d-x html5，一來為之前的工作內容做一個記錄。</p>
-<p>開啟後一開始的狀況是沒有使用演算法排序的狀況，單純依照加入的順序去排序，按下”Sort”後就會依照演算法的結果為各個Sprite設定Z值。</p>
-<p>當初主要導入這個做法的是我同事，我只是後來有在稍微修改<br>演算法參考網頁：<a href="http://wgcode.iteye.com/blog/847695" target="_blank" rel="noopener">http://wgcode.iteye.com/blog/847695</a></p>
-<p>Sprite沒有使用圖，直接用drawingUtil來繪圖，發現用手機來看的話線條會沒辦法出來，也許是一個bug，也有可能是因為手機部分還沒有完善。</p>
-<p>另外在點擊事件上也有一點問題，導致必須做很多處理才能達到縮放後也可以正確點擊，不確定這是我的用法錯誤還是這部分本身還不完整，可參照 <a href="https://github.com/hsienwei/zSort_cocos2dx_html5/blob/master/src/myApp.js" target="_blank" rel="noopener">https://github.com/hsienwei/zSort_cocos2dx_html5/blob/master/src/myApp.js</a>   Line 53</p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

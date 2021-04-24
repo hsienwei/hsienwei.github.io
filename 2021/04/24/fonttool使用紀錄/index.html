@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>fonttool使用紀錄 - 雜物聚集地</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="簡介fonttools是目前用在專案上的一個字型工具包，repo URL如下https://github.com/fonttools/fonttools 安裝了該python module就可以使用裡面好幾種的字型工具，目前有用到的有以下： pyftsubset簡單說就是從字型中取出需要的字元生成一個較小的字型檔，主要為了節省空間，目前主要用在中日文語系這種漢字較多的語系，由於這類語系字型動輒都好">
+<meta name="keywords" content="python,fonttool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fonttool使用紀錄">
+<meta property="og:url" content="http://hsienwei.github.io/2021/04/24/fonttool使用紀錄/index.html">
+<meta property="og:site_name" content="雜物聚集地">
+<meta property="og:description" content="簡介fonttools是目前用在專案上的一個字型工具包，repo URL如下https://github.com/fonttools/fonttools 安裝了該python module就可以使用裡面好幾種的字型工具，目前有用到的有以下： pyftsubset簡單說就是從字型中取出需要的字元生成一個較小的字型檔，主要為了節省空間，目前主要用在中日文語系這種漢字較多的語系，由於這類語系字型動輒都好">
+<meta property="og:locale" content="hsienwei@gmail.com">
+<meta property="og:updated_time" content="2021-04-24T03:59:00.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fonttool使用紀錄">
+<meta name="twitter:description" content="簡介fonttools是目前用在專案上的一個字型工具包，repo URL如下https://github.com/fonttools/fonttools 安裝了該python module就可以使用裡面好幾種的字型工具，目前有用到的有以下： pyftsubset簡單說就是從字型中取出需要的字元生成一個較小的字型檔，主要為了節省空間，目前主要用在中日文語系這種漢字較多的語系，由於這類語系字型動輒都好">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="/webfonts/ptserif/main.css" rel="stylesheet" type="text/css">
+  <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-7748617-3', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+      <a id="logo" class="logo logo-text" href="/">雜物聚集地</a>
+      <nav id="main-nav">
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/tags">Tags</a>
+        
+          <a class="main-nav-link" href="/atom.xml">Feed</a>
+        
+          <a class="main-nav-link" href="https://github.com/hsienwei">Github</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://hsienwei.github.io"></form>
+        </div>
+      </nav>
+    </div>
+  </div>
+</header>
+    <section id="main" class="outer"><article id="post-fonttool使用紀錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      fonttool使用紀錄
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2021/04/24/fonttool使用紀錄/" class="article-date">
+  <time datetime="2021-04-24T03:57:54.000Z" itemprop="datePublished">2021-04-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2021/04/24/fonttool使用紀錄/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>fonttools是目前用在專案上的一個字型工具包，repo URL如下<br><a href="https://github.com/fonttools/fonttools" target="_blank" rel="noopener">https://github.com/fonttools/fonttools</a></p>
+<p>安裝了該python module就可以使用裡面好幾種的字型工具，目前有用到的有以下：</p>
+<p><strong>pyftsubset</strong><br>簡單說就是從字型中取出需要的字元生成一個較小的字型檔，主要為了節省空間，目前主要用在中日文語系這種漢字較多的語系，由於這類語系字型動輒都好幾mb，為了減少讀取時間是有其必要性<br>可以使用以下選項<br><code>--text-file</code> : 將想要的字放在文字檔<br><code>--output-file</code> : 選擇輸出檔案的路徑</p>
+<p><strong>ttx</strong><br>一個轉換格式的工具，可以將字型轉換成一個xml格式的文件(.ttx)<br><code>ttx text.ttf</code><br>反之也可以再轉為其他的字型格式<br><code>ttx -o font.woff  .\font.ttx</code></p>
+<h1 id="woff2支援"><a href="#woff2支援" class="headerlink" title="woff2支援"></a>woff2支援</h1><p>該工具支援轉換成woff2，由於使用了不同的壓縮方式會更小<br>要使用的話需要先安裝<a href="https://github.com/google/brotli" target="_blank" rel="noopener">Brotli</a><br>但這個module安裝的時候需要安裝C++ compiler，可以按照<a href="https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F" target="_blank" rel="noopener">連結</a>依照自己的python版本，並且有相關安裝說明<br><a href="https://wiki.python.org/moin/WindowsCompilers" target="_blank" rel="noopener">https://wiki.python.org/moin/WindowsCompilers</a></p>
+<h1 id="文字剔除後的問題"><a href="#文字剔除後的問題" class="headerlink" title="文字剔除後的問題"></a>文字剔除後的問題</h1><p>目前看到有些地方會使用特定字元來做一些文字大小上的計算，故如果有用到這種方式需要將特定字元保留，以避免計算上的錯誤</p>
+<p><a href="https://stackoverflow.com/a/11688948" target="_blank" rel="noopener">https://stackoverflow.com/a/11688948</a><br>檢查字型是否已經讀取的一種作法<br><a href="https://github.com/pixijs/pixi.js/blob/dev/packages/text/src/TextMetrics.ts#L652" target="_blank" rel="noopener">https://github.com/pixijs/pixi.js/blob/dev/packages/text/src/TextMetrics.ts#L652</a><br>pixi用於計算字型大小的做法</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fonttool/">fonttool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/11/10/Godot最小產出測試/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Godot最小產出測試&nbsp;<span>&gt;</span></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+    <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
+    </div>
+  </div>
+</footer>
+    
+<script>
+  var disqus_shortname = 'hsienwei';
+  
+  var disqus_url = 'http://hsienwei.github.io/2021/04/24/fonttool使用紀錄/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="/js/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+  </div>
+</body>
+</html>

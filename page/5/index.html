@@ -68,6 +68,85 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-使用hexo與github pages自建blog" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/10/29/使用hexo與github pages自建blog/">使用Hexo與github pages自建blog</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2014/10/29/使用hexo與github pages自建blog/" class="article-date">
+  <time datetime="2014-10-29T08:01:25.000Z" itemprop="datePublished">2014-10-29</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2014/10/29/使用hexo與github pages自建blog/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="評估"><a href="#評估" class="headerlink" title="評估"></a>評估</h2><p>用了一陣子的blogger，其實用起來還滿方便但是看了markdown之後實在很想改用markdown，搜尋了一下有幾個不錯的網路服務像是</p>
+<ul>
+<li>wordpress </li>
+<li>logdown</li>
+<li>簡書</li>
+</ul>
+<p>但是後來發現有blog framework可以將blog架在github pages上，一來不用花到錢，二來多個新玩具，於是就找找看有沒有好的服務，找到的有以下幾個</p>
+<ul>
+<li>jekyll</li>
+<li>octopress</li>
+<li>Hexo</li>
+</ul>
+<p>最後考慮了幾點</p>
+<ul>
+<li>前兩個是使用ruby，Hexo是使用nodejs，模板引擎預設是ejs，基本上之前有摸過一陣子express所以有一點認識，較易入門</li>
+<li>網上使用心得都說octopress有效能上的問題</li>
+<li>Hexo台灣製造，這就是愛台灣？</li>
+<li>看文檔的感覺Hexo跟octopress比較易入手</li>
+</ul>
+<p>最後的結果就是我決定用hexo來建立blog</p>
+<h2 id="設定"><a href="#設定" class="headerlink" title="設定"></a>設定</h2><ol>
+<li>先建立自己的 Github Pages<br><a href="https://pages.github.com/" target="_blank" rel="noopener">https://pages.github.com/</a> 裡面講得很清楚了</li>
+<li>安裝nodejs<br><a href="http://nodejs.org/" target="_blank" rel="noopener">http://nodejs.org/</a> 基本上就照著各個平台的安裝步驟去把nodejs裝起來<br>安裝完nodejs後，此時應該也安裝完npm了，可用以下指令測試<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure></li>
+<li>安裝Hexo<br>由於裝起來是在太簡單，還是請看<a href="http://hexo.io/docs/index.html" target="_blank" rel="noopener">官方文件</a>吧<br>下面列出最快建立的步驟<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br><span class="line">hexo init &lt;folder&gt;</span><br><span class="line"><span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">npm install</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+此時在瀏覽器開啟 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 應該可以看到一個最簡單的blog了</li>
+<li>deploy<br>hexo在deploy這點是非常簡單的（以github來說），打開blog目錄，<code>開啟_config.yml</code>，移到最下面修改相關設定<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line"><span class="code">	type: github</span></span><br><span class="line"><span class="code">	repo: &lt;repository url&gt;</span></span><br></pre></td></tr></table></figure>
+儲存後，輸入下面指令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
+這樣就搞定了，要注意的是第一次deploy後應該要5-10分鐘才會出現</li>
+</ol>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>使用post_asset_folder<br>在_config.yml中開啓這個選項，當你new出文章時，他會產出一個資料夾給你放該文章的資料，以我來講我會拿來放要展示的圖檔，管理起來也比較方便。<br>引用方式如下<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![effect](/2013/12/26/cocos2dx中實作幾個shader效果/effect.png)</span><br></pre></td></tr></table></figure></li>
+<li>markdown語法說明<br><a href="http://markdown.tw/" target="_blank" rel="noopener">http://markdown.tw/</a></li>
+<li>addthis(社群分享plugin)<br><a href="http://www.addthis.com/" target="_blank" rel="noopener">http://www.addthis.com/</a></li>
+<li>gravatar(頭像)<br><a href="http://en.gravatar.com/" target="_blank" rel="noopener">http://en.gravatar.com/</a></li>
+<li>favicon製作<br>我是直接拿一個來用就是 <a href="http://www.favicon.cc/" target="_blank" rel="noopener">http://www.favicon.cc/</a></li>
+</ul>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Blog/">Blog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-Youtube_iframe_在 Apple_TV_上的播放問題" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -281,73 +360,15 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-facebook-comments-ios-native-ui" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/04/08/facebook-comments-ios-native-ui/">Facebook comments 在iOS用原生UI製作測試</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2014/04/08/facebook-comments-ios-native-ui/" class="article-date">
-  <time datetime="2014-04-08T06:45:00.000Z" itemprop="datePublished">2014-04-08</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2014/04/08/facebook-comments-ios-native-ui/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>這裡指的是social plugin中的comments<br><a href="https://developers.facebook.com/docs/plugins/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/plugins/comments/</a><br>如果不要add comment的話應該是做的到的</p>
-<p>本次專案中有一個功能是可以對某個頁面做FB comment<br>在網頁中可以用Facebook的plugin<br>但在app當中SDK沒有提供相關的UI可供使用<br>要使用的話必須用UIWebView加上plugin來達成</p>
-<p>後來在Facebook的graph api當中找到有關的功能<br><a href="https://developers.facebook.com/docs/graph-api/reference/object/comments/" target="_blank" rel="noopener">https://developers.facebook.com/docs/graph-api/reference/object/comments/</a><br>裡面有提到Reading與Publishing的功能</p>
-<p>但由於我使用的ID是網頁網址所以必須改一下</p>
-<pre><code>[FBRequestConnection startWithGraphPath:@&quot;/****** id *******/comments&quot;]
-[FBRequestConnection startWithGraphPath:@&quot;/comments/?ids=http://www.xxx.xxx.xx&quot;]
-</code></pre><p>在Reading的部分沒有問題，但在Publishing的部分就會收到錯誤訊息</p>
-<pre><code>body =  {
-        error = {
-            code = 100;
-            message = &quot;(#100) Comments may not be added to a comment plugin&quot;;
-            type = OAuthException;
-                };
-        };
-</code></pre><p>後來仔細查一下<br>發現原來這個功能是不能使用的<br>相關連結：<br><a href="http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box" target="_blank" rel="noopener">http://stackoverflow.com/questions/16810596/post-comment-via-graph-api-to-social-plugin-box</a><br><a href="http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module" target="_blank" rel="noopener">http://stackoverflow.com/questions/5673821/can-you-write-using-facebook-graph-api-to-a-web-sites-facebook-comment-module</a><br><a href="https://developers.facebook.com/bugs/164794086987157" target="_blank" rel="noopener">https://developers.facebook.com/bugs/164794086987157</a></p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/facebook/">facebook</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ios/">ios</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

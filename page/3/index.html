@@ -68,6 +68,58 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-INSTALL-FAILED-CONTAINER-ERROR" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/">Android無法安裝Apk的處理方式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/" class="article-date">
+  <time datetime="2017-06-05T06:27:27.000Z" itemprop="datePublished">2017-06-05</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2017/06/05/INSTALL-FAILED-CONTAINER-ERROR/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="問題描述："><a href="#問題描述：" class="headerlink" title="問題描述："></a>問題描述：</h2><p>同事手機一直無法安裝目前專案的APK, 也不能確定發生什麼事？</p>
+<h2 id="處置："><a href="#處置：" class="headerlink" title="處置："></a>處置：</h2><ol>
+<li><p>在手機直接安裝沒有任何錯誤訊息, 嘗試使用<code>adb shell pm install</code>的方式來安裝, 可以看到<code>Failure [INSTALL_FAILED_CONTAINER_ERROR]</code>錯誤。  </p>
+</li>
+<li><p>經查詢處理方式：<br><a href="https://stackoverflow.com/questions/5744298/what-does-this-mean-failure-install-failed-container-error" target="_blank" rel="noopener">link</a><br>要刪除特定檔案, 感覺要用戶這樣做應該會被客訴到死..  </p>
+</li>
+<li><p>同事在安裝<code>adb shell pm install</code>時加上<code>-f</code>強制安裝在內部系統內存發現可以安裝成功, 將尋找方向移到ApplicationInstallLocation上。<br>經查詢有一些文章<br><a href="https://forum.unity3d.com/threads/failure-install_failed_container_error.210920/" target="_blank" rel="noopener">link</a><br><a href="http://qiita.com/ToniTakekawa/items/d457358c1e92bfa9d7b7" target="_blank" rel="noopener">link2</a><br>指出只要Player settings在Android項的Install Location改為Automatic即可, 測試後可行。</p>
+</li>
+</ol>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Unity/">Unity</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-UnityCullingGroup" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -375,65 +427,15 @@ private void StateChangedMethod(CullingGroupEvent evt)
 
 
     
-      <article id="post-cocos2dx-skeleton" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/03/cocos2dx-skeleton/">cocos2d-x 骨骼動畫方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2015/10/03/cocos2dx-skeleton/" class="article-date">
-  <time datetime="2015-10-03T04:44:37.000Z" itemprop="datePublished">2015-10-03</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2015/10/03/cocos2dx-skeleton/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>cocos2d-x上面可用的骨骼動畫方案並不多，列出如下：</p>
-<ul>
-<li><a href="http://zh.esotericsoftware.com/" target="_blank" rel="noopener">Spine</a><br>一個支援多引擎的骨骼動畫方案，功能強大，支援IK，為骨骼動畫而生。<br>其檔案格式有json與binary兩種，cocos2d-x只支援json檔，這點要注意，有需要的話需要自行寫parser，之前看只有libgdx版本支援binary，現在狀況不太確定。</li>
-<li><a href="http://dragonbones.github.io/" target="_blank" rel="noopener">DragonBone</a><br>以Flash為基礎，刀塔傳奇的骨骼動畫方案，個人是沒有操作過，不過開發prototype時倒是用第三方程式庫讀刀塔的人物來使用<br><a href="https://github.com/zym2014/DotaSkeletonAnim" target="_blank" rel="noopener">《刀塔传奇》骨骼动画查看器</a><br><a href="https://github.com/DragonBones/DragonBonesCPP" target="_blank" rel="noopener">DragonBonesCPP</a></li>
-<li><a href="http://www.webtech.co.jp/spritestudio/index.html" target="_blank" rel="noopener">OPTPiX SpriteStudio</a><br>個人感覺編輯器最強的一套，不過看似沒有IK。</li>
-<li>cocostudio<br>cocos2d-x自己的編輯器，只是實在不能算好用。</li>
-</ul>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

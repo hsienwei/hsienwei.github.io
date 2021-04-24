@@ -68,6 +68,84 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-使用ant編譯apk檔" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/08/15/使用ant編譯apk檔/">使用ant編譯apk檔</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/08/15/使用ant編譯apk檔/" class="article-date">
+  <time datetime="2013-08-15T06:51:37.000Z" itemprop="datePublished">2013-08-15</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/08/15/使用ant編譯apk檔/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔<br>(Android Tools-&gt;Export Signed/Unsigned Application Package)<br>但除此之外android也提供開發者經由ant產出apk檔<br>mac中有內建ant<br>所以可以在mac的終端機下指令來產出apk檔</p>
+<p>那為何要使用ant<br>如果今天要產出多種版本 你必須要打開你的eclipse分別打開多個專案然後Export Signed/Unsigned Application Package<br>等於同樣步驟要作三次<br>而且還需要輸入密碼<br>而且你必須待在電腦旁邊</p>
+<p>如果今天用ant來編的話  你可以指定一次編多種版本  也不用在輸入任何東西(前提是有寫到設定檔)<br>像我之前有產出10個檔案的需求(五個market api * 2(debug/release))<br>通常在離開公司時執行<br>隔天就可以寄出檔案了</p>
+<p>以下寫一些在cocos2d-x中使用ant的經驗<br>使用cocos2d-x建立的android專案中<br>會比一般的android project多出以下的檔案<br>build.xml - ant使用的專案設置<br>local.properties - 裡面會有sdk的路徑設定值<br>ant.properties - 預設是空的  但可以在這裡設置編apk檔時使用的key相關設定<br>要注意的是如果你的android專案有使用其他的android專案當作library<br>那個專案也需要有這三個檔案</p>
+<p>編譯的方式是在終端機下指令</p>
+<pre><code>ant &lt;target&gt;
+</code></pre><p>如果沒有給target的話  會跑設定的預設target</p>
+<p>在build.xml當中會匯入另一個custom_rules.xml，如果沒有的話就不會處理custom_rules.xml</p>
+<p><import file="custom_rules.xml" optional="true"><br>在這裡的註解中有提到你可以在custom_rules.xml使用的target</import></p>
+<pre><code>-pre-build
+-pre-compile
+-post-compile
+-post-package
+-post-build
+-pre-clean
+</code></pre><p>基本上就如同target的名稱一樣 你在哪個階段有需求就去寫那個target</p>
+<p>比方說我有需求是將編出來的檔案集中到一個資料夾中並讓檔名出現編譯時間, 版本資訊<br>所以我用到-post-build 內容如下</p>
+<pre><code>&lt;target name=&quot;-post-build&quot;&gt;
+      &lt;tstamp&gt;
+          &lt;format property=&quot;package.time&quot; pattern=&quot;yyyyMMdd_HHmm&quot;/&gt;
+      &lt;/tstamp&gt;
+      &lt;property name=&quot;apk.copy.name&quot; location=&quot;../android_build_apk/${ant.project.name}_${apk.tag}_${build.android.param}_${package.time}.apk&quot; /&gt;
+      &lt;echo&gt;copy ${out.final.file}&lt;/echo&gt;
+      &lt;echo&gt;to   ${apk.copy.name}&lt;/echo&gt;
+      &lt;copy file=&quot;${out.final.file}&quot; tofile=&quot;${apk.copy.name}&quot;/&gt;
+&lt;/target&gt;
+</code></pre><p>上面這個target會將編譯產出的apk複製到指定目錄並變更檔名<br>build.android.param 這個property是設定編譯時是測試版(debug)還是正式版(release)<br>apk.tag是我設定在ant.properties中用來表示這是那個市場的版本<br>這樣產出來的檔名會是project.name_xxx_release_20130705_1453.apk的樣子</p>
+<p>如果是產出signed Application Package<br>在編譯的過程中會要求你輸入key的相關資訊<br>表示你產出多個檔的話就要輸入多次<br>其實可以把相關需要的參數設定到ant.properties中<br>就不需要輸入了<br>詳細的參數名稱可以參閱${sdk.dir}/tools/ant/build.xml<br>看看需要哪個property<br>我的狀況如下</p>
+<pre><code>key.store=../libs/android/keystore/igsgames.keystore
+key.alias=xxx
+key.store.password=xxxxxxxx
+key.alias.password=xxxxxxxx
+apk.tag=gplay
+</code></pre><p>這樣可以不用每次輸入<br>但相對表示你把密碼打在檔案中給人看<br>所以你可以在執行ant時使用-Dproperty=”xxx”這樣的方式輸入property<br>就不會有這樣的問題了</p>
+<p>用ant其實還滿方便但是資料不太多<br>除了ant in action這本書外就是網站資料<br>另外在Android Studio中使用Gradie又是不同的系統<br>不知道下個專案還會不會有機會用ant</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ant/">ant</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-cocos2dx-i9100-音效播放當機問題" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -314,151 +392,15 @@ I/DEBUG   (  135):          #05  pc 0056308a  /mnt/asec/com.igs.salonbossworld-1
 
 
     
-      <article id="post-修改cocos2d-x提供的build-native-sh" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/05/23/修改cocos2d-x提供的build-native-sh/">修改cocos2d-x提供的build_native.sh</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/05/23/修改cocos2d-x提供的build-native-sh/" class="article-date">
-  <time datetime="2013-05-23T14:41:27.000Z" itemprop="datePublished">2013-05-23</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/05/23/修改cocos2d-x提供的build-native-sh/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在cocos2d-x專案中要編譯native code時會用到build_native.sh來做編譯，這個Bash腳本會使用NDK的ndk-build  </p>
-<p>隨著專案越來越複雜有些需求需要特別去處理,以我自己的狀況來講，須要分為Debug與Release兩個版本以及分為國際版與韓國版，上述兩個部分都可以經由修改build_native.sh來達到，下面會分成幾個部分來說：</p>
-<p>先列出幾個教學網站<br><a href="http://www.ibm.com/developerworks/cn/linux/l-bash-parameters.html" target="_blank" rel="noopener">http://www.ibm.com/developerworks/cn/linux/l-bash-parameters.html</a><br><a href="http://linuxconfig.org/Bash_scripting_Tutorial#18-redirections" target="_blank" rel="noopener">http://linuxconfig.org/Bash_scripting_Tutorial#18-redirections</a><br><a href="http://linux.vbird.org/linux_basic/0340bashshell-scripts.php" target="_blank" rel="noopener">http://linux.vbird.org/linux_basic/0340bashshell-scripts.php</a><br>我都是有需要在去查</p>
-<p>基本上這個部份我是在版本2.0.3加的  但是最新的2.1.3應該也可用</p>
-<h2 id="選項修改"><a href="#選項修改" class="headerlink" title="選項修改"></a>選項修改</h2><p>原本build_native.sh中的選項部分的程式碼如下<br>其實要不是因為要改這個部份我還不知道這個腳本有選項可以用  </p>
-<pre><code>while getopts &quot;sh&quot; OPTION; do  
-case &quot;$OPTION&quot; in  
-s)  
-buildexternalsfromsource=1  
-;;  
-h)  
-usage  
-exit 0  
-;;  
-esac  
-done  
-</code></pre><p>上面的寫法主要是處理”-s”這種型態的選項，也就是說如果今天的的指令是長下面這樣：<br><code>bash build_native.sh  -s  xxx</code><br>就只會處理-s的部分。</p>
-<p>原本是想說就再加一個選項，結果並不如我想的這樣簡單，基本上先看到下面跟ndk-build有關的程式碼如下  </p>
-<pre><code>&quot;$NDK_ROOT&quot;/ndk-build -C &quot;$APP_ANDROID_ROOT&quot; $* \
-NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/source&quot;  
-</code></pre><p>重點在於<code>$*</code>代表該腳本的所有參數，如果今天我用了一個ndk-build已經有的參數就會影響ndk-build的行為，如果用了一個沒有的又會說是一個invalid option。</p>
-<p>此時有兩個做法  一個是把 $*拿掉，但是這樣有一個缺點，原本可以下如下指令<br><code>bash build_native.sh clean</code>，也就是<code>ndk-build clean</code>，就會變成不能用。</p>
-<p>另一個做法就是在選項的部分作修改，以下是我的改法：</p>
-<pre><code>for p in $*
-do
-     echo &quot;$p&quot;
-     case $p in
-          &quot;kr&quot;)
-               echo &quot;force build kr&quot;
-               forcebuildkr=1
-               #Can not pass this parameter to next call bash
-               ;;
-          &quot;debug&quot;)
-               echo &quot;get debug&quot;
-               debugflag=1
-               #Can not pass this parameter to next call bash
-               ;;
-          &quot;-s&quot;)
-               buildexternalsfromsource=1
-               param=&quot;$param$p &quot;
-               ;;
-          &quot;-h&quot;)
-               usage
-               exit 0
-               ;;
-          *)
-               param=&quot;$param$p &quot;
-               ;;
-     esac
-done  
-</code></pre><p>這是另一種選項的做法，以上面提到的<code>bash build_native.sh  -s  xxx</code>，在這裡就會全都處理到，又由於我不想全部選項都傳到<code>ndk-build</code>，所以該傳的我就存在<code>$param</code>，再把<code>$</code>*改為<code>$param</code>即可，此時我已經可以透過選項來選擇我要怎樣的版本。</p>
-<h2 id="利用Application-mk分不同的版本"><a href="#利用Application-mk分不同的版本" class="headerlink" title="利用Application.mk分不同的版本"></a>利用Application.mk分不同的版本</h2><p>在最早的時候，我在分debug與release版的時候是直接去android.mk中修改CPPFLAG，後來覺得實在是太麻煩要改來改去，就採取我現在使用的方法</p>
-<p>ndk-build有一個選項：<code>ndk-build NDK_APPLICATION_MK=</code>，可以讓你自己指定要使用的Application.mk，所以我將不同狀況需要的CPPFLAG設定寫到不同的Application.mk檔中，再依照選項不同設定不同的數值去決定到底要用哪一個，大概如下：</p>
-<pre><code>if [[ &quot;$debugflag&quot; ]]; then
-     echo &quot;debug on!!&quot;
-     if [[ &quot;$forcebuildkr&quot; ]]; then
-          echo &quot;force build kr!!&quot;
-          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_debug_kr.mk&quot;
-     else
-          echo &quot;build global!!&quot;
-          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_debug.mk&quot;
-     fi
-else
-     echo &quot;debug off!!&quot;
-     if [[ &quot;$forcebuildkr&quot; ]]; then
-          echo &quot;force build kr!!&quot;
-          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application_kr.mk&quot;
-     else
-          echo &quot;build global!!&quot;
-          usedebugappmk=&quot;${APP_ANDROID_ROOT}/jni/Application.mk&quot;
-     fi
-fi
-&quot;$NDK_ROOT&quot;/ndk-build NDK_APPLICATION_MK=&quot;$usedebugappmk&quot; -C &quot;$APP_ANDROID_ROOT&quot; $param \
-&quot;NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/prebuilt&quot;
-</code></pre><h2 id="控制資源"><a href="#控制資源" class="headerlink" title="控制資源"></a>控制資源</h2><p>一般cocos2d-x專案的資源檔都放在Resource資料夾下，後來我遇到了某種情況是某些檔案只在android狀況下改變，所以我另外開個一個資料夾Resource_android，在原本的# copy resources腳本下，添加了一段處理android特有資源的程式：</p>
-<pre><code># copy ver android
-for file in &quot;$APP_ROOT&quot;/Resource_android/*
-do
-if [ -d &quot;$file&quot; ]; then
-    cp -rf &quot;$file&quot; &quot;$APP_ANDROID_ROOT&quot;/assets
-fi
-if [ -f &quot;$file&quot; ]; then
-    cp &quot;$file&quot; &quot;$APP_ANDROID_ROOT&quot;/assets
-fi
-done
-</code></pre><p>另外也可以將腳本寫在別的.sh中在去呼叫如下  </p>
-<pre><code>if [[ &quot;$debugflag&quot; -ne 1 ]]; then
-     echo &quot;delete .lua .bat .exe&quot;
-     if [ -e &quot;del_lua.sh&quot; ]; then
-          ./del_lua.sh
-     fi
-fi
-</code></pre><p>專案在做release版時會將lua檔全部刪除，這部分是寫在另一個.sh中。</p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

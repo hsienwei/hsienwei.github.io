@@ -68,6 +68,53 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-call-to-OpenGL-ES-API-with-no-current-context" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2012/11/02/call-to-OpenGL-ES-API-with-no-current-context/">call to OpenGL ES API with no current context</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2012/11/02/call-to-OpenGL-ES-API-with-no-current-context/" class="article-date">
+  <time datetime="2012-11-02T15:20:00.000Z" itemprop="datePublished">2012-11-02</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2012/11/02/call-to-OpenGL-ES-API-with-no-current-context/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Logcat中的錯誤訊息如下<br><code>call to OpenGL ES API with no current context (logged once per thread)</code></p>
+<h2 id="問題起因"><a href="#問題起因" class="headerlink" title="問題起因"></a>問題起因</h2><p>簡單的說<br>不能在OpenGL Thread以外的Thread呼叫OpenGL指令  </p>
+<p>我遇到的實際情況是使用cocos2dx實作一個按鈕<br>點擊後會使用JNI呼叫Java以連接其他人提供的程式庫<br>該程式庫會處理一些事情後經過Listener callback 呼叫 Native Method<br>該Native Method會使用OpenGL 指令繪圖<br>此時會出現這個錯誤<br>可能是其他人的程式庫callback時在UI Thread或者是其他的Thread造成這個問題  </p>
+<h2 id="解決方式"><a href="#解決方式" class="headerlink" title="解決方式"></a>解決方式</h2><p>可以參照以下這篇<br><a href="http://stackoverflow.com/questions/5234867/using-opengl-from-the-main-thread-on-android" target="_blank" rel="noopener">http://stackoverflow.com/questions/5234867/using-opengl-from-the-main-thread-on-android</a><br>使用GLSurfaceView.queueEvent就可以解決<br>在cocos2dx中可以直接使用Cocos2dxActivity.runOnGLThread<br>或者是修改程式碼在callback呼叫Native Method時改變作法不要直接呼叫繪圖指令<br>等到回到OpenGL Thread時再處理  </p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/opengl/">opengl</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-Android-SoundPool的ID限制" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -271,60 +318,15 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-Amit’s-Game-Programming-Information" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2012/01/02/Amit’s-Game-Programming-Information/">Amit’s Game Programming Information</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2012/01/02/Amit’s-Game-Programming-Information/" class="article-date">
-  <time datetime="2012-01-01T16:55:48.000Z" itemprop="datePublished">2012-01-02</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2012/01/02/Amit’s-Game-Programming-Information/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://www-cs-students.stanford.edu/~amitp/gameprog.html" target="_blank" rel="noopener">http://www-cs-students.stanford.edu/~amitp/gameprog.html</a> </p>
-<p>作者收集許多遊戲主題與相關聯結的文章<br>從最短路徑搜尋到以至到遊戲經濟體系都有<br>感覺上相當豐富</p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/link/">link</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

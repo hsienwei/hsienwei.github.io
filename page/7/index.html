@@ -68,6 +68,56 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-45度角地圖-Z-Sort-實作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/11/14/45度角地圖-Z-Sort-實作/">45度角地圖 Z-Sort 實作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2013/11/14/45度角地圖-Z-Sort-實作/" class="article-date">
+  <time datetime="2013-11-14T15:50:21.000Z" itemprop="datePublished">2013-11-14</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2013/11/14/45度角地圖-Z-Sort-實作/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Demo：<a href="https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html" target="_blank" rel="noopener">https://dl.dropboxusercontent.com/u/10581994/ZSortTest/index.html</a><br>Github：<a href="https://github.com/hsienwei/zSort_cocos2dx_html5" target="_blank" rel="noopener">https://github.com/hsienwei/zSort_cocos2dx_html5</a></p>
+<p>2014/01/16：cocos2d-x 2.2.2已修正此問題<br>2013/11/24 : 目前在chrome中會無法顯示(火狐可以), 為cocos2d-x html5的bug</p>
+<p>這個專案主要是以cocos2d-x html5版本來實作一個我之前在工作中使用的45度角地圖Z-Sort演算法，一來練習cocos2d-x html5，一來為之前的工作內容做一個記錄。</p>
+<p>開啟後一開始的狀況是沒有使用演算法排序的狀況，單純依照加入的順序去排序，按下”Sort”後就會依照演算法的結果為各個Sprite設定Z值。</p>
+<p>當初主要導入這個做法的是我同事，我只是後來有在稍微修改<br>演算法參考網頁：<a href="http://wgcode.iteye.com/blog/847695" target="_blank" rel="noopener">http://wgcode.iteye.com/blog/847695</a></p>
+<p>Sprite沒有使用圖，直接用drawingUtil來繪圖，發現用手機來看的話線條會沒辦法出來，也許是一個bug，也有可能是因為手機部分還沒有完善。</p>
+<p>另外在點擊事件上也有一點問題，導致必須做很多處理才能達到縮放後也可以正確點擊，不確定這是我的用法錯誤還是這部分本身還不完整，可參照 <a href="https://github.com/hsienwei/zSort_cocos2dx_html5/blob/master/src/myApp.js" target="_blank" rel="noopener">https://github.com/hsienwei/zSort_cocos2dx_html5/blob/master/src/myApp.js</a>   Line 53</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cocos2d-x/">cocos2d-x</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/html5/">html5</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-Unity練習：夜市彈珠台" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -298,93 +348,15 @@ void main() {
 
 
     
-      <article id="post-使用ant編譯apk檔" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/08/15/使用ant編譯apk檔/">使用ant編譯apk檔</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2013/08/15/使用ant編譯apk檔/" class="article-date">
-  <time datetime="2013-08-15T06:51:37.000Z" itemprop="datePublished">2013-08-15</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2013/08/15/使用ant編譯apk檔/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在一般的狀況下最為人所知產出apk的方法是使用ADT eclipse plugin功能來產出APK檔<br>(Android Tools-&gt;Export Signed/Unsigned Application Package)<br>但除此之外android也提供開發者經由ant產出apk檔<br>mac中有內建ant<br>所以可以在mac的終端機下指令來產出apk檔</p>
-<p>那為何要使用ant<br>如果今天要產出多種版本 你必須要打開你的eclipse分別打開多個專案然後Export Signed/Unsigned Application Package<br>等於同樣步驟要作三次<br>而且還需要輸入密碼<br>而且你必須待在電腦旁邊</p>
-<p>如果今天用ant來編的話  你可以指定一次編多種版本  也不用在輸入任何東西(前提是有寫到設定檔)<br>像我之前有產出10個檔案的需求(五個market api * 2(debug/release))<br>通常在離開公司時執行<br>隔天就可以寄出檔案了</p>
-<p>以下寫一些在cocos2d-x中使用ant的經驗<br>使用cocos2d-x建立的android專案中<br>會比一般的android project多出以下的檔案<br>build.xml - ant使用的專案設置<br>local.properties - 裡面會有sdk的路徑設定值<br>ant.properties - 預設是空的  但可以在這裡設置編apk檔時使用的key相關設定<br>要注意的是如果你的android專案有使用其他的android專案當作library<br>那個專案也需要有這三個檔案</p>
-<p>編譯的方式是在終端機下指令</p>
-<pre><code>ant &lt;target&gt;
-</code></pre><p>如果沒有給target的話  會跑設定的預設target</p>
-<p>在build.xml當中會匯入另一個custom_rules.xml，如果沒有的話就不會處理custom_rules.xml</p>
-<p><import file="custom_rules.xml" optional="true"><br>在這裡的註解中有提到你可以在custom_rules.xml使用的target</import></p>
-<pre><code>-pre-build
--pre-compile
--post-compile
--post-package
--post-build
--pre-clean
-</code></pre><p>基本上就如同target的名稱一樣 你在哪個階段有需求就去寫那個target</p>
-<p>比方說我有需求是將編出來的檔案集中到一個資料夾中並讓檔名出現編譯時間, 版本資訊<br>所以我用到-post-build 內容如下</p>
-<pre><code>&lt;target name=&quot;-post-build&quot;&gt;
-      &lt;tstamp&gt;
-          &lt;format property=&quot;package.time&quot; pattern=&quot;yyyyMMdd_HHmm&quot;/&gt;
-      &lt;/tstamp&gt;
-      &lt;property name=&quot;apk.copy.name&quot; location=&quot;../android_build_apk/${ant.project.name}_${apk.tag}_${build.android.param}_${package.time}.apk&quot; /&gt;
-      &lt;echo&gt;copy ${out.final.file}&lt;/echo&gt;
-      &lt;echo&gt;to   ${apk.copy.name}&lt;/echo&gt;
-      &lt;copy file=&quot;${out.final.file}&quot; tofile=&quot;${apk.copy.name}&quot;/&gt;
-&lt;/target&gt;
-</code></pre><p>上面這個target會將編譯產出的apk複製到指定目錄並變更檔名<br>build.android.param 這個property是設定編譯時是測試版(debug)還是正式版(release)<br>apk.tag是我設定在ant.properties中用來表示這是那個市場的版本<br>這樣產出來的檔名會是project.name_xxx_release_20130705_1453.apk的樣子</p>
-<p>如果是產出signed Application Package<br>在編譯的過程中會要求你輸入key的相關資訊<br>表示你產出多個檔的話就要輸入多次<br>其實可以把相關需要的參數設定到ant.properties中<br>就不需要輸入了<br>詳細的參數名稱可以參閱${sdk.dir}/tools/ant/build.xml<br>看看需要哪個property<br>我的狀況如下</p>
-<pre><code>key.store=../libs/android/keystore/igsgames.keystore
-key.alias=xxx
-key.store.password=xxxxxxxx
-key.alias.password=xxxxxxxx
-apk.tag=gplay
-</code></pre><p>這樣可以不用每次輸入<br>但相對表示你把密碼打在檔案中給人看<br>所以你可以在執行ant時使用-Dproperty=”xxx”這樣的方式輸入property<br>就不會有這樣的問題了</p>
-<p>用ant其實還滿方便但是資料不太多<br>除了ant in action這本書外就是網站資料<br>另外在Android Studio中使用Gradie又是不同的系統<br>不知道下個專案還會不會有機會用ant</p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ant/">ant</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>

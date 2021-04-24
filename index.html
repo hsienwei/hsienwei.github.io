@@ -68,6 +68,56 @@ ga('send', 'pageview');
   </div>
 </header>
     <section id="main" class="outer">
+      <article id="post-fonttool使用紀錄" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/04/24/fonttool使用紀錄/">fonttool使用紀錄</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      <a href="/2021/04/24/fonttool使用紀錄/" class="article-date">
+  <time datetime="2021-04-24T03:57:54.000Z" itemprop="datePublished">2021-04-24</time>
+</a>
+      
+      
+        <div class="article-comment-link-wrap">
+          <a href="http://hsienwei.github.io/2021/04/24/fonttool使用紀錄/#disqus_thread" class="article-comment-link">Comments</a>
+        </div>
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="簡介"><a href="#簡介" class="headerlink" title="簡介"></a>簡介</h1><p>fonttools是目前用在專案上的一個字型工具包，repo URL如下<br><a href="https://github.com/fonttools/fonttools" target="_blank" rel="noopener">https://github.com/fonttools/fonttools</a></p>
+<p>安裝了該python module就可以使用裡面好幾種的字型工具，目前有用到的有以下：</p>
+<p><strong>pyftsubset</strong><br>簡單說就是從字型中取出需要的字元生成一個較小的字型檔，主要為了節省空間，目前主要用在中日文語系這種漢字較多的語系，由於這類語系字型動輒都好幾mb，為了減少讀取時間是有其必要性<br>可以使用以下選項<br><code>--text-file</code> : 將想要的字放在文字檔<br><code>--output-file</code> : 選擇輸出檔案的路徑</p>
+<p><strong>ttx</strong><br>一個轉換格式的工具，可以將字型轉換成一個xml格式的文件(.ttx)<br><code>ttx text.ttf</code><br>反之也可以再轉為其他的字型格式<br><code>ttx -o font.woff  .\font.ttx</code></p>
+<h1 id="woff2支援"><a href="#woff2支援" class="headerlink" title="woff2支援"></a>woff2支援</h1><p>該工具支援轉換成woff2，由於使用了不同的壓縮方式會更小<br>要使用的話需要先安裝<a href="https://github.com/google/brotli" target="_blank" rel="noopener">Brotli</a><br>但這個module安裝的時候需要安裝C++ compiler，可以按照<a href="https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F" target="_blank" rel="noopener">連結</a>依照自己的python版本，並且有相關安裝說明<br><a href="https://wiki.python.org/moin/WindowsCompilers" target="_blank" rel="noopener">https://wiki.python.org/moin/WindowsCompilers</a></p>
+<h1 id="文字剔除後的問題"><a href="#文字剔除後的問題" class="headerlink" title="文字剔除後的問題"></a>文字剔除後的問題</h1><p>目前看到有些地方會使用特定字元來做一些文字大小上的計算，故如果有用到這種方式需要將特定字元保留，以避免計算上的錯誤</p>
+<p><a href="https://stackoverflow.com/a/11688948" target="_blank" rel="noopener">https://stackoverflow.com/a/11688948</a><br>檢查字型是否已經讀取的一種作法<br><a href="https://github.com/pixijs/pixi.js/blob/dev/packages/text/src/TextMetrics.ts#L652" target="_blank" rel="noopener">https://github.com/pixijs/pixi.js/blob/dev/packages/text/src/TextMetrics.ts#L652</a><br>pixi用於計算字型大小的做法</p>
+
+      
+    </div>
+  
+    <footer class="article-footer">
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fonttool/">fonttool</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li></ul>
+
+    </footer>
+  
+  </div>
+  
+</article>
+
+
+    
       <article id="post-Godot最小產出測試" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -343,72 +393,15 @@ ga('send', 'pageview');
 
 
     
-      <article id="post-python-selenium使用" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/python-selenium使用/">使用python + selenium 心得</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-meta">
-      <a href="/2018/03/20/python-selenium使用/" class="article-date">
-  <time datetime="2018-03-20T06:05:00.000Z" itemprop="datePublished">2018-03-20</time>
-</a>
-      
-      
-        <div class="article-comment-link-wrap">
-          <a href="http://hsienwei.github.io/2018/03/20/python-selenium使用/#disqus_thread" class="article-comment-link">Comments</a>
-        </div>
-      
-    </div>
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近寫了一個幫助自己解決一個煩人雜事的小程式<a href="https://gist.github.com/hsienwei/233b85fbcccc47b23f27266317c6dfce" target="_blank" rel="noopener">gist連結</a></p>
-<p>這支程式主要工作如下：<br>登入公司的jira, 從手上的issue中找出指定符合父issue ID的所有issue, 統一填上註解並轉給指定的人。<br>寫的比較匆忙沒有加太多的例外判定, 目標是快速解決手邊的雜事。</p>
-<p>之所以選擇<a href="http://selenium-python.readthedocs.io/" target="_blank" rel="noopener">selenium</a>主要還是看上他可以省去很多功, 以前寫的爬蟲主要還是使用mechanize + BeautifulSoup, 但是遇到js就會很麻煩, 後來使用selenium不只js部分的問題沒有了, 連BeautifulSoup都不需要了, 他的find方法已經足夠我使用。</p>
-<p>事前selenium module的安裝就不提, 要注意的是webdriver供許多瀏覽器版本可以用, 我用的是chrome, 必須要事前下載 <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads" target="_blank" rel="noopener">chromedriver</a> 使用, 並在使用時設置路徑, 如<code>webdriver.Chrome(executable_path=r&#39;.\\chromedriver.exe&#39;)</code> 。</p>
-<p>這支程式主要使用selenium幾個功能：</p>
-<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p><a href="http://selenium-python.readthedocs.io/locating-elements.html" target="_blank" rel="noopener">api</a><br>selenium 提供了一系列的方法讓你去找到目標元件, 基本上都如同api所列的一樣, 你可以依照條件使用特定id或者class來查找, 唯獨比較特別的是如果id或class中間有空格的最好還是使用 <code>find_element_by_xpath</code> ,之前沒有看過XPath所以花了一點時間才清楚使用方法。</p>
-<p>基本上消耗最多時間還是在翻網頁原始碼找特定元素的id或class, 找到後基本上都不會有太大的問題, </p>
-<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><p>找到元素後可以做一些行為, 這裡比較常用的有</p>
-<ul>
-<li>click: 模擬點擊行為, 主要用在<code>a</code>跟<code>button</code></li>
-<li>send_keys: 輸入的行為, 主要用在<code>input</code></li>
-<li>submit: form的提交行為</li>
-</ul>
-<h3 id="wait"><a href="#wait" class="headerlink" title="wait"></a>wait</h3><p>有時候在進行一些動作後, 需要等待特定元件出現才可以進行下一個動作, 此時就需要用wait功能, 這裡有<a href="https://huilansame.github.io/huilansame.github.io/archivers/sleep-implicitlywait-wait" target="_blank" rel="noopener">一篇文章</a>提到使用方法, 寫的很詳細。</p>
-
-      
-    </div>
-  
-    <footer class="article-footer">
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/selenium/">selenium</a></li></ul>
-
-    </footer>
-  
-  </div>
-  
-</article>
-
-
-    
       <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
       </nav>
     </section>
     <footer id="footer">
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2020 Hsien-Wei Hsiang&nbsp;
+      &copy; 2021 Hsien-Wei Hsiang&nbsp;
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>, theme by <a href="http://github.com/ppoffice">PPOffice</a>
     </div>
   </div>
